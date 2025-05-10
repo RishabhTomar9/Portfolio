@@ -1,0 +1,330 @@
+/* === General Footer Styles === */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #eaeaea; /* Light text */
+  padding: 4rem 2rem;
+  text-align: center;
+  gap: 2rem; /* Add spacing between sections */
+}
+
+.footer__heading{
+ position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  padding-bottom: 16px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Subtle but elegant decorative line */
+.footer__heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+/* === Footer Section === */
+.footer__section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+}
+
+/* === Contact Section === */
+.footer__contact-section {
+  flex: 1; /* Ensure equal width for both sections */
+ background: linear-gradient(
+    145deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(30, 30, 30, 0.5) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border: 2.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  padding-right: 5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.footer__contact-heading {
+ font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff); /* customize your gradient here */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Fallback */
+  color: transparent;     /* Ensures proper transparency */
+}
+
+.footer__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.footer__input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.footer__input-wrapper input,
+.footer__input-wrapper textarea {
+ font-size: 100%;
+  padding: 1rem;
+  outline: none;
+  color: #e8e8e8;
+  border: none;
+  border-bottom: 2px solid #4709e4;
+  background: transparent;
+  border-radius: none;
+  width: 100%;
+  resize: none;
+  margin-bottom: 3px;
+}
+
+.footer__input-wrapper input::placeholder,
+.footer__input-wrapper textarea::placeholder {
+  color: transparent; /* hide visible placeholder */
+}
+
+.footer__input-wrapper input:focus,
+.footer__input-wrapper textarea:focus {
+  border-color: #4f46e5;
+}
+
+.footer__input-wrapper label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1rem;
+  pointer-events: none;
+  padding: 0 4px;
+  transition: all 0.3s ease;
+}
+
+.footer__input-wrapper input:focus ~ label,
+.footer__input-wrapper input:not(:placeholder-shown) ~ label,
+.footer__input-wrapper textarea:focus ~ label,
+.footer__input-wrapper textarea:not(:placeholder-shown) ~ label {
+  top: -10px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #4f46e5;
+}
+
+
+.footer__submit-button {
+  padding: 12px 30px;
+  border-radius: 30px;
+  background-color: #4f46e5;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.footer__submit-button:hover {
+  background-color: #3b3bb3;
+  transform: translateY(-3px);
+}
+
+.footer__submit-button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.footer__submit-message {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.footer__submit-message.success {
+  color: #28a745;
+}
+
+.footer__submit-message.error {
+  color: #dc3545;
+}
+
+/* === Footer Info Section === */
+.footer__info {
+  flex: 1;
+}
+
+.footer__info-heading {
+ font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff); /* customize your gradient here */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Fallback */
+  color: transparent;     /* Ensures proper transparency */
+}
+
+.footer__avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.footer__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #4f46e5;
+  object-fit: cover;
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.footer__avatar:hover {
+  transform: scale(1.05);
+}
+
+.footer__contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.footer__contact-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.6rem 0;
+  gap: 10px;
+}
+
+.footer__contact-list a {
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer__contact-list a:hover {
+  color: #6b46e5;
+}
+
+/* === Social Links === */
+.footer__social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.footer__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f2f2f2;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.footer__icon:hover {
+  transform: scale(1.15);
+}
+
+.footer__icon--github:hover {
+  color: #f5f5f5;
+}
+
+.footer__icon--linkedin:hover {
+  color: #0a66c2;
+}
+
+.footer__icon--twitter:hover {
+  color: #1da1f2;
+}
+
+.footer__icon--instagram:hover {
+  color: #e1306c;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .footer__section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer__contact-section,
+  .footer__info-section {
+    max-width: 100%;
+  }
+
+  .footer__avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .footer__contact-list li {
+    font-size: 0.9rem;
+  }
+
+  .footer__icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__contact-heading,
+  .footer__info-heading {
+    font-size: 1.8rem;
+  }
+
+  .footer__submit-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+
+  .footer__contact-list li {
+    font-size: 0.85rem;
+  }
+
+  .footer__social-links {
+    gap: 12px;
+  }
+
+  .footer__icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+}
+
+

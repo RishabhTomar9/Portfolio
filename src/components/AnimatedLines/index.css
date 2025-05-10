@@ -1,0 +1,21 @@
+/* components/AnimatedLines.css */
+
+.lines-global-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  mix-blend-mode: screen;
+}

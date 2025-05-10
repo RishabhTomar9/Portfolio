@@ -1,0 +1,165 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* About Section */
+.about-section {
+  padding: 5rem 1.5rem;
+  color: #1e293b;
+  text-align: center;
+  animation: fadeIn 1.2s ease-in-out both;
+  
+}
+
+.about-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Title and Subtitle */
+.about-title {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  padding-bottom: 16px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Subtle but elegant decorative line */
+.about-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+
+.about-subtitle {
+  font-size: 1.25rem;
+  color: #babdc1;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Content and Cards */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.about-card {
+  background: linear-gradient(    145deg,    rgba(0, 0, 0, 0.6) 0%,    rgba(30, 30, 30, 0.5) 50%,    rgba(0, 0, 0, 0.4) 100%    );
+  border-radius: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  animation: slideUp 1s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  -webkit-transition: transform 0.4s ease;
+  -moz-transition: transform 0.4s ease;
+  -ms-transition: transform 0.4s ease;
+  -o-transition: transform 0.4s ease;
+  transition: transform 0.4s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-12px) scale(1.02);
+}
+
+.about-icon {
+  font-size: 2.8rem;
+  color: #6366f1;
+  margin-bottom: 1rem;
+  animation: popIn 0.6s ease-in-out;
+}
+
+.about-card h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.about-card p {
+  font-size: 1rem;
+  color: #a5abb5;
+  line-height: 1.6;
+}
+
+/* Call-to-Action Buttons */
+.about-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-title {
+    font-size: 2.5rem;
+  }
+
+  .about-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .about-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .about-card p {
+    font-size: 0.95rem;
+  }
+}

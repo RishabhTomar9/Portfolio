@@ -1,0 +1,186 @@
+/* Skills Section */
+.skills-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #eaeaea; /* Light text for dark background */
+}
+
+.skills-heading {
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  padding-bottom: 16px;
+  margin-bottom: 30px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1.2;
+}
+
+/* Subtle but elegant decorative line */
+.skills-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+
+.skills-subheading {
+  font-size: 1.2rem;
+  color: #a0aec0; /* Subtle text color */
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+/* Skills Grid */
+.skills-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.skill-card {
+  background: linear-gradient(    145deg,    rgba(0, 0, 0, 0.6) 0%,    rgba(30, 30, 30, 0.5) 50%,    rgba(0, 0, 0, 0.4) 100%  );
+  border: 2.5px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+
+
+/* Skill Info */
+.skill-icon {
+  font-size: 2.5rem;
+}
+
+/* Individual Icon Colors */
+.skill-icon.react { color: #61dafb; }
+.skill-icon.javascript { color: #f7df1e; }
+.skill-icon.nodejs { color: #68a063; }
+.skill-icon.html { color: #e34c26; }
+.skill-icon.css { color: #2965f1; }
+.skill-icon.mongodb { color: #4db33d; }
+.skill-icon.sql { color: #00758f; }
+.skill-icon.git { color: #f05032; }
+.skill-icon.design { color: #ff69b4; }
+.skill-icon.python { color: #3776ab; }
+
+
+.skill-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f1f1f2;
+  margin: 0;
+}
+
+/* Animated Counter */
+.animated-counter {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 1rem;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .skills-heading {
+    font-size: 2.4rem;
+  }
+
+  .skills-subheading {
+    font-size: 1rem;
+  }
+
+  .skill-icon {
+    font-size: 2.5rem;
+  }
+
+  .skill-name {
+    font-size: 1.2rem;
+  }
+
+  .animated-counter {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-heading {
+    font-size: 2rem;
+  }
+
+  .skills-subheading {
+    font-size: 0.9rem;
+  }
+
+  .skill-icon {
+    font-size: 2rem;
+  }
+
+  .skill-name {
+    font-size: 1rem;
+  }
+
+  .animated-counter {
+    font-size: 1.5rem;
+  }
+}
+
+.soft-skills-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.soft-skill-card {
+  background: linear-gradient(    145deg,    rgba(0, 0, 0, 0.6) 0%,    rgba(30, 30, 30, 0.5) 50%,    rgba(0, 0, 0, 0.4) 100%  );
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: default;
+  -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.soft-skill-emoji {
+  font-size: 2rem;
+}
+.soft-skills-heading{
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4883e1;
+}

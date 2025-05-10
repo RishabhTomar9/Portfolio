@@ -175,28 +175,28 @@ const Footer = () => {
 
             <div className="footer__social-links">
               <a
-                href="https://github.com/rishabhtomar9999"
+                href="https://github.com/RishabhTomar9"
                 className="footer__icon footer__icon--github"
                 aria-label="GitHub"
               >
                 <FaGithub />
               </a>
               <a
-                href="https://linkedin.com/in/rishabhtomar9999"
+                href="https://www.linkedin.com/in/rishabhtomar99/"
                 className="footer__icon footer__icon--linkedin"
                 aria-label="LinkedIn"
               >
                 <FaLinkedin />
               </a>
               <a
-                href="https://twitter.com/rishabhtomar_"
+                href="https://x.com/Rishabh03tomar"
                 className="footer__icon footer__icon--twitter"
                 aria-label="Twitter"
               >
                 <FaTwitter />
               </a>
               <a
-                href="https://instagram.com/rishabhtomar._"
+                href="https://www.instagram.com/_._.rishabh_._/"
                 className="footer__icon footer__icon--instagram"
                 aria-label="Instagram"
               >

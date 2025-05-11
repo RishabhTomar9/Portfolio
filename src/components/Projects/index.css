@@ -132,13 +132,18 @@
   overflow: hidden;
   border-radius: 10px;
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Keeps a consistent aspect ratio */
 }
 
 .project-media-content {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  display: block;
 }
 
 .project-media-content:hover {
@@ -156,8 +161,12 @@
   pointer-events: none;
 }
 
-/* Responsive Design */
+/* Responsive Overrides */
 @media (max-width: 768px) {
+  .project-media {
+    aspect-ratio: 16 / 10;
+  }
+
   .projects-heading {
     font-size: 2rem;
   }
@@ -180,6 +189,10 @@
 }
 
 @media (max-width: 480px) {
+  .project-media {
+    aspect-ratio: 4 / 3;
+  }
+
   .projects-heading {
     font-size: 1.8rem;
   }

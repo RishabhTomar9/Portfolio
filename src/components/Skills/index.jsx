@@ -32,24 +32,26 @@ const Skills = () => {
   ];
 
   const softSkills = [
-    { name: 'Teamwork', emoji: '🤝' },
-    { name: 'Leadership', emoji: '👨‍💼' },
-    { name: 'Problem Solving', emoji: '🧠' },
-    { name: 'Creativity', emoji: '🎨' },
-    { name: 'Time Management', emoji: '⏱' },
-    { name: 'Goal-Oriented', emoji: '🎯' },
-    { name: 'Communication', emoji: '💬' },
-    { name: 'Adaptability', emoji: '🔄' },
-    { name: 'Critical Thinking', emoji: '🧩' },
-    { name: 'Emotional Intelligence', emoji: '❤️' },
-    { name: 'Collaboration', emoji: '👥' },
-    { name: 'Decision Making', emoji: '🧭' },
-    { name: 'Self-Motivation', emoji: '🚀' },
-    { name: 'Flexibility', emoji: '🌈' },
-    { name: 'Initiative', emoji: '⚡' },
-    { name: 'Accountability', emoji: '🧾' },
-    { name: 'Resilience', emoji: '🛡️' },
-  ];
+  { name: 'Teamwork', emoji: '🤝' },
+  { name: 'Leadership', emoji: '👨‍💼' },
+  { name: 'Problem Solving', emoji: '🧠' },
+  { name: 'Creativity', emoji: '🎨' },
+  { name: 'Time Management', emoji: '⏱' },
+  { name: 'Goal-Oriented', emoji: '🎯' },
+  { name: 'Communication', emoji: '💬' },
+  { name: 'Adaptability', emoji: '🔄' },
+  { name: 'Critical Thinking', emoji: '🧩' },
+  { name: 'Emotional Intelligence', emoji: '❤️' },
+  { name: 'Collaboration', emoji: '👥' },
+  { name: 'Decision Making', emoji: '🧭' },
+  { name: 'Self-Motivation', emoji: '🚀' },
+  { name: 'Flexibility', emoji: '🌈' },
+  { name: 'Initiative', emoji: '⚡' },
+  { name: 'Accountability', emoji: '🧾' },
+  { name: 'Resilience', emoji: '🛡️' },
+  { name: 'Curiosity', emoji: '🔍' }, // ✅ New skill
+];
+
 
   useEffect(() => {
     fadeUpDownOnScroll('.skill-card');

@@ -49,33 +49,33 @@ const CertificateAchievements = () => {
     },
   ];
 
-  const achievements = [
-    {
-      title: 'Hackathon Winner',
-      description: 'Won 1st place in the 2025 Global Hackathon for building a productivity app.',
-      date: 'April 2025',
-    },
-    {
-      title: 'Open Source Contributor',
-      description: 'Contributed to multiple open-source projects on GitHub.',
-      date: 'February 2025',
-    },
-    {
-      title: 'Top Performer Award',
-      description: 'Recognized as a top performer in the XYZ Internship Program.',
-      date: 'November 2024',
-    },
-    {
-      title: 'Speaker at Tech Conference',
-      description: 'Delivered a talk on React best practices at the 2025 Tech Summit.',
-      date: 'March 2025',
-    },
-    {
-      title: 'Published Technical Blog',
-      description: 'Published a blog on advanced JavaScript concepts on Medium.',
-      date: 'January 2025',
-    },
-  ];
+  // const achievements = [
+  //   {
+  //     title: 'Hackathon Winner',
+  //     description: 'Won 1st place in the 2025 Global Hackathon for building a productivity app.',
+  //     date: 'April 2025',
+  //   },
+  //   {
+  //     title: 'Open Source Contributor',
+  //     description: 'Contributed to multiple open-source projects on GitHub.',
+  //     date: 'February 2025',
+  //   },
+  //   {
+  //     title: 'Top Performer Award',
+  //     description: 'Recognized as a top performer in the XYZ Internship Program.',
+  //     date: 'November 2024',
+  //   },
+  //   {
+  //     title: 'Speaker at Tech Conference',
+  //     description: 'Delivered a talk on React best practices at the 2025 Tech Summit.',
+  //     date: 'March 2025',
+  //   },
+  //   {
+  //     title: 'Published Technical Blog',
+  //     description: 'Published a blog on advanced JavaScript concepts on Medium.',
+  //     date: 'January 2025',
+  //   },
+  // ];
 
   return (
     <section className="certificates-achievements" id="milestones">
@@ -100,14 +100,14 @@ const CertificateAchievements = () => {
               <div className="certificate-info">
                 <p className="certificate-date">{certificate.date}</p>
                 <h4 className="certificate-title">{certificate.title}</h4>
-                <p className="certificate-description">{certificate.description}</p>
+                {/* <p className="certificate-description">{certificate.description}</p> */}
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="achievements">
+      {/* <div className="achievements">
         <h3 className="subheading">Achievements</h3>
         <ul className="achievements-list">
           {achievements.map((achievement, index) => (
@@ -118,7 +118,7 @@ const CertificateAchievements = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </section>
   );
 };

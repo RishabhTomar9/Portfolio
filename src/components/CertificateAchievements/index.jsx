@@ -13,34 +13,39 @@ const CertificateAchievements = () => {
 
   const certificates = [
     {
-      title: 'React Developer Certification',
-      description: 'Certified by XYZ Academy for completing the React Developer course.',
-      date: 'March 2025',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png',
+      title: 'Build Your Own Responsive Website',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the BootStrap and Flexbox.',
+      date: 'November 2023',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953825/Screenshot_2025-05-11_142613_o10cku.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=mB4__GiFNzIxmyUzwX_AO5gww2GTGWiOPT4083p6HIA=jqE',
     },
     {
-      title: 'JavaScript Mastery',
-      description: 'Completed advanced JavaScript training from ABC Institute.',
-      date: 'January 2025',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png',
+      title: 'Programming Foundation with Python', 
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
+      date: 'February 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953656/Screenshot_2025-05-11_142347_e7e0nc.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=a-vfOZs5kAITTNbQiQVg41u09INcwT9XI4GEhGauyaA=Oe5',
     },
     {
-      title: 'UI/UX Design Fundamentals',
-      description: 'Awarded for completing the UI/UX design fundamentals course.',
+      title: 'Introduction to DataBases',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Introduction to DataBases in SQL.',
+      date: 'September 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746954120/Screenshot_2025-05-11_143141_uoul4w.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=-b5ZP3QF616YeACnvyteOxqDRP5W6NHxfxgjy7FKES0=PuU',
+    },
+    {
+      title: 'Developer Foundations',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Developer Foundations for GIT, GITHUB and Command Line.',
       date: 'December 2024',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746955411/Screenshot_2025-05-11_145258_dsmdoo.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=LgbHYxH-m9gdHagJK9ITE9UudsFF1jHcMWqn2iqs-Cg=VaU',
     },
     {
-      title: 'Full-Stack Web Development',
-      description: 'Completed a full-stack web development bootcamp from DEF Academy.',
-      date: 'February 2025',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png',
-    },
-    {
-      title: 'Cloud Computing Basics',
-      description: 'Certified in cloud computing fundamentals by GHI Institute.',
-      date: 'November 2024',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png',
+      title: 'Node.js and Express.js',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Node.js and Express.js course.',
+      date: 'April 2025',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746971296/Screenshot_2025-05-11_191751_ue4va1.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=hjbN1JPii5CCg61hiyDXwcoQr64YycyFyEYHxdvuiQ4=Oe5',
     },
   ];
 
@@ -81,15 +86,21 @@ const CertificateAchievements = () => {
         <div className="certificates-grid">
           {certificates.map((certificate, index) => (
             <div key={index} className="certificate-card">
-              <img
-                src={certificate.image}
-                alt={certificate.title}
-                className="certificate-image"
-              />
+             <a
+                href={certificate.driveLink} // Replace with the actual property holding the link
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={certificate.image}
+                  alt={certificate.title}
+                  className="certificate-image"
+                />
+              </a>
               <div className="certificate-info">
+                <p className="certificate-date">{certificate.date}</p>
                 <h4 className="certificate-title">{certificate.title}</h4>
                 <p className="certificate-description">{certificate.description}</p>
-                <p className="certificate-date">{certificate.date}</p>
               </div>
             </div>
           ))}

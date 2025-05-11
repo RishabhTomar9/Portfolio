@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.css';
+
 import { fadeUpDownOnScroll } from '../../animations/animations';
 import {
   FaReact,
@@ -32,13 +33,13 @@ const Skills = () => {
 
   const softSkills = [
     { name: 'Teamwork', emoji: '🤝' },
-    { name: 'Problem Solving', emoji: '🧠' },
-    { name: 'Time Management', emoji: '⏱' },
     { name: 'Leadership', emoji: '👨‍💼' },
+    { name: 'Problem Solving', emoji: '🧠' },
+    { name: 'Creativity', emoji: '🎨' },
+    { name: 'Time Management', emoji: '⏱' },
     { name: 'Goal-Oriented', emoji: '🎯' },
     { name: 'Communication', emoji: '💬' },
     { name: 'Adaptability', emoji: '🔄' },
-    { name: 'Creativity', emoji: '🎨' },
     { name: 'Critical Thinking', emoji: '🧩' },
     { name: 'Emotional Intelligence', emoji: '❤️' },
     { name: 'Collaboration', emoji: '👥' },

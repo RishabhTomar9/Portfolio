@@ -60,15 +60,38 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.certificate-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-}
-
 .certificate-image {
   width: 100%;
-  height: 200px;
+  max-width: 100%; /* Fully fluid */
+  height: auto;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover glow effect */
+.certificate-image:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 20px #4f46e5,
+    0 0 30px #6366f1,
+    0 0 40px #8b5cf6;
+}
+
+/* Optional: Ultra-wide displays */
+@media (min-width: 1600px) {
+  .certificate-image {
+    max-width: 800px;
+  }
+}
+
+/* Optional: For very small devices (watch-like widths) */
+@media (max-width: 300px) {
+  .certificate-image {
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+  }
 }
 
 .certificate-info {

@@ -80,7 +80,14 @@ const Projects = () => {
                 className="project-media-content"
                 onError={(e) => (e.target.style.display = 'none')} // Hide image if link fails
               />
-              <div className="media-overlay"></div>
+              <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View Project"
+            >
+              <div className="media-overlay"><p>Click to View</p></div>
+            </a>
             </div>
 
             <div className="card-header">

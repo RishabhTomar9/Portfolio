@@ -124,15 +124,11 @@ const Hero = () => {
               />
             </div>
 
-            {/* Show badges only on desktop */}
-            {!(isMobile || isTablet) && (
-              <>
-                <div className="skill-badge top-left fade-up-down"><FaHtml5 title="HTML5" /></div>
-                <div className="skill-badge bottom-left fade-up-down"><FaCss3Alt title="CSS3" /></div>
-                <div className="skill-badge top-right fade-up-down"><FaReact title="React" /></div>
-                <div className="skill-badge bottom-right fade-up-down"><FaJs title="JavaScript" /></div>
-              </>
-            )}
+          <div className="skill-badge top-left fade-up-down"><FaHtml5 title="HTML5" /></div>
+          <div className="skill-badge bottom-left fade-up-down"><FaCss3Alt title="CSS3" /></div>
+          <div className="skill-badge top-right fade-up-down"><FaReact title="React" /></div>
+          <div className="skill-badge bottom-right fade-up-down"><FaJs title="JavaScript" /></div>
+
           </div>
         </div>
       </div>

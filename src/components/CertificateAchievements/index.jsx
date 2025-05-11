@@ -20,6 +20,13 @@ const CertificateAchievements = () => {
       driveLink: 'https://www.jioaicloud.com/l/?u=mB4__GiFNzIxmyUzwX_AO5gww2GTGWiOPT4083p6HIA=jqE',
     },
     {
+      title: 'XPM 4.0', 
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
+      date: 'January 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746996899/1746993018249_pc2kfr.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=nEH2FKBehkNfovuhMKF6uHC-kqDNNxoo3SV_YdBBoJ4=hkW',
+    },
+    {
       title: 'Programming Foundation with Python', 
       description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
       date: 'February 2024',

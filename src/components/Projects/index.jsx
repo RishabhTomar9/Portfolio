@@ -10,7 +10,7 @@ const projects = [
       'Jobby is a job search platform with user authentication, job filters, detailed job listings, and a responsive design, providing an intuitive and accessible experience across devices for job seekers.',
     technologies: ['React', 'JWT Auth', 'CSS', 'REST API','Loader'],
     link: 'https://jobbyrishabh.ccbp.tech',
-  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
+  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998651/Screenshot_2025-05-12_024301_qccmwz.png', // Add actual thumbnail link
   },
   {
     title: 'Nxt Trendz',
@@ -18,31 +18,31 @@ const projects = [
       'An e-commerce application featuring user authentication, product filters, cart management, and protected routes, ensuring secure browsing, seamless shopping experience, and efficient management of products and user data.',
     technologies: ['React', 'Context API', 'Routing', 'REST API','Loader'],
     link: 'https://rishabhnxttrend.ccbp.tech',
-  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
+  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998912/Screenshot_2025-05-12_025816_h7vswd.png', // Add actual thumbnail link
+  },
+  {
+    title: 'GenAI ChatBot',
+    description:
+    'A conversational AI chatbot using OpenAI, LangChain, and Hugging Face, built with Gradio and deployed on Google Colab. It supports natural chat, custom prompts, and audio replies via PlayHT.',
+    technologies: [
+      'Google Colab',
+      'OpenAI API',
+      'LangChain',
+      'Gradio',
+      'PlayHT',
+      'Hugging Face'
+    ],
+    link: 'https://yaaruaichatbox.ccbp.tech',
+    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
   },
   {
     title: 'Cryptocurrency Tracker',
     description:
       'A dynamic cryptocurrency tracker with live price updates, responsive UI, and real-time data fetched via API integration, offering users an engaging and up-to-date experience across devices.',
     technologies: ['React', 'API', 'CSS', 'Loader', 'Routing'],
-    link: 'https://your-crypto-tracker-link.com',
-  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
+    link: 'https://cryptorishabh.ccbp.tech',
+  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998828/Screenshot_2025-05-12_025650_oqhcxt.png', // Add actual thumbnail link
   },
-  {
-  title: 'GenAI ChatBot',
-  description:
-    'A conversational AI chatbot using OpenAI, LangChain, and Hugging Face, built with Gradio and deployed on Google Colab. It supports natural chat, custom prompts, and audio replies via PlayHT.',
-  technologies: [
-    'Google Colab',
-    'OpenAI API',
-    'LangChain',
-    'Gradio',
-    'PlayHT',
-    'Hugging Face'
-  ],
-  link: 'https://yaaruaichatbox.ccbp.tech',
-  media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
-},
 ];
 
 const Projects = () => {
@@ -101,7 +101,6 @@ const Projects = () => {
                 </li>
               ))}
             </ul>
-
             {/* Deep Seek Code Button */}
             <a
               href="https://github.com/RishabhTomar9"

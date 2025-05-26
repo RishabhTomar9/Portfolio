@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { app, analytics } from './firebase'
 import Hero from './components/Hero'
 import Header from './components/Header'
@@ -8,17 +8,29 @@ import Footer from './components/Footer'
 import Skills from './components/Skills'
 import CertificateAchievements from './components/CertificateAchievements'
 import AnimatedLines from './components/AnimatedLines'
+import Loader from './components/Loader' // Make sure index.jsx exists in /Loader
 import './App.css'
 
 function App() {
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
-    // Ensures Firebase analytics is initialized if needed
     if (analytics) {
-      console.log('Firebase Analytics Initialized')
+      console.log('✅ Firebase Analytics Initialized')
     }
+
+    // Simulate initial loading (can be replaced with real asset/image loading logic)
+    const timer = setTimeout(() => {
+      setLoading(false)
+      console.log('✅ App Finished Loading')
+    }, 2000)
+
+    return () => clearTimeout(timer)
   }, [])
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="App">
       <AnimatedLines />
       <Header />

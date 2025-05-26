@@ -1,0 +1,108 @@
+/* Base loader container */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Loader glass effect card */
+  .card {
+    --bg-color: rgba(33, 33, 33, 0.6);
+    background: var(--bg-color);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    width: 400px;
+  }
+  
+  /* Loader text styling */
+  .loader {
+    color: rgb(180, 180, 180);
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  /* Words animation area */
+  .words {
+    overflow: hidden;
+    position: relative;
+    height: 1.5em;
+  }
+  
+  /* Gradient masking top & bottom */
+  .words::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      var(--bg-color) 10%,
+      transparent 30%,
+      transparent 70%,
+      var(--bg-color) 90%
+    );
+    z-index: 10;
+  }
+  
+  /* Each animated word */
+  .word {
+    display: block;
+    height: 100%;
+    padding-left: 6px;
+    color: #956afa;
+    animation: spin_4991 4s infinite;
+  }
+  
+  /* Spinner animation */
+  @keyframes spin_4991 {
+    10% {
+      transform: translateY(-102%);
+    }
+    25% {
+      transform: translateY(-100%);
+    }
+    35% {
+      transform: translateY(-202%);
+    }
+    50% {
+      transform: translateY(-200%);
+    }
+    60% {
+      transform: translateY(-302%);
+    }
+    75% {
+      transform: translateY(-300%);
+    }
+    85% {
+      transform: translateY(-402%);
+    }
+    100% {
+      transform: translateY(-400%);
+    }
+  }
+  
+  /* Responsive font scaling */
+  @media screen and (max-width: 480px) {
+    .loader {
+      font-size: 1.2rem;
+    }
+  
+    .card {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  

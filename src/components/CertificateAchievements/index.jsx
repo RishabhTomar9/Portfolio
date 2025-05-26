@@ -13,32 +13,18 @@ const CertificateAchievements = () => {
 
   const certificates = [
     {
-      title: 'Build Your Own Responsive Website',
-      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the BootStrap and Flexbox.',
-      date: 'November 2023',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953825/Screenshot_2025-05-11_142613_o10cku.png',
-      driveLink: 'https://www.jioaicloud.com/l/?u=mB4__GiFNzIxmyUzwX_AO5gww2GTGWiOPT4083p6HIA=jqE',
+      title: 'AWS Academy Cloud Foundations',
+      description: 'Certified by AWS Academy for completing the AWS Academy Cloud Foundations course.',
+      date: 'May 2025',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1748260666/Screenshot_2025-05-26_172133_lkg753.png', // You can add an image URL if available
+      driveLink: 'https://www.jioaicloud.com/l/?u=kcIluVmkXp6xM12t7TueIeymDqgmg-Cx5hBpUFkejDE=doB',
     },
     {
-      title: 'XPM 4.0', 
-      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
-      date: 'January 2024',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746996899/1746993018249_pc2kfr.png',
-      driveLink: 'https://www.jioaicloud.com/l/?u=nEH2FKBehkNfovuhMKF6uHC-kqDNNxoo3SV_YdBBoJ4=hkW',
-    },
-    {
-      title: 'Programming Foundation with Python', 
-      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
-      date: 'February 2024',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953656/Screenshot_2025-05-11_142347_e7e0nc.png',
-      driveLink: 'https://www.jioaicloud.com/l/?u=a-vfOZs5kAITTNbQiQVg41u09INcwT9XI4GEhGauyaA=Oe5',
-    },
-    {
-      title: 'Introduction to DataBases',
-      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Introduction to DataBases in SQL.',
-      date: 'September 2024',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746954120/Screenshot_2025-05-11_143141_uoul4w.png',
-      driveLink: 'https://www.jioaicloud.com/l/?u=-b5ZP3QF616YeACnvyteOxqDRP5W6NHxfxgjy7FKES0=PuU',
+      title: 'Node.js and Express.js',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Node.js and Express.js course.',
+      date: 'April 2025',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746971296/Screenshot_2025-05-11_191751_ue4va1.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=hjbN1JPii5CCg61hiyDXwcoQr64YycyFyEYHxdvuiQ4=Oe5',
     },
     {
       title: 'Developer Foundations',
@@ -48,13 +34,35 @@ const CertificateAchievements = () => {
       driveLink: 'https://www.jioaicloud.com/l/?u=LgbHYxH-m9gdHagJK9ITE9UudsFF1jHcMWqn2iqs-Cg=VaU',
     },
     {
-      title: 'Node.js and Express.js',
-      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Node.js and Express.js course.',
-      date: 'April 2025',
-      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746971296/Screenshot_2025-05-11_191751_ue4va1.png',
-      driveLink: 'https://www.jioaicloud.com/l/?u=hjbN1JPii5CCg61hiyDXwcoQr64YycyFyEYHxdvuiQ4=Oe5',
+      title: 'Introduction to DataBases',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Introduction to DataBases in SQL.',
+      date: 'September 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746954120/Screenshot_2025-05-11_143141_uoul4w.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=-b5ZP3QF616YeACnvyteOxqDRP5W6NHxfxgjy7FKES0=PuU',
+    },
+    {
+      title: 'Programming Foundation with Python',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
+      date: 'February 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953656/Screenshot_2025-05-11_142347_e7e0nc.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=a-vfOZs5kAITTNbQiQVg41u09INcwT9XI4GEhGauyaA=Oe5',
+    },
+    {
+      title: 'XPM 4.0',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the Programming Foundation with Python.',
+      date: 'January 2024',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746996899/1746993018249_pc2kfr.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=nEH2FKBehkNfovuhMKF6uHC-kqDNNxoo3SV_YdBBoJ4=hkW',
+    },
+    {
+      title: 'Build Your Own Responsive Website',
+      description: 'Certified by NXTWave CCBP 4.0 Academy for completing the BootStrap and Flexbox.',
+      date: 'November 2023',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953825/Screenshot_2025-05-11_142613_o10cku.png',
+      driveLink: 'https://www.jioaicloud.com/l/?u=mB4__GiFNzIxmyUzwX_AO5gww2GTGWiOPT4083p6HIA=jqE',
     },
   ];
+  
 
   // const achievements = [
   //   {

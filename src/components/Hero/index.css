@@ -197,33 +197,6 @@ html {
   100% { transform: scale(1.03); }
 }
 
-/* Glassmorphism Skill Badges */
-.skill-badge {
-  position: absolute;
-  background: rgba(255,255,255,0.25);
-  color: var(--heading-color);
-  font-size: clamp(1rem, 2.5vw, 1rem);
-  font-weight: 800;
-  padding: 0.5rem 1rem;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
-  animation: badgeFloat 2s ease-in-out infinite alternate;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  -ms-border-radius: 50px;
-  -o-border-radius: 50px;
-  border-radius: 50px;
-}
-@keyframes badgeFloat {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-10px); }
-}
-
-/* Badge positions */
-.top-left { top: -20px; left: -20px; }
-.bottom-left { bottom: -20px; left: -20px; }
-.top-right { top: -20px; right: -20px; }
-.bottom-right { bottom: -20px; right: -20px; }
-
 /* Base Styles */
 .image-container {
   display: flex;

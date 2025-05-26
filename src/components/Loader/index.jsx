@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import gsap from 'gsap'
 import './index.css'
 
 const loadingMessages = [
@@ -12,49 +13,56 @@ const loadingMessages = [
   'Almost There...',
 ]
 
-const Loader = () => {
+const Loader = ({ onFinish }) => {
   const [progress, setProgress] = useState(0)
   const [messageIndex, setMessageIndex] = useState(0)
+  const loaderRef = useRef(null)
+  const barRef = useRef(null)
 
   useEffect(() => {
-    const progressInterval = setInterval(() => {
+    const interval = setInterval(() => {
       setProgress(prev => {
         const next = prev + 1
-        if (next >= 100) {
-          clearInterval(progressInterval)
-          return 100
+
+        if (next % 10 === 0 && messageIndex < loadingMessages.length - 1) {
+          setMessageIndex(prevIndex => prevIndex + 1)
         }
+
+        if (next >= 100) {
+          clearInterval(interval)
+          gsap.to(loaderRef.current, {
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            onComplete: () => {
+              onFinish && onFinish()
+            },
+          })
+        }
+
         return next
       })
-    }, 40)
+    }, 50)
 
-    const messageInterval = setInterval(() => {
-      setMessageIndex(prev =>
-        prev < loadingMessages.length - 1 ? prev + 1 : prev
-      )
-    }, 600)
+    gsap.to(barRef.current, {
+      width: '100%',
+      duration: 1.5,
+      ease: 'power2.inOut',
+    })
 
-    return () => {
-      clearInterval(progressInterval)
-      clearInterval(messageInterval)
-    }
+    return () => clearInterval(interval)
   }, [])
 
   return (
-    <div class="loader-container">
-<div class="card">
-  <div class="loader">
-    <p>loading</p>
-    <div class="words">
-      <span class="word">buttons</span>
-      <span class="word">forms</span>
-      <span class="word">switches</span>
-      <span class="word">cards</span>
-      <span class="word">buttons</span>
+    <div className="loader-container" ref={loaderRef}>
+      <div className="loader-content">
+        <p className="loader-message">{loadingMessages[messageIndex]}</p>
+        <div className="loader-progress-bar">
+          <div className="loader-bar-fill" ref={barRef}></div>
+        </div>
+        <p className="loader-percentage">{progress}%</p>
+      </div>
     </div>
-  </div>
-</div>
-</div>
   )
 }
 

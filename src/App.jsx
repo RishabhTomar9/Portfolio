@@ -15,15 +15,10 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (analytics) {
-      console.log('✅ Firebase Analytics Initialized')
-    }
-
     // Simulate initial loading (can be replaced with real asset/image loading logic)
     const timer = setTimeout(() => {
       setLoading(false)
-      console.log('✅ App Finished Loading')
-    }, 2000)
+    }, 5500)
 
     return () => clearTimeout(timer)
   }, [])

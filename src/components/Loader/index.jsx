@@ -16,36 +16,49 @@ const loadingMessages = [
 const Loader = ({ onFinish }) => {
   const [messageIndex, setMessageIndex] = useState(0)
   const loaderRef = useRef(null)
+  const messageRef = useRef(null)
 
   useEffect(() => {
-    let count = 0
-    const interval = setInterval(() => {
-      count += 1
+    let currentIndex = 0
 
-      if (count % 10 === 0 && messageIndex < loadingMessages.length - 1) {
-        setMessageIndex(prevIndex => prevIndex + 1)
-      }
-
-      if (count >= 100) {
-        clearInterval(interval)
+    const animateMessage = () => {
+      if (currentIndex < loadingMessages.length) {
+        gsap.to(messageRef.current, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            setMessageIndex(currentIndex)
+            gsap.fromTo(
+              messageRef.current,
+              { opacity: 0 },
+              { opacity: 1, duration: 0.3 }
+            )
+            currentIndex += 1
+            setTimeout(animateMessage, 350) // Wait before showing next message
+          },
+        })
+      } else {
+        // Fade out loader after last message
         gsap.to(loaderRef.current, {
           opacity: 0,
-          duration: 0.5,
-          ease: 'power2.out',
+          duration: 1,
+          ease: 'power2.inOut',
           onComplete: () => {
-            onFinish && onFinish()
+            if (onFinish) onFinish()
           },
         })
       }
-    }, 50)
+    }
 
-    return () => clearInterval(interval)
-  }, [])
+    animateMessage()
+  }, [onFinish])
 
   return (
     <div className="loader-container" ref={loaderRef}>
       <div className="loader-content">
-        <p className="loader-message">{loadingMessages[messageIndex]}</p>
+        <p className="loader-message text" ref={messageRef}>
+          {loadingMessages[messageIndex]}
+        </p>
       </div>
     </div>
   )

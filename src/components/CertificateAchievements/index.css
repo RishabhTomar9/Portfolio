@@ -74,10 +74,11 @@
 .certificate-image:hover {
   transform: scale(1.05);
   box-shadow:
-    0 0 20px #4f46e5,
-    0 0 30px #6366f1,
-    0 0 40px #8b5cf6;
+    0 0 40px #1a1a1a,
+    0 0 50px #262626,
+    0 0 60px #333333;
 }
+
 
 /* Optional: Ultra-wide displays */
 @media (min-width: 1600px) {

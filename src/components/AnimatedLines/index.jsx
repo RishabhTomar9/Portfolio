@@ -37,7 +37,7 @@ const AnimatedLines = () => {
 
   return (
     <div className="lines-global-wrapper">
-      {[...Array(300)].map((_, index) => ( // Increased number of lines for a denser effect
+      {[...Array(350)].map((_, index) => ( // Increased number of lines for a denser effect
         <div
           key={index}
           className="line"

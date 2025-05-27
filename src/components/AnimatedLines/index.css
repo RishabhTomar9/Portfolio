@@ -13,9 +13,9 @@
 .line {
   position: absolute;
   top: 0;
-  width: 2px;
-  height: 80px;
-  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  width: 2.5px;
+  height: 100px;
+  background: linear-gradient(to right, #0d0d0d, #1a1a1a, #262626, #333333, #404040);
   border-radius: 2px;
   mix-blend-mode: screen;
 }

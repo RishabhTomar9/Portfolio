@@ -19,35 +19,34 @@ const Skills = () => {
   const skillsRef = useRef(null);
 
   const technicalSkills = [
-    { name: 'React', level: 90, icon: <FaReact className="skill-icon react" /> },
-    { name: 'JavaScript', level: 85, icon: <FaJs className="skill-icon javascript" /> },
-    { name: 'Node.js', level: 80, icon: <FaNodeJs className="skill-icon nodejs" /> },
-    { name: 'HTML', level: 95, icon: <FaHtml5 className="skill-icon html" /> },
-    { name: 'CSS', level: 95, icon: <FaCss3Alt className="skill-icon css" /> },
-    { name: 'Python', level: 90, icon: <FaPython className="skill-icon python" /> },
-    { name: 'MongoDB', level: 75, icon: <FaDatabase className="skill-icon mongodb" /> },
-    { name: 'SQL', level: 80, icon: <FaDatabase className="skill-icon sql" /> },
-    { name: 'Git', level: 85, icon: <FaGitAlt className="skill-icon git" /> },
-    { name: 'Design', level: 70, icon: <FaPencilRuler className="skill-icon design" /> },
+    { name: 'React', level: 90, icon: <FaReact className="skill-icon react" />, description: 'UI Components' },
+    { name: 'JavaScript', level: 85, icon: <FaJs className="skill-icon javascript" />, description: 'Web Logic' },
+    { name: 'Node.js', level: 80, icon: <FaNodeJs className="skill-icon nodejs" />, description: 'Backend Runtime' },
+    { name: 'HTML', level: 95, icon: <FaHtml5 className="skill-icon html" />, description: 'Page Structure' },
+    { name: 'CSS', level: 95, icon: <FaCss3Alt className="skill-icon css" />, description: 'Web Styling' },
+    { name: 'Python', level: 90, icon: <FaPython className="skill-icon python" />, description: 'Scripting Language' },
+    { name: 'MongoDB', level: 75, icon: <FaDatabase className="skill-icon mongodb" />, description: 'NoSQL Database' },
+    { name: 'SQL', level: 80, icon: <FaDatabase className="skill-icon sql" />, description: 'Relational Queries' },
+    { name: 'Git', level: 85, icon: <FaGitAlt className="skill-icon git" />, description: 'Version Control' },
+    { name: 'Design', level: 70, icon: <FaPencilRuler className="skill-icon design" />, description: 'UI/UX Basics' },
   ];
 
   const softSkills = [
-  { name: 'Teamwork', emoji: '🤝' },
-  { name: 'Leadership', emoji: '👨‍💼' },
-  { name: 'Problem Solving', emoji: '🧠' },
-  { name: 'Creativity', emoji: '🎨' },
-  { name: 'Time Management', emoji: '⏱' },
-  { name: 'Goal-Oriented', emoji: '🎯' },
-  { name: 'Adaptability', emoji: '🔄' },
-  { name: 'Critical Thinking', emoji: '🧩' },
-  { name: 'Collaboration', emoji: '👥' },
-  { name: 'Decision Making', emoji: '🧭' },
-  { name: 'Flexibility', emoji: '🌈' },
-  { name: 'Initiative', emoji: '⚡' },
-  { name: 'Resilience', emoji: '🛡️' },
-  { name: 'Curiosity', emoji: '🔍' }, // ✅ New skill
-];
-
+    { name: 'Teamwork', emoji: '🤝' },
+    { name: 'Leadership', emoji: '👨‍💼' },
+    { name: 'Problem Solving', emoji: '🧠' },
+    { name: 'Creativity', emoji: '🎨' },
+    { name: 'Time Management', emoji: '⏱' },
+    { name: 'Goal-Oriented', emoji: '🎯' },
+    { name: 'Adaptability', emoji: '🔄' },
+    { name: 'Critical Thinking', emoji: '🧩' },
+    { name: 'Collaboration', emoji: '👥' },
+    { name: 'Decision Making', emoji: '🧭' },
+    { name: 'Flexibility', emoji: '🌈' },
+    { name: 'Initiative', emoji: '⚡' },
+    { name: 'Resilience', emoji: '🛡️' },
+    { name: 'Curiosity', emoji: '🔍' },
+  ];
 
   useEffect(() => {
     fadeUpDownOnScroll('.skill-card');
@@ -80,24 +79,29 @@ const Skills = () => {
 
       {/* Technical Skills */}
       <div className="skills-container">
-        {technicalSkills.map((skill, index) => (
-          <div key={index} className="skill-card">
-            <div className="skill-info">
-              {skill.icon}
-              <h3 className="skill-name">{skill.name}</h3>
-            </div>
-            <div className="animated-counter">
-              <span className="skill-percentage">
-                {isVisible ? (
-                  <AnimatedCounter endValue={skill.level} duration={2000} />
-                ) : (
-                  '0%'
-                )}
-              </span>
-            </div>
+  {technicalSkills.map((skill, index) => (
+    <div key={index} className="skill-card">
+      {/* Grouped: Icon + Name + Percentage */}
+        <div className="skill-top-group">
+          <div className="skill-icon-name">
+            {skill.icon}
+            <h3 className="skill-name">{skill.name}</h3>
           </div>
-        ))}
-      </div>
+          <p className="skill-description">{skill.description}</p>
+        </div>
+          <div className="animated-counter">
+            <span className="skill-percentage">
+              {isVisible ? (
+                <AnimatedCounter endValue={skill.level} duration={2000} />
+              ) : (
+                '0%'
+              )}
+            </span>
+          </div>
+    </div>
+  ))}
+</div>
+
 
       {/* Soft Skills */}
       <h2 className="soft-skills-heading">Soft Skills</h2>

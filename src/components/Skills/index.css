@@ -132,9 +132,7 @@
 .soft-skills-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
-  margin-top: 1rem;
-  padding: 0 1rem;
+  gap: 1rem;
   justify-content: center;
 }
 
@@ -155,19 +153,18 @@
   border-radius: 16px;
   color: #fff;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 800;
   box-sizing: border-box;
-  text-align: center;
   cursor: default;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   user-select: none;
   flex-wrap: wrap;
-  width: 260px;
+  width: 280px;
 }
 
 .soft-skill-emoji {
-  font-size: 1.2rem;
+  font-size: 1rem;
   user-select: none;
 }
 

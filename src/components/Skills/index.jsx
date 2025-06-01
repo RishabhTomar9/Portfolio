@@ -46,8 +46,9 @@ const Skills = () => {
     { name: 'Initiative', emoji: '⚡' },
     { name: 'Resilience', emoji: '🛡️' },
     { name: 'Curiosity', emoji: '🔍' },
+    { name: 'Growth Mindset', emoji: '🌱' }, // New one
   ];
-
+  
   useEffect(() => {
     fadeUpDownOnScroll('.skill-card');
     fadeUpDownOnScroll('.soft-skill-card');

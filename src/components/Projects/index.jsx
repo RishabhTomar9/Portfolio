@@ -36,6 +36,14 @@ const projects = [
     media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
   },
   {
+    title: 'Sticker Canvas App',
+    description:
+      'A creative sticker application built with React and Konva.js that lets users add, move, resize, and layer stickers on a canvas. Features include undo/redo, image upload, download, and an interactive onboarding tour for guidance.',
+    technologies: ['React', 'Konva.js', 'use-image', 'CSS', 'Canvas', 'Tour UI'],
+    link: 'https://my-sticker-app-3ae38.web.app/',
+    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1749318142/Screenshot_2025-06-07_231149_om7duc.png', // Replace with actual screenshot if needed
+  },  
+  {
     title: 'Cryptocurrency Tracker',
     description:
       'A dynamic cryptocurrency tracker with live price updates, responsive UI, and real-time data fetched via API integration, offering users an engaging and up-to-date experience across devices.',

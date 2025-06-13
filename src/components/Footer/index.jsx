@@ -154,7 +154,7 @@ const Footer = () => {
 
             <div className="footer__avatar-container">
               <img
-                src="/Images/WhatsApp Image 2025-04-29 at 00.10.48_721f24be.jpg"
+                src="/Images/hero-image.jpg"
                 alt="Rishabh Avatar"
                 className="footer__avatar"
               />

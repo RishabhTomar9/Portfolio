@@ -5,7 +5,7 @@ html {
 /* Root Variables for Design System */
 :root {
   --heading-color: #4883e1;
-  --description-color: #475569;
+  --description-color: #fbfbfb;
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;
   --stat-color: #64748b;

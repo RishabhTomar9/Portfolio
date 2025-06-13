@@ -13,13 +13,13 @@ const ThreeBackground = () => {
 
     // Starfield
     const starsGeometry = new THREE.BufferGeometry();
-    const starCount = 7000;
+    const starCount = 3000;
     const starPositions = [];
     for (let i = 0; i < starCount; i++) {
       starPositions.push(
-        (Math.random() - 0.5) * 7000,
-        (Math.random() - 0.5) * 7000,
-        (Math.random() - 0.5) * 7000
+        (Math.random() - 0.5) * 3000,
+        (Math.random() - 0.5) * 3000,
+        (Math.random() - 0.5) * 3000
       );
     }
     starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import emailjs from 'emailjs-com';
-import { fadeUpDownOnScroll } from '../../animations/animations'; // Import the animation function
+import { fadeUpDownOnScroll } from '../../animations/animations';
 import {
   FaGithub,
   FaLinkedin,
@@ -19,10 +19,9 @@ const Footer = () => {
   const [emailError, setEmailError] = useState('');
 
   useEffect(() => {
-    // Apply the fadeUpDownOnScroll animation to specific sections
-    fadeUpDownOnScroll('.footer__heading', 0.5); // Animate the main heading
-    fadeUpDownOnScroll('.footer__section', 0.2); // Animate the footer sections
-    fadeUpDownOnScroll('.footer__contact-container', 0.3); // Animate the contact container
+    fadeUpDownOnScroll('.footer__heading', 0.5);
+    fadeUpDownOnScroll('.footer__section', 0.2);
+    fadeUpDownOnScroll('.footer__contact-container', 0.3);
   }, []);
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -75,38 +74,29 @@ const Footer = () => {
       </div>
 
       <div className="footer__section">
-        {/* === Contact Section === */}
         <section id="contact" className="footer__contact-section">
           <div className="footer__contact-container">
             <h2 className="footer__contact-heading">Get in Touch</h2>
             <form ref={form} onSubmit={handleSubmit} className="footer__form" noValidate>
               <div className="footer__input-wrapper">
                 <div className="input">
-                  <input
-                    required
-                    autoComplete="off"
-                    type="text"
-                    name="user_name"
-                    id="user_name"
-                    placeholder='Name'
-                  />
-                  <label for="Name" htmlFor="user_name">Name</label>
+                  <input required autoComplete="off" type="text" name="user_name" id="user_name" placeholder="Name" />
+                  <label htmlFor="user_name">Name</label>
                 </div>
               </div>
 
               <div className="footer__input-wrapper">
                 <div className="input">
                   <input
-                    required
-                    autoComplete="off"
+                    required autoComplete="off"
                     name="user_email"
                     type="email"
                     id="user_email"
                     className={`footer__form-input ${emailError ? 'footer__input-error' : ''}`}
                     onChange={handleEmailChange}
-                    placeholder='E-mail'
+                    placeholder="E-mail"
                   />
-                  <label for="E-mail" htmlFor="user_email">E-mail</label>
+                  <label htmlFor="user_email">E-mail</label>
                 </div>
               </div>
 
@@ -114,32 +104,17 @@ const Footer = () => {
 
               <div className="footer__input-wrapper">
                 <div className="input">
-                  <textarea
-                    required
-                    cols="30"
-                    rows="1"
-                    name="message"
-                    id="message"
-                    placeholder='Message'
-                  ></textarea>
-                  <label for="Message" htmlFor="message">Message</label>
+                  <textarea required cols="30" rows="1" name="message" id="message" placeholder="Message"></textarea>
+                  <label htmlFor="message">Message</label>
                 </div>
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="footer__submit-button"
-              >
+              <button type="submit" disabled={isSubmitting} className="footer__submit-button">
                 {isSubmitting ? 'Sending...' : 'Send Message →'}
               </button>
 
               {submitMessage && (
-                <p
-                  className={`footer__submit-message ${
-                    submitMessage.includes('successfully') ? 'footer__success' : 'footer__error'
-                  }`}
-                >
+                <p className={`footer__submit-message ${submitMessage.includes('successfully') ? 'footer__success' : 'footer__error'}`}>
                   {submitMessage}
                 </p>
               )}
@@ -147,64 +122,33 @@ const Footer = () => {
           </div>
         </section>
 
-        {/* === Footer Info === */}
         <section className="footer__info" aria-labelledby="footer__contact">
           <div className="footer__card">
             <h3 id="footer__contact" className="footer__info-heading">Let’s Connect</h3>
 
             <div className="footer__avatar-container">
-              <img
-                src="/Images/hero-image.jpg"
-                alt="Rishabh Avatar"
-                className="footer__avatar"
-              />
+              <img src="/Images/hero-image.jpg" alt="Rishabh Avatar" className="footer__avatar" />
             </div>
 
             <ul className="footer__contact-list">
-              <li>
-                <FaEnvelope />{' '}
-                <a href="mailto:rishabhtomar9999@gmail.com">rishabhtomar9999@gmail.com</a>
-              </li>
-              <li>
-                <FaPhoneAlt /> <a href="tel:+919981909017">+91 9981909017</a>
-              </li>
-              <li>
-                <FaMapMarkerAlt /> <span>Bhopal, India</span>
-              </li>
+              <li><FaEnvelope /> <a href="mailto:rishabhtomar9999@gmail.com">rishabhtomar9999@gmail.com</a></li>
+              <li><FaPhoneAlt /> <a href="tel:+919981909017">+91 9981909017</a></li>
+              <li><FaMapMarkerAlt /> <span>Bhopal, India</span></li>
             </ul>
 
             <div className="footer__social-links">
-              <a
-                href="https://github.com/RishabhTomar9"
-                className="footer__icon footer__icon--github"
-                aria-label="GitHub"
-              >
-                <FaGithub />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/rishabhtomar99/"
-                className="footer__icon footer__icon--linkedin"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin />
-              </a>
-              <a
-                href="https://x.com/Rishabh03tomar"
-                className="footer__icon footer__icon--twitter"
-                aria-label="Twitter"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="https://www.instagram.com/_._.rishabh_._/"
-                className="footer__icon footer__icon--instagram"
-                aria-label="Instagram"
-              >
-                <FaInstagram />
-              </a>
+              <a href="https://github.com/RishabhTomar9" className="footer__icon footer__icon--github" aria-label="GitHub"><FaGithub /></a>
+              <a href="https://www.linkedin.com/in/rishabhtomar99/" className="footer__icon footer__icon--linkedin" aria-label="LinkedIn"><FaLinkedin /></a>
+              <a href="https://x.com/Rishabh03tomar" className="footer__icon footer__icon--twitter" aria-label="Twitter"><FaTwitter /></a>
+              <a href="https://www.instagram.com/_._.rishabh_._/" className="footer__icon footer__icon--instagram" aria-label="Instagram"><FaInstagram /></a>
             </div>
           </div>
         </section>
+      </div>
+
+      {/* ✅ Add your license here at the very bottom */}
+      <div className="footer__copyright">
+        <p>© 2025 Rishabh Tomar. All Rights Reserved.</p>
       </div>
     </footer>
   );

@@ -7,7 +7,7 @@ import Projects from './components/Projects'
 import Footer from './components/Footer'
 import Skills from './components/Skills'
 import CertificateAchievements from './components/CertificateAchievements'
-import AnimatedLines from './components/AnimatedLines'
+// import AnimatedLines from './components/AnimatedLines'
 import Loader from './components/Loader' // Make sure index.jsx exists in /Loader
 import ThreeBackground from './components/ThreeBackground';
 import './App.css'

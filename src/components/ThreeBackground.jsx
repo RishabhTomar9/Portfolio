@@ -35,31 +35,40 @@ const ThreeBackground = () => {
     renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
 
-    // HDRI reflection
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    new RGBELoader().load(
-      'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/venice_sunset_1k.hdr',
-      (hdrMap) => {
-        const envMap = pmremGenerator.fromEquirectangular(hdrMap).texture;
-        scene.environment = envMap;
-        hdrMap.dispose();
-      }
-    );
+// HDRI reflection (keep this same)
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+new RGBELoader().load(
+  'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/venice_sunset_1k.hdr',
+  (hdrMap) => {
+    const envMap = pmremGenerator.fromEquirectangular(hdrMap).texture;
+    scene.environment = envMap;
+    hdrMap.dispose();
+  }
+);
 
-    // SUN
-    const sunGeometry = new THREE.SphereGeometry(70, 128, 128);
-    const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffcc33 });
-    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-    scene.add(sun);
+// SUN with real texture
+const textureLoader = new THREE.TextureLoader();
+const sunTexture = textureLoader.load('/Textures/sun.jpg'); // Load your sun texture
 
-    const sunLight = new THREE.PointLight(0xffffff, 3, 2500);
-    sunLight.position.set(0, 0, 0);
-    scene.add(sunLight);
+const sunGeometry = new THREE.SphereGeometry(250, 378, 378);
+const sunMaterial = new THREE.MeshBasicMaterial({
+  map: sunTexture,
+  emissive: 0xffaa33,     // Extra glow effect
+  emissiveIntensity: 1.5
+});
+const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+scene.add(sun);
 
-    const lensFlare = new Lensflare();
-    const flareTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/lensflare/lensflare0.png');
-    lensFlare.addElement(new LensflareElement(flareTexture, 700, 0));
-    sunLight.add(lensFlare);
+// SUN Light
+const sunLight = new THREE.PointLight(0xffffff, 3, 2500);
+sunLight.position.set(0, 0, 0);
+scene.add(sunLight);
+
+// LensFlare stays
+const lensFlare = new Lensflare();
+const flareTexture = textureLoader.load('/Textures/lensflare.png'); // (Download your flare locally)
+lensFlare.addElement(new LensflareElement(flareTexture, 700, 0));
+sunLight.add(lensFlare);
 
     // Planet Configs with colors
     const planets = [

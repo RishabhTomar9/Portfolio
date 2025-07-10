@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { fadeUpDownOnScroll } from '../../animations/animations';
-import { FaReact, FaHtml5, FaCss3Alt, FaJs } from 'react-icons/fa';
+// import { FaReact, FaHtml5, FaCss3Alt, FaJs } from 'react-icons/fa';
 import Typewriter from 'typewriter-effect';
 import useWindowSize from '../../hooks/useWindowSize';
-import HeroEarthScene from './HeroEarthScene';
+// import HeroEarthScene from './HeroEarthScene';
 import './index.css';
 
 const Hero = () => {
@@ -24,7 +24,7 @@ const Hero = () => {
     <section className="hero-section" id="home" style={{ position: 'relative', overflow: 'hidden' }}>
       
       {/* 3D Earth Scene */}
-      <HeroEarthScene />
+      {/* <HeroEarthScene /> */}
 
       <div className="container fade-up-down" style={{ position: 'relative', zIndex: 1, flexDirection: isMobile || isTablet ? 'column-reverse' : 'row' }}>
         <div className="hero-text" style={{ textAlign: isMobile ? 'center' : 'left' }}>

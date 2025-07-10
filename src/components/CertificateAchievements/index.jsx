@@ -64,33 +64,23 @@ const CertificateAchievements = () => {
   ];
   
 
-  // const achievements = [
-  //   {
-  //     title: 'Hackathon Winner',
-  //     description: 'Won 1st place in the 2025 Global Hackathon for building a productivity app.',
-  //     date: 'April 2025',
-  //   },
-  //   {
-  //     title: 'Open Source Contributor',
-  //     description: 'Contributed to multiple open-source projects on GitHub.',
-  //     date: 'February 2025',
-  //   },
-  //   {
-  //     title: 'Top Performer Award',
-  //     description: 'Recognized as a top performer in the XYZ Internship Program.',
-  //     date: 'November 2024',
-  //   },
-  //   {
-  //     title: 'Speaker at Tech Conference',
-  //     description: 'Delivered a talk on React best practices at the 2025 Tech Summit.',
-  //     date: 'March 2025',
-  //   },
-  //   {
-  //     title: 'Published Technical Blog',
-  //     description: 'Published a blog on advanced JavaScript concepts on Medium.',
-  //     date: 'January 2025',
-  //   },
-  // ];
+  const achievements = [
+    {
+      title: 'Tech25 Gamified Internship Program',
+      description: 'Successfully completed the Tech25 Gamified Internship conducted by GetInterned, recognized for dedication and performance.',
+      date: 'July 2025',
+      certificateUrl: 'https://www.jioaicloud.com/l/?u=q_R8VGzMuySsJNCf6VImTVNm8s4FcNRp8YRkCl07W7w=VaU', // Replace with actual URL if available
+      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-10_134341_ryfzi8.png' // Upload this certificate somewhere and add the URL
+    },
+    {
+      title: 'Frontend Hackathon Winner',
+      description: 'Won the Frontend Hackathon organized by the Student Council at Technocrats Institute of Technology, Bhopal. Event held on 21st June, 2025 and declared winner on 8th July, 2025.',
+      date: 'July 2025',
+      certificateUrl: 'https://getinterned.verification.url', // Replace with actual URL if available
+      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-_134341_ryfzi8.png' // Upload this certificate somewhere and add the URL
+    },    
+  ];
+  
 
   return (
     <section className="certificates-achievements" id="milestones">
@@ -122,18 +112,32 @@ const CertificateAchievements = () => {
         </div>
       </div>
 
-      {/* <div className="achievements">
+      <div className="achievements">
         <h3 className="subheading">Achievements</h3>
         <ul className="achievements-list">
           {achievements.map((achievement, index) => (
             <li key={index} className="achievement-item">
+              {achievement.certificateUrl && (
+                <a
+                  href={achievement.certificateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="certificate-link"
+                >
+                  <img
+                    src={achievement.certificateImage}
+                    alt={achievement.title}
+                    className="certificate-image"
+                  />
+                </a>
+              )}
               <h4 className="achievement-title">{achievement.title}</h4>
               <p className="achievement-description">{achievement.description}</p>
               <p className="achievement-date">{achievement.date}</p>
             </li>
           ))}
         </ul>
-      </div> */}
+      </div>
     </section>
   );
 };

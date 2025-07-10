@@ -68,6 +68,7 @@
   object-fit: cover;
   border-radius: 8px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #bc8b8bd0;
 }
 
 /* Hover glow effect */
@@ -138,8 +139,12 @@
 }
 
 /* === Achievements Section === */
-/* .achievements {
+.achievements {
   margin-top: 3rem;
+  z-index: 9999;
+}
+.subheading{
+  z-index: 999;
 }
 
 .achievements-list {
@@ -165,13 +170,15 @@
   margin-bottom: 1.5rem;
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 99;
 }
 
 .achievement-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #00c6ff; 
+  color: #00c6ff;
+}
 
 .achievement-description {
   font-size: 1rem;
@@ -182,4 +189,5 @@
 .achievement-date {
   font-size: 0.9rem;
   color: #999; 
-} */
+}
+

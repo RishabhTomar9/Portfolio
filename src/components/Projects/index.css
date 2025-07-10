@@ -1,6 +1,7 @@
 .projects-section {
   text-align: center;
   color: #eaeaea; /* Light text for dark background */
+  z-index: 999;
 }
 
 .section-header {
@@ -34,6 +35,7 @@
 .projects-subheading {
   font-size: 1.2rem;
   color: #a6a6a6; /* Subtle subheading */
+  z-index: 9999;
 }
 
 

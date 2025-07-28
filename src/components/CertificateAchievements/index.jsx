@@ -81,6 +81,35 @@ const CertificateAchievements = () => {
     },    
   ];
   
+  // Add a new array for badges
+  const badges = [
+    {
+      title: 'Google Cloud Skills Boost',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753703682/badgeskill_dv4tzr.jpg',
+      link: 'https://developers.google.com/profile/u/rishabhtomar9/my-community/gca_agents',
+    },
+    {
+      title: 'Firebase Studio Developer Community',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753700985/badge_1_e5tguo.svg',
+      link: 'https://developers.google.com/profile/badges/community/firebasestudio/firebase-studio',
+    },
+    {
+      title: 'Gemini Code Assist Agents',
+      image: 'https://developers.google.com/static/profile/badges/community/sdlcagents/gca-agents/badge.svg',
+      link: 'https://developers.google.com/ai/gemini-code-assist',
+    },
+    {
+      title: 'AWS Academy',
+      image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753702767/aws-academy-graduate-aws-academy-cloud-foundations_vrpczx.png',
+      link: 'https://www.credly.com/badges/09927c28-2ec8-4cb4-88d9-ea0737eaa496/public_url',
+    },
+    {
+      title: 'Google Cloud Innovators Member 2021',
+      image: 'https://developers.google.com/static/profile/badges/community/innovators/cloud/2021_member/badge.svg',
+      link: 'https://developers.google.com/profile/badges/community/innovators/cloud/2021_member',
+    },
+    // Add more badges as needed
+  ];
 
   return (
     <section className="certificates-achievements" id="milestones">
@@ -137,6 +166,29 @@ const CertificateAchievements = () => {
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* Badges Section */}
+      <div className="badges">
+        <h3 className="subheading">Badges</h3>
+        <div className="badges-grid">
+          {badges.map((badge, index) => (
+            <div key={index} className="badge-card">
+              <div className="badge-tooltip">{badge.title}</div>
+              <a
+                href={badge.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={badge.image}
+                  alt={badge.title}
+                  className="badge-image"
+                />
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

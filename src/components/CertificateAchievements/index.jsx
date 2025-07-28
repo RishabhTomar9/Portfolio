@@ -141,6 +141,31 @@ const CertificateAchievements = () => {
         </div>
       </div>
 
+            {/* Badges Section */}
+            <div className="badges">
+        <h3 className="subheading">Badges</h3>
+        <div className="badges-grid">
+          {badges.map((badge, index) => (
+            <div key={index} className="badge-card">
+              <div className="badge-tooltip">{badge.title}</div>
+              <a
+                href={badge.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={badge.image}
+                  alt={badge.title}
+                  className="badge-image"
+                />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Achievements Section */}
+
       <div className="achievements">
         <h3 className="subheading">Achievements</h3>
         <ul className="achievements-list">
@@ -166,29 +191,6 @@ const CertificateAchievements = () => {
             </li>
           ))}
         </ul>
-      </div>
-
-      {/* Badges Section */}
-      <div className="badges">
-        <h3 className="subheading">Badges</h3>
-        <div className="badges-grid">
-          {badges.map((badge, index) => (
-            <div key={index} className="badge-card">
-              <div className="badge-tooltip">{badge.title}</div>
-              <a
-                href={badge.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={badge.image}
-                  alt={badge.title}
-                  className="badge-image"
-                />
-              </a>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

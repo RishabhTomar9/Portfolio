@@ -74,10 +74,10 @@ const CertificateAchievements = () => {
     },
     {
       title: 'Frontend Hackathon Winner',
-      description: 'Won the Frontend Hackathon organized by the Student Council at Technocrats Institute of Technology, Bhopal. Event held on 21st June, 2025 and declared winner on 8th July, 2025.',
+      description: '🏆 Winner - Frontend Domination Hackathon Organized by the Student Council of Technocrats Institute of Technology, Bhopal Sponsored by Sheriyans Coding School. Built an innovative web application called Nutrithy alongside teammate Samiksha — a health-focused platform aimed at promoting smart nutrition and well-being through intuitive UI and clean frontend development.',
       date: 'July 2025',
-      certificateUrl: 'https://getinterned.verification.url', // Replace with actual URL if available
-      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-_134341_ryfzi8.png' // Upload this certificate somewhere and add the URL
+      certificateUrl: 'https://www.jioaicloud.com/l/?u=qRwXqAJ7jYUdyM5aM0BVEuiigYkYvWdivQoNnafPQ0Y=Oe5', // Replace with actual URL if available
+      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1754231732/IMG20250803195609_k1yyfy.jpg' // Upload this certificate somewhere and add the URL
     },    
   ];
   

@@ -76,8 +76,8 @@ const CertificateAchievements = () => {
       title: 'Frontend Hackathon Winner',
       description: '🏆 Winner - Frontend Domination Hackathon Organized by the Student Council of Technocrats Institute of Technology, Bhopal Sponsored by Sheriyans Coding School. Built an innovative web application called Nutrithy alongside teammate Samiksha — a health-focused platform aimed at promoting smart nutrition and well-being through intuitive UI and clean frontend development.',
       date: 'July 2025',
-      certificateUrl: 'https://getinterned.verification.url', // Replace with actual URL if available
-      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-_134341_ryfzi8.png' // Upload this certificate somewhere and add the URL
+      certificateUrl: 'https://www.jioaicloud.com/l/?u=9Y7o5guuwrH62va1a6O44UvQPbourQFr0cf_UfCBvqU=MZA', 
+      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1754231732/IMG20250803195609_k1yyfy.jpg' 
     },    
   ];
   

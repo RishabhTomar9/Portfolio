@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #eaeaea; /* Light text */
+  color: #ffffff; /* Light text */
   padding: 4rem 2rem;
   text-align: center;
   gap: 2rem; /* Add spacing between sections */
@@ -14,7 +14,7 @@
  position: relative;
   font-size: 2rem;
   font-weight: 700;
-  color: #4f46e5;
+  color: #565BCE;
   padding-bottom: 16px;
   display: inline-block;
   text-transform: uppercase;
@@ -29,7 +29,7 @@
   bottom: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  background: linear-gradient(to right, #565BCE, #3395f7, #565BCE);
   border-radius: 2px;
   opacity: 0.9;
 }
@@ -66,7 +66,7 @@
  font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, #00c6ff, #0072ff); /* customize your gradient here */
+  background: linear-gradient(90deg, #565BCE, #3395f7); /* customize your gradient here */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; /* Fallback */
@@ -91,9 +91,9 @@
  font-size: 100%;
   padding: 1rem;
   outline: none;
-  color: #e8e8e8;
+  color: #ffffff;
   border: none;
-  border-bottom: 2px solid #4709e4;
+  border-bottom: 2px solid #565BCE;
   background: transparent;
   border-radius: none;
   width: 100%;
@@ -108,7 +108,7 @@
 
 .footer__input-wrapper input:focus,
 .footer__input-wrapper textarea:focus {
-  border-color: #4f46e5;
+  border-color: #3395f7;
 }
 
 .footer__input-wrapper label {
@@ -130,15 +130,15 @@
   top: -10px;
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #4f46e5;
+  color: #3395f7;
 }
 
 
 .footer__submit-button {
   padding: 12px 30px;
   border-radius: 30px;
-  background-color: #4f46e5;
-  color: #fff;
+  background-color: #565BCE;
+  color: #ffffff;
   border: none;
   font-size: 1rem;
   font-weight: 500;
@@ -147,7 +147,7 @@
 }
 
 .footer__submit-button:hover {
-  background-color: #3b3bb3;
+  background-color: #3395f7;
   transform: translateY(-3px);
 }
 
@@ -178,7 +178,7 @@
  font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, #00c6ff, #0072ff); /* customize your gradient here */
+  background: linear-gradient(90deg, #565BCE, #3395f7); /* customize your gradient here */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text; /* Fallback */
@@ -195,9 +195,9 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px solid #4f46e5;
+  border: 3px solid #565BCE;
   object-fit: cover;
-  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 0 15px rgba(86, 91, 206, 0.3);
   transition: transform 0.3s ease;
 }
 
@@ -210,7 +210,7 @@
   padding: 0;
   margin: 1.5rem 0;
   font-size: 1rem;
-  color: #ccc;
+  color: #ffffff;
 }
 
 .footer__contact-list li {
@@ -222,13 +222,13 @@
 }
 
 .footer__contact-list a {
-  color: #4f46e5;
+  color: #3395f7;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer__contact-list a:hover {
-  color: #6b46e5;
+  color: #565BCE;
 }
 
 /* === Social Links === */

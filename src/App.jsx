@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { app, analytics } from './firebase'
+import { app, initAnalytics } from './firebase'
 import Hero from './components/Hero'
 import Header from './components/Header'
 import About from './components/About'
@@ -7,15 +7,17 @@ import Projects from './components/Projects'
 import Footer from './components/Footer'
 import Skills from './components/Skills'
 import CertificateAchievements from './components/CertificateAchievements'
-import AnimatedLines from './components/AnimatedLines'
-import Loader from './components/Loader' // Make sure index.jsx exists in /Loader
-// import ThreeBackground from './components/ThreeBackground';
+import Loader from './components/Loader'
+import CursorTracker from './components/CursorTracker'
 import './App.css'
 
 function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Lazily initialize analytics; ignore failures
+    initAnalytics && initAnalytics()
+
     // Simulate initial loading (can be replaced with real asset/image loading logic)
     const timer = setTimeout(() => {
       setLoading(false)
@@ -28,9 +30,8 @@ function App() {
     <Loader />
   ) : (
     <div className="App">
-      <AnimatedLines />
+      <CursorTracker />
       <Header />
-     {/* <ThreeBackground /> */} 
       <Hero />
       <About />
       <Skills />

@@ -6,7 +6,7 @@ html {
 /* About Section */
 .about-section {
   padding: 5rem 1.5rem;
-  color: #1e293b;
+  color: #ffffff;
   text-align: center;
   animation: fadeIn 1.2s ease-in-out both;
   
@@ -22,7 +22,7 @@ html {
   position: relative;
   font-size: 2rem;
   font-weight: 700;
-  color: #4f46e5;
+  color: #565BCE;
   padding-bottom: 16px;
   display: inline-block;
   text-transform: uppercase;
@@ -37,7 +37,7 @@ html {
   bottom: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  background: linear-gradient(to right, #565BCE, #3395f7, #565BCE);
   border-radius: 2px;
   opacity: 0.9;
 }
@@ -45,7 +45,7 @@ html {
 
 .about-subtitle {
   font-size: 1.25rem;
-  color: #babdc1;
+  color: #ffffff;
   margin-bottom: 3rem;
   max-width: 700px;
   margin-left: auto;
@@ -88,7 +88,7 @@ html {
 
 .about-icon {
   font-size: 2.8rem;
-  color: #6366f1;
+  color: #3395f7;
   margin-bottom: 1rem;
   animation: popIn 0.6s ease-in-out;
 }
@@ -102,8 +102,9 @@ html {
 
 .about-card p {
   font-size: 1rem;
-  color: #a5abb5;
+  color: #ffffff;
   line-height: 1.6;
+  font-weight: 400;
 }
 
 /* Call-to-Action Buttons */

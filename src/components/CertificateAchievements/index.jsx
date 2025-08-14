@@ -77,7 +77,7 @@ const CertificateAchievements = () => {
       description: 'Won the Frontend Hackathon organized by the Student Council at Technocrats Institute of Technology, Bhopal. Event held on 21st June, 2025 and declared winner on 8th July, 2025.',
       date: 'July 2025',
       certificateUrl: 'https://getinterned.verification.url', // Replace with actual URL if available
-      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-_134341_ryfzi8.png' // Upload this certificate somewhere and add the URL
+      certificateImage: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1754231732/IMG20250803195609_k1yyfy.jpg' // Fixed filename to match hosted asset
     },    
   ];
   

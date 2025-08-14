@@ -1,0 +1,108 @@
+:root {
+	--cursor-primary: 0, 170, 255; /* rgb */
+	--cursor-accent: 130, 209, 255; /* rgb */
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--cursor-primary: 0, 150, 255;
+		--cursor-accent: 120, 200, 255;
+	}
+}
+
+/* Keep native cursors on form/interactive elements */
+input, textarea, select, [contenteditable="true"] { cursor: text !important; }
+button, a, [role="button"] { cursor: pointer !important; }
+
+/* Base cursor visuals */
+.cursor-tracker {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 45px;
+	height: 45px;
+	border: 1.6px solid rgba(var(--cursor-accent), 0.9);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	backdrop-filter: blur(6px);
+	background: radial-gradient(circle, rgba(var(--cursor-accent), 0.10) 0%, transparent 70%);
+	box-shadow:
+		0 0 0 1px rgba(var(--cursor-accent), 0.15),
+		0 0 12px rgba(var(--cursor-accent), 0.25),
+		inset 0 0 8px rgba(var(--cursor-accent), 0.18);
+	will-change: transform;
+	z-index: 999999999999999999999999999999999999999999999999999999999999999;
+}
+
+.cursor-dot {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(var(--cursor-accent), 1) 0%, rgba(var(--cursor-primary), 1) 60%, rgba(var(--cursor-accent), 0.2) 100%);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	box-shadow:
+		0 0 8px rgba(var(--cursor-accent), 0.8),
+		0 0 16px rgba(var(--cursor-primary), 0.45),
+		inset 0 0 4px rgba(255, 255, 255, 0.3);
+	will-change: transform;
+}
+
+/* Ghost trail dots for extra smoothness */
+.cursor-ghost {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(var(--cursor-accent), 0.85) 0%, rgba(var(--cursor-primary), 0.85) 70%, rgba(var(--cursor-accent), 0.05) 100%);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	filter: blur(0.2px);
+	opacity: 0.6;
+	will-change: transform;
+}
+
+.cursor-hover {
+	width: 52px;
+	height: 52px;
+	border-color: rgba(var(--cursor-primary), 0.95);
+}
+
+.cursor-dot-hover {
+	width: 14px;
+	height: 14px;
+}
+
+/* Magnetic hover pulse */
+.cursor-hover {
+	box-shadow:
+		0 0 0 1px rgba(var(--cursor-primary), 0.2),
+		0 0 16px rgba(var(--cursor-primary), 0.35),
+		inset 0 0 10px rgba(var(--cursor-primary), 0.22);
+}
+
+@media (max-width: 768px) {
+	.cursor-tracker, .cursor-dot { display: none; }
+}
+
+/* Trail disabled per request */
+.cursor-tracker::before,
+.cursor-tracker::after {
+    content: none !important;
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cursor-tracker, .cursor-dot, .cursor-ghost {
+		transition: none !important;
+		animation: none !important;
+	}
+}
+
+/* Remove sparkles and big ripple for a cleaner look */

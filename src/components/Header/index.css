@@ -29,7 +29,7 @@
 .logo {
   font-size: clamp(20px, 2vw, 32px);
   font-weight: bold;
-  color: #4883e1;
+  color: #565BCE;
   margin-right: auto;
   white-space: nowrap;
   margin-left: 1rem;
@@ -46,7 +46,7 @@
 }
 
 .nav-link {
-  color: #e0e0e0;
+  color: #ffffff;
   text-decoration: none;
   position: relative;
   font-size: 1rem;
@@ -56,11 +56,11 @@
 }
 
 .nav-link:hover {
-  color: #6a44ff;
+  color: #3395f7;
 }
 
 .nav-links li.active .nav-link {
-  color: #6a44ff;
+  color: #3395f7;
   font-weight: 600;
 }
 
@@ -71,7 +71,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(to right, #4f46e5, #6366f1, #8b5cf6);
+  background: linear-gradient(to right, #565BCE, #3395f7, #565BCE);
   border-radius: 10px;
   animation: underline-animation 0.4s ease-in-out forwards;
 }
@@ -197,7 +197,7 @@
 /* Contact Me Button */
 .contact-me {
   display: inline-block;
-  background-color: #2a2929;
+  background-color: #565BCE;
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
@@ -209,7 +209,7 @@
 
 .contact-me:hover,
 .contact-me:active {
-  background-color: #0a66c2;
+  background-color: #3395f7;
   transform: translateY(-2px);
 }
 
@@ -226,7 +226,7 @@
   }
 
   .active-tab-name {
-    color: #6a44ff;
+    color: #3395f7;
     font-weight: 700;
     font-size: 1.2rem;
   }
@@ -237,7 +237,7 @@
     flex-direction: row;
   }
 .active-tab-name {
-    color: #6a44ff;
+    color: #3395f7;
     font-weight: 700;
     font-size: 1.2rem;
   }

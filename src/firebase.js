@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,6 +15,19 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
-export { app, analytics };
+// Guard analytics to avoid INVALID_ARGUMENT when API key or environment is not eligible
+let analyticsInstance = null;
+export const initAnalytics = async () => {
+  try {
+    if (analyticsInstance) return analyticsInstance;
+    const supported = await isSupported().catch(() => false);
+    if (!supported || typeof window === 'undefined') return null;
+    analyticsInstance = getAnalytics(app);
+    return analyticsInstance;
+  } catch {
+    return null;
+  }
+};
+
+export { app };

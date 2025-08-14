@@ -14,26 +14,7 @@
 input, textarea, select, [contenteditable="true"] { cursor: text !important; }
 button, a, [role="button"] { cursor: pointer !important; }
 
-/* Base cursor visuals */
-.cursor-tracker {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 45px;
-	height: 45px;
-	border: 1.6px solid rgba(var(--cursor-accent), 0.9);
-	border-radius: 50%;
-	transform: translate(-50%, -50%);
-	pointer-events: none;
-	backdrop-filter: blur(6px);
-	background: radial-gradient(circle, rgba(var(--cursor-accent), 0.10) 0%, transparent 70%);
-	box-shadow:
-		0 0 0 1px rgba(var(--cursor-accent), 0.15),
-		0 0 12px rgba(var(--cursor-accent), 0.25),
-		inset 0 0 8px rgba(var(--cursor-accent), 0.18);
-	will-change: transform;
-	z-index: 999999999999999999999999999999999999999999999999999999999999999;
-}
+/* Remove ring element styles (ring removed) */
 
 .cursor-dot {
 	position: fixed;
@@ -68,34 +49,36 @@ button, a, [role="button"] { cursor: pointer !important; }
 	will-change: transform;
 }
 
-.cursor-hover {
-	width: 52px;
-	height: 52px;
-	border-color: rgba(var(--cursor-primary), 0.95);
+/* Hover grow for dot only (optional) */
+.cursor-dot-hover { width: 14px; height: 14px; }
+
+@media (max-width: 768px) { .cursor-dot { display: none; } }
+
+/* Particle system */
+.cursor-particles-container {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+	z-index: 999999999;
 }
 
-.cursor-dot-hover {
-	width: 14px;
-	height: 14px;
+.cursor-particle {
+	position: absolute;
+	transform: translate(-50%, -50%) scale(0.6);
+	font-weight: 700;
+	letter-spacing: 0.3px;
+	filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+	opacity: 1;
+	animation: floatFade 2s ease-out forwards;
 }
 
-/* Magnetic hover pulse */
-.cursor-hover {
-	box-shadow:
-		0 0 0 1px rgba(var(--cursor-primary), 0.2),
-		0 0 16px rgba(var(--cursor-primary), 0.35),
-		inset 0 0 10px rgba(var(--cursor-primary), 0.22);
-}
-
-@media (max-width: 768px) {
-	.cursor-tracker, .cursor-dot { display: none; }
-}
-
-/* Trail disabled per request */
-.cursor-tracker::before,
-.cursor-tracker::after {
-    content: none !important;
-    display: none !important;
+@keyframes floatFade {
+	0%   { transform: translate(calc(-50% + var(--xOffset)), calc(-50%)) scale(0.6); opacity: 1; }
+	60%  { transform: translate(calc(-50% + var(--xOffset)), calc(-50% - 20px)) scale(1.15); opacity: 0.35; }
+	100% { transform: translate(calc(-50% + var(--xOffset)), calc(-50% - 50px)) scale(1.35); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

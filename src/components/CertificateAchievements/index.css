@@ -207,11 +207,11 @@
   width: 120px;
   height: 120px;
   transition: transform 0.3s ease, filter 0.3s ease;
-  filter: 
+  /* filter: 
     drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15))
     drop-shadow(0 0 16px rgba(86, 91, 206, 0.6))
     drop-shadow(0 0 24px rgba(51, 149, 247, 0.4))
-    drop-shadow(0 0 32px rgba(86, 91, 206, 0.3));
+    drop-shadow(0 0 32px rgba(86, 91, 206, 0.3)); */
 }
 
 .badge-card {

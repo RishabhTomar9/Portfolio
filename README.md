@@ -3,7 +3,7 @@
 A modern, responsive developer portfolio built with React and Vite. It showcases projects, skills, certificates, achievements, and an animated experience powered by GSAP with a custom cursor and interactive visual details.
 
 ### Live Preview
-- Add your deployment URL here once published (for example: `https://<your-domain>`)
+- Add your deployment URL here once published (for example: `https://portfolio-nxt8349.web.app/`)
 
 ### Key Features
 - Animated Hero section with typewriter effects, staggered entrance, and floating elements

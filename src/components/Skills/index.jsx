@@ -12,6 +12,7 @@ import {
   FaGitAlt,
   FaPython,
   FaPencilRuler,
+  FaFire
 } from 'react-icons/fa';
 
 const Skills = () => {
@@ -28,6 +29,7 @@ const Skills = () => {
     { name: 'MongoDB', level: 75, icon: <FaDatabase className="skill-icon mongodb" />, description: 'NoSQL Database' },
     { name: 'SQL', level: 80, icon: <FaDatabase className="skill-icon sql" />, description: 'Relational Queries' },
     { name: 'Git', level: 85, icon: <FaGitAlt className="skill-icon git" />, description: 'Version Control' },
+    { name: 'Firebase', level: 82, icon: <FaFire className="skill-icon firebase" />, description: 'Backend as a Service' },
     { name: 'Design', level: 70, icon: <FaPencilRuler className="skill-icon design" />, description: 'UI/UX Basics' },
   ];
 

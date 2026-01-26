@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaCode, FaLaptopCode, FaUserAstronaut } from 'react-icons/fa';
-import Button from '../Buttons';
+import Button from '../Buttons/Buttons';
 
 const cardData = [
   {

@@ -37,7 +37,7 @@ const Hero = () => {
   const isMobile = width <= 768;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-25">
 
       {/* Moving Grid Background */}
       <MovingGrid />

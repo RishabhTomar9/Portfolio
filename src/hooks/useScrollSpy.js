@@ -5,36 +5,43 @@ const useScrollSpy = (ids, offset = 0) => {
 
     useEffect(() => {
         const listener = () => {
-            const scrollPosition = window.scrollY + offset;
-
-            let foundId = ''; // Default to no active section
-
-            // Find the last section that is above the scroll position
-            for (const id of ids) {
+            const scrollInfo = ids.map(id => {
                 const element = document.getElementById(id);
-                if (element) {
-                    const offsetTop = element.offsetTop;
-                    // Look ahead to the next section to see if we are currently "in" this one
-                    const nextElement = document.getElementById(ids[ids.indexOf(id) + 1]);
-                    const nextOffsetTop = nextElement ? nextElement.offsetTop : Infinity;
+                if (!element) return { id, top: 0, bottom: 0 };
+                const rect = element.getBoundingClientRect();
+                return {
+                    id,
+                    top: rect.top + window.scrollY,
+                    height: rect.height
+                };
+            });
 
-                    if (scrollPosition >= offsetTop - 150 && scrollPosition < nextOffsetTop - 150) {
-                        foundId = id;
-                        break;
-                    }
+            // Calculate current scroll position (middle of viewport is a good trigger)
+            const viewportMiddle = window.scrollY + (window.innerHeight / 3);
+
+            // Default to first section if at top
+            if (window.scrollY < 100) {
+                setActiveId(ids[0]);
+                return;
+            }
+
+            // check if we are at bottom
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                setActiveId(ids[ids.length - 1]);
+                return;
+            }
+
+            // Find section containing the viewport middle
+            for (let i = 0; i < scrollInfo.length; i++) {
+                const section = scrollInfo[i];
+                const nextSection = scrollInfo[i + 1];
+
+                // If it's the last section, or if viewport is between this and next
+                if (!nextSection || (viewportMiddle >= section.top && viewportMiddle < nextSection.top)) {
+                    setActiveId(section.id);
+                    break;
                 }
             }
-
-            // If no section found but we are at the top, maybe activate the first one?
-            // Or if we are past everything, maybe the last one?
-            // For now, let's keep it simple. If we break the loop, we found it.
-
-            // Fallback: Check if we are at the very bottom of the page
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
-                foundId = ids[ids.length - 1];
-            }
-
-            setActiveId(foundId);
         };
 
         window.addEventListener('scroll', listener);

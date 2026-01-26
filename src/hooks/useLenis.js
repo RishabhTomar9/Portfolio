@@ -8,12 +8,12 @@ const useLenis = (enable = true) => {
         if (!enable) return;
 
         const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            duration: 0.8,
+            easing: (t) => 1 - Math.pow(1 - t, 4), // Quartic easing
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1,
+            mouseMultiplier: 1.2,
             smoothTouch: false,
             touchMultiplier: 2,
         });

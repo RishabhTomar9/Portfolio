@@ -7,30 +7,42 @@ import {
   FaDatabase,
   FaGitAlt,
   FaPython,
-  FaSnowflake,
-  FaFire,
-  FaTerminal
+  FaHtml5,
+  FaCss3Alt,
+  FaPencilRuler
 } from "react-icons/fa";
 
-const skills = [
-  { name: "React", level: 90, icon: <FaReact />, color: "rgba(97, 218, 251, 0.3)", description: "Frontend Architecture", tools: "Next.js, Tailwind, Framer" },
-  { name: "JavaScript", level: 85, icon: <FaJs />, color: "rgba(247, 223, 30, 0.3)", description: "Core Logic / ES6+", tools: "Typescript, OOP, DOM" },
-  { name: "Node.js", level: 80, icon: <FaNodeJs />, color: "rgba(104, 160, 99, 0.3)", description: "Server-side Runtime", tools: "Express, PM2, MVC" },
-  { name: "Python", level: 90, icon: <FaPython />, color: "rgba(55, 118, 171, 0.3)", description: "Automation & Scripting", tools: "Pandas, BeautifulSoup" },
-  { name: "Snowflake", level: 80, icon: <FaSnowflake />, color: "rgba(41, 181, 232, 0.3)", description: "Cloud Data Warehouse", tools: "SnowSQL, Tasks, Pipes" },
-  { name: "SQL", level: 85, icon: <FaDatabase />, color: "rgba(0, 117, 143, 0.3)", description: "Complex Querying", tools: "PostgreSQL, PL/SQL" },
-  { name: "Firebase", level: 82, icon: <FaFire />, color: "rgba(255, 202, 40, 0.3)", description: "BaaS & Realtime DB", tools: "Firestore, Auth, Cloud Functions" },
-  { name: "Git", level: 85, icon: <FaGitAlt />, color: "rgba(240, 80, 50, 0.3)", description: "Version Control", tools: "GitHub Actions, CI/CD" },
-  { name: "Terminal", level: 95, icon: <FaTerminal />, color: "rgba(255, 255, 255, 0.2)", description: "System Ops", tools: "Shell Scripting, Linux" },
+const technicalSkills = [
+  { name: 'React', level: 90, icon: <FaReact />, color: "rgba(97, 218, 251, 0.3)", description: "Frontend Library", tools: "Next.js, Redux, Context" },
+  { name: 'JavaScript', level: 85, icon: <FaJs />, color: "rgba(247, 223, 30, 0.3)", description: "Core Language", tools: "ES6+, TypeScript, DOM" },
+  { name: 'Node.js', level: 80, icon: <FaNodeJs />, color: "rgba(104, 160, 99, 0.3)", description: "Backend Runtime", tools: "Express, PM2, Event Loop" },
+  { name: 'HTML', level: 95, icon: <FaHtml5 />, color: "rgba(227, 76, 38, 0.3)", description: "Structure", tools: "Semantic Elements, SEO" },
+  { name: 'CSS', level: 95, icon: <FaCss3Alt />, color: "rgba(38, 77, 228, 0.3)", description: "Styling", tools: "Tailwind, SASS, Animations" },
+  { name: 'Python', level: 90, icon: <FaPython />, color: "rgba(55, 118, 171, 0.3)", description: "Scripting & AI", tools: "Pandas, Flask, Automation" },
+  { name: 'MongoDB', level: 75, icon: <FaDatabase />, color: "rgba(71, 162, 72, 0.3)", description: "NoSQL Database", tools: "Mongoose, Aggregations" },
+  { name: 'SQL', level: 80, icon: <FaDatabase />, color: "rgba(0, 117, 143, 0.3)", description: "Relational DB", tools: "PostgreSQL, MySQL, PL/SQL" },
+  { name: 'Git', level: 85, icon: <FaGitAlt />, color: "rgba(240, 80, 50, 0.3)", description: "Version Control", tools: "GitHub, GitLab, CI/CD" },
+  { name: 'Design', level: 70, icon: <FaPencilRuler />, color: "rgba(255, 0, 128, 0.3)", description: "UI/UX Concepts", tools: "Figma, Adobe XD, Wireframing" },
 ];
 
 const softSkills = [
-  "Leadership",
-  "Architecture",
-  "Optimization",
-  "Teamwork",
-  "Adaptability",
-  "Strategy",
+  { name: 'Teamwork', emoji: '🤝' },
+  { name: 'Problem Solving', emoji: '🧠' },
+  { name: 'Time Management', emoji: '⏱' },
+  { name: 'Leadership', emoji: '👨‍💼' },
+  { name: 'Goal-Oriented', emoji: '🎯' },
+  { name: 'Communication', emoji: '💬' },
+  { name: 'Adaptability', emoji: '🔄' },
+  { name: 'Creativity', emoji: '🎨' },
+  { name: 'Critical Thinking', emoji: '🧩' },
+  { name: 'Emotional Intelligence', emoji: '❤️' },
+  { name: 'Collaboration', emoji: '👥' },
+  { name: 'Decision Making', emoji: '🧭' },
+  { name: 'Self-Motivation', emoji: '🚀' },
+  { name: 'Flexibility', emoji: '🌈' },
+  { name: 'Initiative', emoji: '⚡' },
+  { name: 'Accountability', emoji: '🧾' },
+  { name: 'Resilience', emoji: '🛡️' },
 ];
 
 const fadeUp = {
@@ -125,11 +137,43 @@ const Skills = () => {
             </div>
           </div>
 
-          {/* SKILLS GRID */}
+          {/* TECHNICAL SKILLS GRID */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {skills.map((skill, index) => (
+            {technicalSkills.map((skill, index) => (
               <SkillCard key={skill.name} skill={skill} index={index} isInView={isInView} />
             ))}
+          </div>
+
+          {/* SOFT SKILLS SECTION */}
+          <div className="mt-12">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="mb-8 flex items-center gap-3"
+            >
+              <span className="w-8 h-[2px] bg-blue-500" />
+              <span className="text-xs font-mono text-blue-400 tracking-[0.4em] uppercase">Interpersonal Traits</span>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              {softSkills.map((skill, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
+                  className="flex items-center gap-2 px-4 py-3 rounded-full bg-zinc-900/50 border border-white/5 text-sm md:text-base text-zinc-300 cursor-default hover:text-white hover:border-blue-500/30 transition-all font-tech"
+                >
+                  <span className="text-lg">{skill.emoji}</span>
+                  <span className="tracking-wide">{skill.name}</span>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
         </div>
@@ -137,5 +181,4 @@ const Skills = () => {
     </section>
   );
 };
-
 export default Skills;

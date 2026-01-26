@@ -45,8 +45,8 @@ const CertificateAchievements = () => {
               <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Credentials</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
-              Verified <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Milestones.</span>
+              Verified
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Milestones.</span>
             </h2>
           </motion.div>
           <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block">

@@ -112,13 +112,13 @@ const About = () => {
               <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Identity</span>
             </div>
             <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
-              Core <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Engine.</span>
+              Core
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Engine.</span>
             </h2>
           </motion.div>
 
           <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
-            Location: India <br />
+            Location: Bhopal, India <br />
             Status: Available
           </div>
         </div>

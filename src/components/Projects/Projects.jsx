@@ -180,8 +180,8 @@ const Projects = () => {
               <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Showcase</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
-              Featured <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Works.</span>
+              Featured 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Works.</span>
             </h2>
           </motion.div>
 

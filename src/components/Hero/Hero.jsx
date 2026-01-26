@@ -81,7 +81,7 @@ const Hero = () => {
       <DataStream />
 
       {/* Floating Ambient Orbs */}
-      <motion.div
+      {/* <motion.div
         animate={{ x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.2, 1] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"
@@ -90,7 +90,7 @@ const Hero = () => {
         animate={{ x: [0, -60, 0], y: [0, 60, 0], scale: [1, 1.3, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
-      />
+      /> */}
 
       <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
 
@@ -154,16 +154,24 @@ const Hero = () => {
               href="#projects"
               variant="primary"
               className="!rounded-full !px-8 !py-4"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              Explore Voyage <span className="text-xl">→</span>
+              Explore Projects <span className="text-xl">→</span>
             </Button>
 
             <Button
               href="#contact"
               variant="ghost"
               className="!rounded-full !px-8 !py-4"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
-              Initialize Contact
+              Contact Me!
             </Button>
           </div>
 

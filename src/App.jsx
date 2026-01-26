@@ -1,86 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import { app } from './firebase'
-import { motion, useScroll, useSpring } from 'framer-motion'
-import useLenis from './hooks/useLenis'
-import Hero from './components/Hero/Hero'
-import Header from './components/Header/Header'
-import About from './components/About/About'
-import Projects from './components/Projects/Projects'
-import Footer from './components/Footer/Footer'
-import Experience from './components/Experience/Experience'
-import Skills from './components/Skills/Skills'
-import CertificateAchievements from './components/CertificateAchievements/CertificateAchievements'
-import Loader from './components/Loader/Loader'
-import CursorTracker from './components/CursorTracker/CursorTracker'
-import ScrollReveal from './components/ScrollReveal'
-import ScrollStatus from './components/ScrollStatus'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import useLenis from './hooks/useLenis';
 
+// Global Layout Components
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Loader from './components/Loader/Loader';
+import CursorTracker from './components/CursorTracker/CursorTracker';
+// import GlobalBackground from './components/common/GlobalBackground';
 
-import GlobalBackground from './components/common/GlobalBackground'
+// Page Components
+import Hero from './components/Hero/Hero';
+import About from './components/About/About';
+import Experience from './components/Experience/Experience';
+import Skills from './components/Skills/Skills';
+import CertificateAchievements from './components/CertificateAchievements/CertificateAchievements';
+import Projects from './components/Projects/Projects';
+
+// Scroll To Top Utility
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+// Home Page Component (Renders all sections for SPA feel)
+const Home = () => (
+  <>
+    <Hero />
+    <About />
+    <Experience />
+    <Skills />
+    <CertificateAchievements />
+    <Projects />
+  </>
+);
 
 function App() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
-  // Initialize Lenis smooth scrolling when not loading
+  // Initialize Lenis smooth scrolling
   useLenis(!loading);
-
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-
-
-    // Simulate initial loading (can be replaced with real asset/image loading logic)
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 5500)
-
-    return () => clearTimeout(timer)
-  }, [])
 
   return loading ? (
     <Loader onFinish={() => setLoading(false)} />
   ) : (
-    <div className="App">
-      <GlobalBackground />
-      <motion.div className="scroll-progress" style={{ scaleX }} />
-      <CursorTracker />
-      <ScrollStatus />
-      <Header />
+    <Router>
+      <ScrollToTop />
+      <div className="App">
+        {/* <GlobalBackground /> */}
+        <CursorTracker />
 
-      <ScrollReveal>
-        <Hero />
-      </ScrollReveal>
+        {/* Header stays visible on all pages */}
+        <Header />
 
-      <ScrollReveal>
-        <About />
-      </ScrollReveal>
+        <main className="min-h-screen">
+          <Routes>
+            {/* Home Route Renders All Sections */}
+            <Route path="/" element={<Home />} />
 
-      <ScrollReveal>
-        <Experience />
-      </ScrollReveal>
+            {/* Individual Page Routes */}
+            <Route path="/about" element={<About />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/credentials" element={<CertificateAchievements />} />
+            <Route path="/projects" element={<Projects />} />
 
-      <ScrollReveal>
-        <Skills />
-      </ScrollReveal>
+            {/* Redirect any unknown route to Home */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </main>
 
-      <ScrollReveal>
-        <CertificateAchievements />
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <Projects />
-      </ScrollReveal>
-
-      <ScrollReveal>
+        {/* Footer stays visible on all pages */}
         <Footer />
-      </ScrollReveal>
-    </div>
-  )
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

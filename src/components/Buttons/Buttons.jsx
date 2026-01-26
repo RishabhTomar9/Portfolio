@@ -6,15 +6,17 @@ const Button = ({
   href = "https://drive.google.com/file/d/1jbqOROtleFOd6Qi-ASxT1arK_rqWliSL/view?usp=sharing",
   children = "Download CV",
   className = "",
-  variant = "primary" // primary, ghost
+  variant = "primary", // primary, ghost
+  ...props
 }) => {
   const isPrimary = variant === 'primary';
+  const isExternal = href.startsWith('http');
 
   return (
     <motion.a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={`
@@ -25,6 +27,7 @@ const Button = ({
           : 'bg-zinc-950 text-white border border-white/10 hover:border-white/20'}
         ${className}
       `}
+      {...props}
     >
       {/* Background Gradient Animation */}
       <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.15),transparent_70%)] pointer-events-none`} />

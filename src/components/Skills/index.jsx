@@ -10,43 +10,27 @@ import {
   FaGitAlt,
   FaPython,
   FaPencilRuler,
-<<<<<<< HEAD
   FaSnowflake,
-  FaFire,
-=======
   FaFire
->>>>>>> 5d1bba68460bba14259667e28c77768a2b593ff3
 } from 'react-icons/fa';
 
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-<<<<<<< HEAD
   const skills = [
-    { name: 'React', level: 90, icon: <FaReact className="text-[#61dafb]" /> },
-    { name: 'Node.js', level: 80, icon: <FaNodeJs className="text-[#68a063]" /> },
-    { name: 'JavaScript', level: 85, icon: <FaJs className="text-[#f7df1e]" /> },
-    { name: 'PL/SQL', level: 85, icon: <FaDatabase className="text-[#c0c0c0]" /> },
-    { name: 'Snowflake', level: 80, icon: <FaSnowflake className="text-[#29b5e8]" /> },
-    { name: 'Firebase', level: 75, icon: <FaFire className="text-[#ffca28]" /> },
-    { name: 'MongoDB', level: 75, icon: <FaDatabase className="text-[#4db33d]" /> },
-    { name: 'Python', level: 85, icon: <FaPython className="text-[#3776ab]" /> },
-    { name: 'Git', level: 85, icon: <FaGitAlt className="text-[#f05032]" /> },
-=======
-  const technicalSkills = [
-    { name: 'React', level: 90, icon: <FaReact className="skill-icon react" />, description: 'UI Components' },
-    { name: 'JavaScript', level: 85, icon: <FaJs className="skill-icon javascript" />, description: 'Web Logic' },
-    { name: 'Node.js', level: 80, icon: <FaNodeJs className="skill-icon nodejs" />, description: 'Backend Runtime' },
-    { name: 'HTML', level: 95, icon: <FaHtml5 className="skill-icon html" />, description: 'Page Structure' },
-    { name: 'CSS', level: 95, icon: <FaCss3Alt className="skill-icon css" />, description: 'Web Styling' },
-    { name: 'Python', level: 90, icon: <FaPython className="skill-icon python" />, description: 'Scripting Language' },
-    { name: 'MongoDB', level: 75, icon: <FaDatabase className="skill-icon mongodb" />, description: 'NoSQL Database' },
-    { name: 'SQL', level: 80, icon: <FaDatabase className="skill-icon sql" />, description: 'Relational Queries' },
-    { name: 'Git', level: 85, icon: <FaGitAlt className="skill-icon git" />, description: 'Version Control' },
-    { name: 'Firebase', level: 82, icon: <FaFire className="skill-icon firebase" />, description: 'Backend as a Service' },
-    { name: 'Design', level: 70, icon: <FaPencilRuler className="skill-icon design" />, description: 'UI/UX Basics' },
->>>>>>> 5d1bba68460bba14259667e28c77768a2b593ff3
+    { name: 'React', level: 90, icon: <FaReact className="text-[#61dafb]" />, description: 'UI Components' },
+    { name: 'JavaScript', level: 85, icon: <FaJs className="text-[#f7df1e]" />, description: 'Web Logic' },
+    { name: 'Node.js', level: 80, icon: <FaNodeJs className="text-[#68a063]" />, description: 'Backend Runtime' },
+    { name: 'HTML', level: 95, icon: <FaHtml5 className="text-[#e34f26]" />, description: 'Page Structure' },
+    { name: 'CSS', level: 95, icon: <FaCss3Alt className="text-[#1572b6]" />, description: 'Web Styling' },
+    { name: 'Python', level: 90, icon: <FaPython className="text-[#3776ab]" />, description: 'Scripting Language' },
+    { name: 'MongoDB', level: 75, icon: <FaDatabase className="text-[#4db33d]" />, description: 'NoSQL Database' },
+    { name: 'SQL', level: 80, icon: <FaDatabase className="text-[#00758f]" />, description: 'Relational Queries' },
+    { name: 'Git', level: 85, icon: <FaGitAlt className="text-[#f05032]" />, description: 'Version Control' },
+    { name: 'Firebase', level: 82, icon: <FaFire className="text-[#ffca28]" />, description: 'Backend as a Service' },
+    { name: 'Snowflake', level: 80, icon: <FaSnowflake className="text-[#29b5e8]" />, description: 'Data Warehousing' },
+    { name: 'Design', level: 70, icon: <FaPencilRuler className="text-[#f24e1e]" />, description: 'UI/UX Basics' },
   ];
 
   const softSkills = ["Leadership", "Problem Solving", "Creativity", "Teamwork", "Adaptability", "Communication"];

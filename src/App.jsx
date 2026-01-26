@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { app } from './firebase'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import useLenis from './hooks/useLenis'
 import Hero from './components/Hero/Hero'
 import Header from './components/Header/Header'
@@ -12,6 +13,7 @@ import CertificateAchievements from './components/CertificateAchievements/Certif
 import Loader from './components/Loader/Loader'
 import CursorTracker from './components/CursorTracker/CursorTracker'
 import ScrollReveal from './components/ScrollReveal'
+import ScrollStatus from './components/ScrollStatus'
 
 
 function App() {
@@ -19,6 +21,13 @@ function App() {
 
   // Initialize Lenis smooth scrolling when not loading
   useLenis(!loading);
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
 
@@ -35,7 +44,9 @@ function App() {
     <Loader onFinish={() => setLoading(false)} />
   ) : (
     <div className="App">
+      <motion.div className="scroll-progress" style={{ scaleX }} />
       <CursorTracker />
+      <ScrollStatus />
       <Header />
 
       <ScrollReveal>

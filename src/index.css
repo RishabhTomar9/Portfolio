@@ -20,16 +20,12 @@
 
     body {
         @apply bg-zinc-950 text-white overflow-x-hidden font-sans;
-        background-image:
-            radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15), transparent 40%),
-            radial-gradient(circle at 0% 50%, rgba(59, 130, 246, 0.1), transparent 30%),
-            radial-gradient(circle at 100% 50%, rgba(234, 179, 8, 0.1), transparent 30%);
         background-attachment: fixed;
     }
 
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
-        width: 6px;
+        display: none;
     }
 
     ::-webkit-scrollbar-track {

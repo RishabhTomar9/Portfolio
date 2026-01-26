@@ -8,14 +8,15 @@ const useLenis = (enable = true) => {
         if (!enable) return;
 
         const lenis = new Lenis({
-            duration: 0.8,
-            easing: (t) => 1 - Math.pow(1 - t, 4), // Quartic easing
+            duration: 1.5, // Increased from 0.8
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing for better feel
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
-            mouseMultiplier: 1.2,
-            smoothTouch: false,
-            touchMultiplier: 2,
+            mouseMultiplier: 1.0,
+            smoothTouch: true, // Enable for mobile smoothness
+            touchMultiplier: 1.5,
+            infinite: false,
         });
 
         lenisRef.current = lenis;

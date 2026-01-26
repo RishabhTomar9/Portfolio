@@ -27,7 +27,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-[100]">
       <motion.div
         className={`w-full transition-all duration-500 ${scrolled || menuOpen
-          ? 'bg-black/80 backdrop-blur-2xl border-b border-white/10 py-3 shadow-lg shadow-purple-900/10'
+          ? 'bg-black/60 backdrop-blur-2xl border-b border-white/10 py-5 shadow-lg shadow-purple-900/10'
           : 'bg-transparent py-5'
           }`}
         initial={{ y: -100, opacity: 0 }}

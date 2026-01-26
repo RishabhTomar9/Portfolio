@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 
-const GHOST_COUNT = 8
+const GHOST_COUNT = 12
 const LANGUAGES = [
   'HTML', 'CSS', 'JS', 'React', 'Node', 'SQL', 'MongoDB', 'Python', 'AWS', 'Git'
 ];
@@ -72,8 +72,8 @@ const CursorTracker = () => {
     }
 
     const animate = () => {
-      dotX = lerp(dotX, targetX, 0.2)
-      dotY = lerp(dotY, targetY, 0.2)
+      dotX = lerp(dotX, targetX, 0.1)
+      dotY = lerp(dotY, targetY, 0.1)
       cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`
 
       // init ghosts
@@ -89,7 +89,7 @@ const CursorTracker = () => {
       ghosts.forEach((g, i) => {
         const el = g.el
         if (!el) return
-        const t = 0.15 - i * 0.015
+        const t = 0.1 - i * 0.008
         g.x = lerp(g.x, targetX, Math.max(0.01, t))
         g.y = lerp(g.y, targetY, Math.max(0.01, t))
         el.style.transform = `translate(${g.x}px, ${g.y}px)`
@@ -115,12 +115,13 @@ const CursorTracker = () => {
     <>
       <style>{`
         .cursor-dot {
-          @apply fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference;
-          margin-left: -6px;
-          margin-top: -6px;
+          @apply fixed top-0 left-0 w-2.5 h-2.5 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference;
+          margin-left: -5px;
+          margin-top: -5px;
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
         .cursor-ghost {
-          @apply fixed top-0 left-0 w-8 h-8 border border-white/20 rounded-full pointer-events-none z-[9998];
+          @apply fixed top-0 left-0 w-8 h-8 border border-white/10 rounded-full pointer-events-none z-[9998];
           margin-left: -16px;
           margin-top: -16px;
           transition: opacity 0.3s;

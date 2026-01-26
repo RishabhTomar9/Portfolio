@@ -1,33 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics, isSupported } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDQvII2gELlYtih9yB21Djl9e6KEY1-MA8",
-  authDomain: "rishabh-portfolio-5d326.firebaseapp.com",
-  projectId: "rishabh-portfolio-5d326",
-  storageBucket: "rishabh-portfolio-5d326.appspot.com",
-  messagingSenderId: "375585906189",
-  appId: "1:375585906189:web:6d39314deb14c9685aff44",
-  measurementId: "G-WG2GXNF41R"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Guard analytics to avoid INVALID_ARGUMENT when API key or environment is not eligible
-let analyticsInstance = null;
-export const initAnalytics = async () => {
-  try {
-    if (analyticsInstance) return analyticsInstance;
-    const supported = await isSupported().catch(() => false);
-    if (!supported || typeof window === 'undefined') return null;
-    analyticsInstance = getAnalytics(app);
-    return analyticsInstance;
-  } catch {
-    return null;
-  }
-};
 
 export { app };

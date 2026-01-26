@@ -1,69 +1,79 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-  color-scheme: light dark;
-  color: #ffffff;
-  background-color: #000000;
+@theme {
+    --color-neon-purple: #a855f7;
+    --color-neon-blue: #3b82f6;
+    --color-neon-yellow: #eab308;
+    --color-zinc-950: #09090b;
+    /* Deep background */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --font-tech: "Space Grotesk", system-ui, sans-serif;
 }
 
-a {
-  font-weight: 500;
-  color: #3395f7;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #565BCE;
+@layer base {
+
+
+    body {
+        @apply bg-zinc-950 text-white overflow-x-hidden font-sans;
+        background-image:
+            radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15), transparent 40%),
+            radial-gradient(circle at 0% 50%, rgba(59, 130, 246, 0.1), transparent 30%),
+            radial-gradient(circle at 100% 50%, rgba(234, 179, 8, 0.1), transparent 30%);
+        background-attachment: fixed;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-zinc-950;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-zinc-800 rounded-full hover:bg-zinc-700;
+    }
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-}
+@layer utilities {
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-blue-400 to-yellow-400;
+    }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+    .glass-card {
+        @apply bg-zinc-900/60 backdrop-blur-xl border border-zinc-800/50 shadow-lg;
+    }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #565BCE;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-button:hover {
-  border-color: #3395f7;
-  background-color: #3395f7;
-  transform: translateY(-2px);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+    .neon-border {
+        @apply border border-transparent hover:border-purple-500/50 transition-colors duration-300;
+    }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    .tech-grid-bg {
+        background-size: 50px 50px;
+        background-image:
+            linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    }
+
+    .animate-gradient-x {
+        background-size: 200% 200%;
+        animation: gradient-x 3s ease infinite;
+    }
+
+    @keyframes gradient-x {
+        0% {
+            background-position: 0% 50%
+        }
+
+        50% {
+            background-position: 100% 50%
+        }
+
+        100% {
+            background-position: 0% 50%
+        }
+    }
 }

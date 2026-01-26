@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import emailjs from 'emailjs-com';
+// import emailjs from 'emailjs-com'; // Removed as per request
+import { db } from '../../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaGithub, FaLinkedin, FaTwitter, FaInstagram,
@@ -10,19 +12,50 @@ const Footer = () => {
   const form = useRef();
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
 
-  const sendEmail = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
 
-    emailjs.sendForm('service_yx20o37', 'template_ferysey', form.current, 'XPeUDsKOZlXR6SmO1')
-      .then(() => {
-        setStatus('success');
-        setTimeout(() => setStatus('idle'), 5000);
-        e.target.reset();
-      }, (error) => {
-        console.error(error.text);
-        setStatus('error');
-      });
+    if (!db) {
+      console.error("FIREBASE ERROR: Database instance undefined.");
+      setStatus('error');
+      return;
+    }
+
+    const formData = new FormData(form.current);
+    const name = formData.get('user_name');
+    const email = formData.get('user_email');
+    const messageContent = formData.get('message');
+
+    const emailData = {
+      to: 'rishabhtomar9999@gmail.com',
+      message: {
+        subject: `Portfolio Inquiry from ${name}`,
+        html: `
+          <div style="font-family: monospace; padding: 20px; background: #f4f4f5; border-radius: 8px;">
+            <h2 style="color: #6366f1;">New Portfolio Inquiry</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <hr style="border: 1px solid #e4e4e7;" />
+            <p style="white-space: pre-wrap;">${messageContent}</p>
+          </div>
+        `,
+      },
+      name: name,
+      email: email,
+      content: messageContent,
+      timestamp: serverTimestamp(),
+    };
+
+    try {
+      await addDoc(collection(db, "mail"), emailData);
+      setStatus('success');
+      setTimeout(() => setStatus('idle'), 5000);
+      form.current.reset();
+    } catch (error) {
+      console.error("FIREBASE ERROR:", error);
+      setStatus('error');
+    }
   };
 
   const contactItems = [
@@ -95,7 +128,7 @@ const Footer = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
 
               <div className="relative bg-zinc-900/50 backdrop-blur-xl border border-white/5 p-8 md:p-12 rounded-2xl shadow-2xl">
-                <form ref={form} onSubmit={sendEmail} className="space-y-6">
+                <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-mono text-zinc-500 uppercase ml-2">Name</label>
@@ -138,7 +171,7 @@ const Footer = () => {
                       )}
                       {status === 'success' && (
                         <motion.div key="success" className="flex items-center gap-2">
-                          Sent Successfully <FaCheckCircle />
+                          Message Sent <FaCheckCircle />
                         </motion.div>
                       )}
                     </AnimatePresence>

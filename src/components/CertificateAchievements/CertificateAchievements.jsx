@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaAward, FaMedal, FaTrophy } from 'react-icons/fa';
+import { FaAward, FaMedal, FaTrophy, FaExternalLinkAlt } from 'react-icons/fa';
 
 const certificates = [
   { title: 'AWS Academy Cloud Foundations', date: 'May 2025', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1748260666/Screenshot_2025-05-26_172133_lkg753.png', link: 'https://www.jioaicloud.com/l/?u=kcIluVmkXp6xM12t7TueIeymDqgmg-Cx5hBpUFkejDE=doB' },
@@ -27,128 +27,151 @@ const achievements = [
 
 const CertificateAchievements = () => {
   return (
-    <section id="milestones" className="py-32 relative overflow-hidden">
+    <section id="milestones" className="py-32 relative bg-[#050505] overflow-hidden">
+      {/* Dynamic Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
 
-        {/* Header */}
-        <div className="text-center mb-24">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-yellow-400 text-[10px] font-mono tracking-[0.3em] uppercase mb-4"
           >
-            Proof // Excellence
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-[2px] bg-purple-500" />
+              <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Credentials</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+              Verified <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Milestones.</span>
+            </h2>
           </motion.div>
-          <motion.h2
-            className="text-5xl md:text-7xl font-black mb-4 font-tech tracking-tighter"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            MILESTONES <span className="text-gradient">ACHIEVED</span>
-          </motion.h2>
+          <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block">
+            Status: Archive_Updated_2026<br />
+            Auth: 2FA_Verified
+          </div>
         </div>
 
-        {/* Certificates Section */}
+        {/* 1. Certificates Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
+          {certificates.map((cert, index) => (
+            <motion.a
+              key={index}
+              href={cert.image}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -5 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="group relative bg-zinc-900/50 border border-white/5 rounded-2xl overflow-hidden backdrop-blur-sm cursor-pointer block"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-zinc-950 relative">
+                <img
+                  src={cert.image}
+                  alt={cert.title}
+                  className="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                />
+
+                {/* Hover Overlay with Link Icon */}
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+
+                <div className="absolute top-4 right-4 bg-purple-500 p-2 rounded-lg border border-white/20 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                  <FaExternalLinkAlt className="text-white text-xs" />
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <p className="text-[10px] font-mono text-purple-500 uppercase tracking-tighter">
+                    {cert.date}
+                  </p>
+                  {/* Subtle "Verify" text on hover */}
+                  <span className="text-[8px] font-mono text-zinc-600 opacity-0 group-hover:opacity-100 uppercase transition-opacity">
+                    Verify_ID
+                  </span>
+                </div>
+                <h4 className="text-white font-bold leading-tight group-hover:text-purple-400 transition-colors">
+                  {cert.title}
+                </h4>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+
+        {/* 2. Badges Hex-Style Row */}
         <div className="mb-32">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {certificates.map((cert, index) => (
+          <h3 className="text-xs font-mono text-zinc-600 uppercase tracking-[0.5em] mb-12 text-center underline decoration-zinc-800 underline-offset-8">
+            Digital_Collectibles
+          </h3>
+          <div className="flex flex-wrap justify-center gap-10 md:gap-16">
+            {badges.map((badge, index) => (
               <motion.a
                 key={index}
-                href={cert.image}
+                href={badge.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative rounded-3xl overflow-hidden glass-card border border-white/5"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+                className="group relative"
+                whileHover={{ scale: 1.1 }}
               >
-                <img src={cert.image} alt={cert.title} className="w-full h-full object-contain transition-all duration-700 opacity-40 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent flex flex-col justify-end p-6">
-                  <span className="text-[10px] text-purple-400 font-mono mb-2 tracking-widest uppercase">{cert.date}</span>
-                  <h4 className="text-lg font-bold text-white leading-tight group-hover:text-purple-300 transition-colors font-tech">{cert.title}</h4>
+                <div className="w-20 h-20 md:w-24 md:h-24 relative z-10 flex items-center justify-center transition-all duration-500">
+                  <img src={badge.image} alt={badge.title} className="w-full h-full object-contain" />
                 </div>
+                {/* Background Glow */}
+                <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <p className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-mono text-zinc-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all uppercase tracking-tighter">
+                  {badge.title}
+                </p>
               </motion.a>
             ))}
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-16">
-          {/* Badges Column */}
-          <div className="lg:col-span-12">
-            <h3 className="text-3xl font-black text-white mb-12 font-tech tracking-tight flex items-center gap-4">
-              BADGES <span className="h-px flex-grow bg-gradient-to-r from-zinc-800 to-transparent"></span>
-            </h3>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
-              {badges.map((badge, index) => (
-                <motion.a
-                  key={index}
-                  href={badge.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex flex-col items-center gap-4"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center p-6 rounded-full bg-zinc-950 border border-white/5 group-hover:border-blue-500/30 group-hover:bg-blue-500/5 transition-all duration-500 shadow-2xl">
-                    <img src={badge.image} alt={badge.title} className="w-full h-full object-contain group-hover:scale-110 transition-transform" />
-                    <div className="absolute inset-x-0 -bottom-2 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="bg-blue-500 text-[8px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-tighter">Verified</span>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-[0.2em] text-center max-w-[120px] group-hover:text-zinc-300 transition-colors">
-                    {badge.title}
+        {/* 3. Major Wins (The "Trophy Room") */}
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black text-white font-tech uppercase flex items-center gap-4">
+            <FaTrophy className="text-orange-500" />
+            Major Wins
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {achievements.map((ach, idx) => (
+              <motion.a
+                key={idx}
+                href={ach.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ x: 10 }}
+                className="p-8 bg-gradient-to-r from-zinc-900/80 to-transparent border-l-4 border-orange-500 rounded-r-2xl border-y border-white/5 flex justify-between items-center group cursor-pointer"
+              >
+                <div>
+                  <span className="text-[10px] font-mono text-orange-400/60 uppercase tracking-widest">
+                    {ach.date}
                   </span>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-          {/* Major Wins Column */}
-          <div className="lg:col-span-12 mt-12">
-            <h3 className="text-3xl font-black text-white mb-12 font-tech tracking-tight flex items-center gap-4">
-              MAJOR WINS <span className="h-px flex-grow bg-gradient-to-r from-orange-800 to-transparent"></span>
-            </h3>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {achievements.map((ach, index) => (
-                <motion.a
-                  key={index}
-                  href={ach.image}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex flex-col sm:flex-row gap-8 p-8 glass-card rounded-[2rem] border border-white/5 hover:border-orange-500/20 transition-all group overflow-hidden"
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="w-full sm:w-56 aspect-video rounded-2xl overflow-hidden shrink-0 bg-zinc-950 border border-white/5">
-                    <img src={ach.image} alt={ach.title} className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 opacity-70 group-hover:opacity-100" />
+                  <h4 className="text-2xl font-bold text-white mt-1 group-hover:text-orange-400 transition-colors tracking-tight">
+                    {ach.title}
+                  </h4>
+                  {/* Note: I added 'Verified Achievement' here, but you could add an 'org' field to your achievements array if you want specific issuers */}
+                  <p className="text-zinc-500 text-xs font-mono uppercase mt-2">
+                    Status: Verified_Credential
+                  </p>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-zinc-700 group-hover:text-orange-500 group-hover:border-orange-500/50 transition-all">
+                    <FaMedal className="text-xl" />
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <div className="flex items-center gap-3 mb-4">
-                      <FaTrophy className="text-orange-500 text-lg" />
-                      <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{ach.date}</span>
-                    </div>
-                    <h4 className="text-2xl font-bold text-white mb-4 group-hover:text-orange-400 transition-colors font-tech leading-tight">{ach.title}</h4>
-                    <div className="flex items-center gap-2 text-xs text-zinc-600 font-mono tracking-tighter group-hover:text-zinc-400 transition-colors">
-                      {'>'} CLICK_TO_AUTHENTICATE
-                    </div>
-                  </div>
-                </motion.a>
-              ))}
-            </div>
+                  <FaExternalLinkAlt className="text-[10px] text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </motion.a>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 };
-
 
 export default CertificateAchievements;

@@ -76,4 +76,14 @@
             background-position: 0% 50%
         }
     }
+
+    @keyframes shine {
+        100% {
+            left: 125%;
+        }
+    }
+
+    .animate-shine {
+        animation: shine 1s;
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
 import { FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import Button from '../Buttons/Buttons';
 
 const projects = [
   {
@@ -64,39 +65,6 @@ const projects = [
     link: 'https://yaaruaichatbox.ccbp.tech',
     media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
   },
-  {
-    title: 'Sticker Canvas',
-    description:
-      'A creative sticker application built with React and Konva.js that lets users add, move, resize, and layer stickers on a canvas. Features include undo/redo, image upload, download, and an interactive onboarding tour for guidance.',
-    technologies: ['React', 'Konva.js', 'use-image', 'CSS', 'Canvas', 'Tour UI'],
-    link: 'https://my-sticker-app-3ae38.web.app/',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1749321289/Screenshot_2025-06-08_000425_l7f0te.png', // Replace with actual screenshot if needed
-  },
-  {
-    title: 'GrowthPro AI',
-    description:
-      'SEO headline generator that helps marketers. Built with MERN stack and OpenAI.',
-    technologies: ['MERN', 'OpenAI', 'MongoDB'],
-    link: 'https://growthproai-1.onrender.com/',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753444052/Screenshot_2025-07-25_171633_zrrj0r.png', // Replace with actual image if available
-  },
-  {
-    title: 'MCP MegaWorkshop 2025',
-    description:
-      'An interactive Streamlit‑based project from the MCP MegaWorkshop 2025, integrating YouTube, Google Drive, and Notion APIs via Pipedream for rich media and content workflows.',
-    technologies: ['Streamlit', 'Python', 'Pipedream', 'YouTube API', 'Google Drive API', 'Notion API'],
-    link: 'https://mcp-megaworkshop-2025.streamlit.app/',
-    media:
-      'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753444052/Screenshot_2025-07-25_171633_zrrj0r.png',
-  },
-  {
-    title: 'Crypto Tracker',
-    description:
-      'Dynamic cryptocurrency tracker with live price updates and real-time data integration.',
-    technologies: ['React', 'API', 'Chart.js'],
-    link: 'https://cryptorishabh.ccbp.tech',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998828/Screenshot_2025-05-12_025650_oqhcxt.png', // Add actual thumbnail link
-  },
 ];
 
 
@@ -112,7 +80,7 @@ const ProjectCard = ({ project }) => {
 
   return (
     <motion.div
-      className="group relative rounded-[2rem] glass-card border border-white/5 overflow-hidden transition-all duration-700 hover:border-white/20"
+      className="group relative rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden transition-all duration-700 hover:border-white/20 hover:-translate-y-2"
       onMouseMove={handleMouseMove}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -120,7 +88,7 @@ const ProjectCard = ({ project }) => {
     >
       {/* Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -180,16 +148,11 @@ const ProjectCard = ({ project }) => {
           </p>
 
           <div className="mt-auto flex flex-wrap gap-2">
-            {project.technologies.slice(0, 4).map((tech, i) => (
+            {project.technologies.map((tech, i) => (
               <span key={i} className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/5 text-zinc-500 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-all">
                 {tech}
               </span>
             ))}
-            {project.technologies.length > 4 && (
-              <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/5 text-zinc-600">
-                +{project.technologies.length - 4}
-              </span>
-            )}
           </div>
         </div>
       </div>
@@ -199,28 +162,36 @@ const ProjectCard = ({ project }) => {
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-32 relative overflow-hidden">
+    <section id="projects" className="py-32 relative bg-[#050505] overflow-hidden">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+
       <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-        <div className="text-center mb-20">
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-[10px] font-mono tracking-[0.3em] uppercase mb-4"
           >
-            Showcase // Work
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-[2px] bg-purple-500" />
+              <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Showcase</span>
+            </div>
+            <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+              Featured <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Works.</span>
+            </h2>
           </motion.div>
-          <motion.h2
-            className="text-5xl md:text-7xl font-black mb-8 font-tech tracking-tighter"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            FEATURED <span className="text-gradient">WORKS</span>
-          </motion.h2>
+
+          <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+            Selection: Top_tier<br />
+            Status: Deployed
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
@@ -230,17 +201,15 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-24 text-center"
+          className="mt-24 text-center flex justify-center"
         >
-          <a
+          <Button
             href="https://github.com/RishabhTomar9"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-4 text-zinc-500 hover:text-white transition-colors group font-mono text-sm tracking-widest"
+            variant="ghost"
+            className="!px-10 !py-5 uppercase tracking-widest text-xs"
           >
-            VIEW_ARCHIVE_GITHUB
-            <span className="w-12 h-px bg-zinc-800 group-hover:w-20 group-hover:bg-white transition-all"></span>
-          </a>
+            Access_Full_Archive
+          </Button>
         </motion.div>
       </div>
     </section>

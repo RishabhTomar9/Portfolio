@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
 import useWindowSize from '../../hooks/useWindowSize';
-import Magnetic from '../common/Magnetic';
+import Button from '../Buttons/Buttons';
 
 
 const MovingGrid = () => {
@@ -74,10 +74,10 @@ const Hero = () => {
   const isMobile = width <= 768;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20 bg-[#050505]">
 
       {/* Background elements */}
-      <MovingGrid />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       <DataStream />
 
       {/* Floating Ambient Orbs */}
@@ -150,28 +150,21 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-wrap gap-6 items-center">
-            <Magnetic>
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 bg-white text-black font-bold rounded-full transition-all shadow-[0_10px_30px_rgba(255,255,255,0.2)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.3)] flex items-center gap-3"
-              >
-                Explore Voyage
-                <span className="text-xl">→</span>
-              </motion.a>
-            </Magnetic>
+            <Button
+              href="#projects"
+              variant="primary"
+              className="!rounded-full !px-8 !py-4"
+            >
+              Explore Voyage <span className="text-xl">→</span>
+            </Button>
 
-            <Magnetic>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-4 glass-card text-white font-bold rounded-full border border-white/20 hover:bg-white/10 transition-all flex items-center gap-3"
-              >
-                Initialize Contact
-              </motion.a>
-            </Magnetic>
+            <Button
+              href="#contact"
+              variant="ghost"
+              className="!rounded-full !px-8 !py-4"
+            >
+              Initialize Contact
+            </Button>
           </div>
 
           {/* Mini Stack */}

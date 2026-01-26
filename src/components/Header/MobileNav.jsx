@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { HiOutlineMenuAlt3, HiOutlineX } from 'react-icons/hi';
 import { Button } from '../ui/button'; // Assuming Button is available
-import Magnetic from '../common/Magnetic';
 
 const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
 
@@ -141,16 +140,15 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
 
                                     <div className="flex gap-4 justify-between pt-6 border-t border-white/10">
                                         {socialLinks.map((social, idx) => (
-                                            <Magnetic key={idx}>
-                                                <a
-                                                    href={social.link}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all text-xl"
-                                                >
-                                                    {social.icon}
-                                                </a>
-                                            </Magnetic>
+                                            <a
+                                                key={idx}
+                                                href={social.link}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all text-xl"
+                                            >
+                                                {social.icon}
+                                            </a>
                                         ))}
                                     </div>
                                 </motion.div>

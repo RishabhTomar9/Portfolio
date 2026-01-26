@@ -16,6 +16,8 @@ import ScrollReveal from './components/ScrollReveal'
 import ScrollStatus from './components/ScrollStatus'
 
 
+import GlobalBackground from './components/common/GlobalBackground'
+
 function App() {
   const [loading, setLoading] = useState(true)
 
@@ -44,6 +46,7 @@ function App() {
     <Loader onFinish={() => setLoading(false)} />
   ) : (
     <div className="App">
+      <GlobalBackground />
       <motion.div className="scroll-progress" style={{ scaleX }} />
       <CursorTracker />
       <ScrollStatus />

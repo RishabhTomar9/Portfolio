@@ -48,8 +48,8 @@ const SkillCard = ({ skill, index, isInView }) => (
     variants={fadeUp}
     initial="hidden"
     animate={isInView ? "visible" : "hidden"}
-    whileHover={{ y: -8, scale: 1.02 }}
-    className="relative p-8 glass-card rounded-[2.5rem] group overflow-hidden border border-white/5"
+    whileHover={{ y: -5 }}
+    className="relative p-6 bg-zinc-900/50 rounded-2xl group overflow-hidden border border-white/5 hover:border-white/10 transition-colors"
   >
     {/* Dynamic Background Glow */}
     <div
@@ -57,46 +57,35 @@ const SkillCard = ({ skill, index, isInView }) => (
       style={{ background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)` }}
     />
 
-    <div className="flex items-center gap-6 mb-8">
+    <div className="flex items-start gap-5 mb-6">
       <div
-        className="text-4xl w-16 h-16 rounded-2xl bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner"
+        className="text-3xl w-14 h-14 rounded-xl bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner shrink-0"
         style={{ color: skill.color.replace('0.3', '1') }}
       >
         {skill.icon}
       </div>
       <div>
-        <h3 className="text-xl font-black text-white font-tech tracking-tight">{skill.name}</h3>
-        <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-[0.2em] mt-1 shrink-0">
-          {skill.description}
-        </div>
+        <h3 className="text-lg font-bold text-white font-tech tracking-tight group-hover:text-purple-300 transition-colors">{skill.name}</h3>
+        <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider mt-1">{skill.description}</p>
       </div>
     </div>
 
     <div className="space-y-4">
-      <div className="flex justify-between items-end">
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">Tech Stack</span>
-          <span className="text-xs text-zinc-400 font-light italic">{skill.tools}</span>
-        </div>
-        <span className="text-xs font-tech font-bold text-white">{skill.level}%</span>
-      </div>
-
-      <div
-        className="h-2 w-full bg-zinc-950 rounded-full overflow-hidden p-[2px] border border-white/5"
-        role="progressbar"
-      >
+      <div className="h-1.5 w-full bg-zinc-950 rounded-full overflow-hidden border border-white/5">
         <motion.div
-          className="h-full rounded-full relative group-hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-shadow"
+          className="h-full rounded-full relative"
           style={{
             background: `linear-gradient(to right, ${skill.color.replace('0.3', '0.5')}, ${skill.color.replace('0.3', '1')})`
           }}
           initial={{ width: 0 }}
           animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
           transition={{ duration: 1.5, ease: "circOut", delay: 0.3 + index * 0.05 }}
-        >
-          {/* Animated Glow Tip */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-full bg-white opacity-40 blur-md translate-x-1/2"></div>
-        </motion.div>
+        />
+      </div>
+
+      <div className="flex justify-between items-center text-[10px] font-mono text-zinc-600">
+        <span className="uppercase tracking-widest">{skill.tools}</span>
+        <span className="text-white">{skill.level}%</span>
       </div>
     </div>
   </motion.div>
@@ -107,54 +96,37 @@ const Skills = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-32 relative overflow-hidden" ref={ref}>
+    <section id="skills" className="py-32 relative bg-[#050505] overflow-hidden" ref={ref}>
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 max-w-7xl">
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="flex flex-col gap-20">
 
-          {/* HEADER SECTION (Refactored from Left Side) */}
-          <div className="w-full">
+          {/* New Header Design */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <motion.div
-              initial={{ opacity: 0, y: -30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12"
             >
-              <div className="max-w-2xl">
-                <div className="inline-block px-4 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-[10px] font-mono tracking-[0.3em] uppercase mb-6">
-                  Capabilities // 02
-                </div>
-                <h2 className="text-6xl md:text-8xl font-black font-tech tracking-tighter leading-none">
-                  TECH <span className="text-gradient italic">ARSENAL</span>
-                </h2>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-[2px] bg-purple-500" />
+                <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Capabilities</span>
               </div>
-
-              <div className="max-w-md">
-                <p className="text-zinc-400 text-lg font-light leading-relaxed mb-8">
-                  A professional suite of tools and libraries I use to architect, build, and deploy high-performance software.
-                </p>
-
-                <div className="flex flex-wrap gap-3">
-                  {softSkills.map((skill, index) => (
-                    <motion.span
-                      key={skill}
-                      custom={index + 5}
-                      variants={fadeUp}
-                      initial="hidden"
-                      animate={isInView ? "visible" : "hidden"}
-                      className="px-5 py-2 rounded-xl border border-white/5 bg-zinc-950/50 text-[9px] text-zinc-500 font-mono tracking-widest uppercase hover:text-white hover:border-white/20 transition-all cursor-default"
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+                Tech <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500">Arsenal.</span>
+              </h2>
             </motion.div>
+            <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+              System: Operational<br />
+              Stack: Modern_V2
+            </div>
           </div>
 
-          {/* SKILLS GRID (Shifted to Bottom) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {/* SKILLS GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {skills.map((skill, index) => (
               <SkillCard key={skill.name} skill={skill} index={index} isInView={isInView} />
             ))}

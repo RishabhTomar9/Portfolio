@@ -1,14 +1,11 @@
 import { useEffect, useRef } from 'react'
-import './index.css'
 
-const GHOST_COUNT = 6
+
+const GHOST_COUNT = 8
 const LANGUAGES = [
-    'HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'Express',
-    'MongoDB', 'Firebase', 'Python', 'SQL', 'C++', 'Java', 'Tailwind', 'Next.js',
-    'Redux', 'GraphQL', 'Sass', 'Bootstrap', 'Django', 'Flask', 'Kotlin',
-    'Swift', 'PHP', 'Go'
-  ];
-  
+  'HTML', 'CSS', 'JS', 'React', 'Node', 'SQL', 'MongoDB', 'Python', 'AWS', 'Git'
+];
+
 
 const CursorTracker = () => {
   const cursorDotRef = useRef(null)
@@ -23,9 +20,8 @@ const CursorTracker = () => {
 
     if (!cursorDot) return
 
-    // create particles container
     const container = document.createElement('div')
-    container.className = 'cursor-particles-container'
+    container.className = 'cursor-particles-container pointer-events-none fixed inset-0 z-[9999]'
     document.body.appendChild(container)
     particlesContainerRef.current = container
 
@@ -39,26 +35,29 @@ const CursorTracker = () => {
 
     const spawnParticle = (x, y) => {
       const now = performance.now()
-      // throttle spawns to avoid too many elements on rapid moves
-      if (now - lastSpawnTimeRef.current < 40) return
+      if (now - lastSpawnTimeRef.current < 50) return
       lastSpawnTimeRef.current = now
 
       const el = document.createElement('span')
-      el.className = 'cursor-particle'
+      el.className = 'cursor-particle absolute text-xs font-mono opacity-0'
       el.textContent = LANGUAGES[Math.floor(Math.random() * LANGUAGES.length)]
-      const xOffset = (Math.random() * 60 - 30).toFixed(0) + 'px'
-      el.style.setProperty('--xOffset', xOffset)
       el.style.left = x + 'px'
       el.style.top = y + 'px'
-      // random slight size variation
-      el.style.fontSize = (12 + Math.random() * 6) + 'px'
-      // random color tint
-      const hues = [200, 210, 190, 220, 195]
-      el.style.color = `hsl(${hues[Math.floor(Math.random() * hues.length)]} 90% 60%)`
 
-      el.addEventListener('animationend', () => {
-        el.remove()
-      })
+      // Random tech colors
+      const colors = ['#a855f7', '#3b82f6', '#eab308', '#ffffff']
+      el.style.color = colors[Math.floor(Math.random() * colors.length)]
+
+      // Animate manually via Web Animations API for better perf than adding/removing classes constantly
+      const animation = el.animate([
+        { transform: 'translate(-50%, -50%) scale(0.5)', opacity: 1 },
+        { transform: `translate(-50%, -100%) scale(1.2)`, opacity: 0 }
+      ], {
+        duration: 800,
+        easing: 'cubic-bezier(0, .9, .57, 1)'
+      });
+
+      animation.onfinish = () => el.remove();
       container.appendChild(el)
     }
 
@@ -73,12 +72,11 @@ const CursorTracker = () => {
     }
 
     const animate = () => {
-      // smooth follow for dot
-      dotX = lerp(dotX, targetX, 0.22)
-      dotY = lerp(dotY, targetY, 0.22)
+      dotX = lerp(dotX, targetX, 0.2)
+      dotY = lerp(dotY, targetY, 0.2)
       cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`
 
-      // init ghost positions on first animation frame after first mouse move
+      // init ghosts
       if (!ghostsInitializedRef.current && targetX && targetY) {
         ghosts.forEach((g) => {
           g.x = targetX
@@ -87,13 +85,13 @@ const CursorTracker = () => {
         ghostsInitializedRef.current = true
       }
 
-      // update ghosts with increasing lag
+      // update ghosts
       ghosts.forEach((g, i) => {
         const el = g.el
         if (!el) return
-        const t = 0.10 - i * 0.014 // decreasing speed for later ghosts
-        g.x = lerp(g.x, targetX, Math.max(0.035, t))
-        g.y = lerp(g.y, targetY, Math.max(0.035, t))
+        const t = 0.15 - i * 0.015
+        g.x = lerp(g.x, targetX, Math.max(0.01, t))
+        g.y = lerp(g.y, targetY, Math.max(0.01, t))
         el.style.transform = `translate(${g.x}px, ${g.y}px)`
       })
 
@@ -101,7 +99,6 @@ const CursorTracker = () => {
     }
 
     document.addEventListener('mousemove', moveCursor)
-
     rafId = requestAnimationFrame(animate)
 
     return () => {
@@ -116,14 +113,26 @@ const CursorTracker = () => {
 
   return (
     <>
+      <style>{`
+        .cursor-dot {
+          @apply fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference;
+          margin-left: -6px;
+          margin-top: -6px;
+        }
+        .cursor-ghost {
+          @apply fixed top-0 left-0 w-8 h-8 border border-white/20 rounded-full pointer-events-none z-[9998];
+          margin-left: -16px;
+          margin-top: -16px;
+          transition: opacity 0.3s;
+        }
+      `}</style>
+
       {Array.from({ length: GHOST_COUNT }).map((_, i) => (
         <div
           key={i}
           className="cursor-ghost"
-          ref={(el) => {
-            ghostRefs.current[i].el = el
-          }}
-          style={{ opacity: 0.08 + i * 0.02 }}
+          ref={(el) => { ghostRefs.current[i].el = el }}
+          style={{ opacity: 0.2 - i * 0.02, transform: 'scale(' + (1 - i * 0.05) + ')' }}
         />
       ))}
       <div ref={cursorDotRef} className="cursor-dot" />

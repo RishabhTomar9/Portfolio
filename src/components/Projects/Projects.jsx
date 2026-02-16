@@ -1,158 +1,130 @@
 import React, { useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
-import { FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { FaExternalLinkAlt, FaCode, FaGithub } from 'react-icons/fa';
 import Button from '../Buttons/Buttons';
-
-const projects = [
-  {
-    title: 'Nutrithy',
-    description:
-      'A health and wellness web app that delivers personalized meal plans, AI-powered diet insights, recipe discovery, and real-time cooking sessions — all within a sleek, responsive interface built with React and TailwindCSS.', technologies: ['React', 'TailwindCSS', 'Socket.io', 'Express.js', 'MongoDB', 'AI APIs', 'WebRTC', 'Firebase'],
-    link: 'https://nutrithy.web.app/',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1761326841/Screenshot_2025-10-24_225700_pgohys.png', // Replace with actual screenshot URL
-  },
-  {
-    title: 'WorkHub',
-    description:
-      'WorkHub is an attendance, worker, and payout management app designed to simplify workforce operations. It allows businesses to manage employee attendance, track tasks, handle payments, and monitor productivity — all from one intuitive dashboard.', technologies: ['React', 'Node.js', 'Firebase', 'MongoDB', 'Express.js'],
-    link: 'https://workhub-three.vercel.app',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1761327423/Screenshot_2025-10-24_230633_ei7ngh.png', // Replace with actual screenshot URL
-  },
-  {
-    title: 'MCP MegaWorkshop 2025',
-    description:
-      'An interactive Streamlit-based project from the MCP MegaWorkshop 2025, integrating YouTube, Google Drive, and Notion APIs via Pipedream for rich media and content workflows.',
-    technologies: [
-      'Streamlit',
-      'Python',
-      'Pipedream',
-      'YouTube API',
-      'Google Drive API',
-      'Notion API',
-    ],
-    link: 'https://mcp-megaworkshop-2025.streamlit.app/',
-    media:
-      'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753452324/Screenshot_2025-07-25_193459_yqhwol.png',
-  },
-  {
-    title: 'Jobby App',
-    description:
-      'Jobby is a job search platform with user authentication, job filters, detailed job listings, and a responsive design, providing an intuitive and accessible experience across devices for job seekers.',
-    technologies: ['React', 'JWT Auth', 'CSS', 'REST API', 'Loader'],
-    link: 'https://jobbyrishabh.ccbp.tech',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998651/Screenshot_2025-05-12_024301_qccmwz.png', // Add actual thumbnail link
-  },
-  {
-    title: 'Nxt Trendz',
-    description:
-      'An e-commerce application featuring user authentication, product filters, cart management, and protected routes, ensuring secure browsing, seamless shopping experience, and efficient management of products and user data.',
-    technologies: ['React', 'Context API', 'Routing', 'REST API', 'Loader'],
-    link: 'https://rishabhnxttrend.ccbp.tech',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746998912/Screenshot_2025-05-12_025816_h7vswd.png', // Add actual thumbnail link
-  },
-  {
-    title: 'GenAI ChatBot',
-    description:
-      'A conversational AI chatbot using OpenAI, LangChain, and Hugging Face, built with Gradio and deployed on Google Colab. It supports natural chat, custom prompts, and audio replies via PlayHT.',
-    technologies: [
-      'Google Colab',
-      'OpenAI API',
-      'LangChain',
-      'Gradio',
-      'PlayHT',
-      'Hugging Face'
-    ],
-    link: 'https://yaaruaichatbox.ccbp.tech',
-    media: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746787008/Screenshot_2025-05-09_160029_rguql4_c_fill_ar_1_1_g_auto_icz3t8.png', // Add actual thumbnail link
-  },
-];
-
+import { db } from '../../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 const ProjectCard = ({ project }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const ref = useRef(null);
+
+  const x = useSpring(0, { stiffness: 300, damping: 30 });
+  const y = useSpring(0, { stiffness: 300, damping: 30 });
 
   function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const xPct = (clientX - left) / width - 0.5;
+    const yPct = (clientY - top) / height - 0.5;
+
+    x.set(xPct * 10); // Reduced tilt for better usability
+    y.set(yPct * 10);
+
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
   }
 
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
   return (
     <motion.div
-      className="group relative rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden transition-all duration-700 hover:border-white/20 hover:-translate-y-2"
+      ref={ref}
+      className="group relative flex flex-col rounded-xl bg-zinc-900/40 border border-white/5 overflow-hidden transition-all duration-500 hover:border-purple-500/30 hover:shadow-2xl hover:shadow-purple-900/10 hover:-translate-y-1 h-full"
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-50px" }}
+      style={{
+        transformStyle: "preserve-3d",
+      }}
     >
       {/* Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-10"
         style={{
           background: useMotionTemplate`
             radial-gradient(
               600px circle at ${mouseX}px ${mouseY}px,
-              rgba(168, 85, 247, 0.1),
+              rgba(168, 85, 247, 0.10),
               transparent 80%
             )
           `,
         }}
       />
 
-      <div className="relative h-full flex flex-col p-4">
-        {/* Image Container */}
-        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-zinc-950 border border-white/5">
-          <img
-            src={project.media}
-            alt={project.title}
-            className="w-full h-full object-cover saturate-[0.8] group-hover:saturate-100 transition-all duration-1000 group-hover:scale-110"
-          />
+      {/* Image Container */}
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noreferrer"
+        className="block relative aspect-[16/9] overflow-hidden bg-zinc-950 border-b border-white/5 cursor-pointer z-20 group/image"
+      >
+        <div className="absolute inset-0 bg-zinc-900 animate-pulse" /> {/* Placeholder loading state */}
+        <img
+          src={project.media}
+          alt={project.title}
+          className="w-full h-full object-cover opacity-80 group-hover/image:opacity-100 group-hover/image:scale-105 transition-all duration-700"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent opacity-60" />
 
-          <div className="absolute inset-0 bg-zinc-950/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-6 backdrop-blur-[4px]">
-            <motion.a
+        {/* Mobile/Quick Action Overlay - Subtle hint */}
+        <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /> Live
+        </div>
+      </a>
+
+      {/* Content */}
+      <div className="flex flex-col flex-grow p-6 md:p-8 z-20 relative">
+        <div className="flex justify-between items-start mb-4 gap-4">
+          <h3 className="text-2xl font-black text-white font-tech tracking-tight leading-none group-hover:text-purple-400 transition-colors duration-300">
+            {project.title}
+          </h3>
+
+          {/* Action Buttons - Always visible for better UX */}
+          <div className="flex items-center gap-2 shrink-0">
+            <a
               href={project.link}
               target="_blank"
               rel="noreferrer"
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-2xl hover:bg-zinc-100 transition-colors"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 hover:border-purple-500/30 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 active:scale-95"
               title="Live Demo"
             >
-              <FaExternalLinkAlt className="text-xl" />
-            </motion.a>
-            <motion.a
-              href="https://github.com/RishabhTomar9"
+              <FaExternalLinkAlt className="text-sm" />
+            </a>
+            <a
+              href="https://github.com/RishabhTomar9" // Using generic logic as specific repo wasn't in DB usually
               target="_blank"
               rel="noreferrer"
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-14 h-14 bg-zinc-900 text-white border border-white/10 rounded-full flex items-center justify-center shadow-2xl hover:bg-zinc-800 transition-colors"
-              title="View Code"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/5 hover:border-purple-500/30 flex items-center justify-center text-zinc-400 hover:text-white transition-all hover:scale-110 active:scale-95"
+              title="Source Code"
             >
-              <FaCode className="text-xl" />
-            </motion.a>
+              <FaGithub className="text-lg" />
+            </a>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6 flex flex-col flex-grow relative">
-          <div className="flex justify-between items-start mb-4">
-            <h3 className="text-2xl font-black text-white font-tech tracking-tight group-hover:text-purple-400 transition-colors duration-500">
-              {project.title}
-            </h3>
-          </div>
+        <p className="text-zinc-400 text-sm mb-6 leading-relaxed font-medium line-clamp-3">
+          {project.description}
+        </p>
 
-          <p className="text-zinc-400 text-sm mb-8 leading-relaxed font-bold line-clamp-3 group-hover:text-zinc-300 transition-colors">
-            {project.description}
-          </p>
-
-          <div className="mt-auto flex flex-wrap gap-2">
-            {project.technologies.map((tech, i) => (
-              <span key={i} className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/5 border border-white/5 text-zinc-500 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-all">
+        <div className="mt-auto pt-6 border-t border-white/5">
+          <div className="flex flex-wrap gap-2">
+            {project.technologies.slice(0, 5).map((tech, i) => (
+              <span key={i} className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-purple-500/5 border border-purple-500/10 text-purple-300/80 group-hover:border-purple-500/20 group-hover:bg-purple-500/10 transition-all uppercase tracking-wider">
                 {tech}
               </span>
             ))}
+            {project.technologies.length > 5 && (
+              <span className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-zinc-500 uppercase tracking-wider">
+                +{project.technologies.length - 5}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -161,54 +133,84 @@ const ProjectCard = ({ project }) => {
 };
 
 const Projects = () => {
+  const [projects, setProjects] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProjects(projectsData);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <section id="projects" className="py-32 relative bg-[#050505] overflow-hidden">
-      {/* Background Grid Pattern */}
+    <section id="projects" className="py-24 md:py-32 relative bg-[#050505] overflow-hidden">
+      {/* Dynamic Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
 
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="max-w-2xl"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-[2px] bg-purple-500" />
-              <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Showcase</span>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-12 h-[2px] bg-gradient-to-r from-purple-500 to-transparent" />
+              <span className="text-xs font-bold text-purple-400 tracking-[0.3em] uppercase glow-text">Showcase</span>
             </div>
-            <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+            <h2 className="text-6xl lg:text-7xl font-black text-white font-tech uppercase">
               Featured
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Works.</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-zinc-500 via-zinc-200 to-zinc-500 bg-300% animate-gradient">Works.</span>
             </h2>
           </motion.div>
 
-          <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
-            Selection: Top_tier<br />
-            Status: Deployed
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-zinc-500 font-mono text-[10px] md:text-xs uppercase tracking-widest text-left md:text-right border-l md:border-l-0 md:border-r border-white/10 pl-4 md:pl-0 md:pr-4 py-1"
+          >
+            <p>System Status: <span className="text-emerald-500">Online</span></p>
+            <p>Selection: <span className="text-white">Premium</span></p>
+            <p>Total Archives: <span className="text-white">{projects.length}</span></p>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
-          ))}
-        </div>
+        {/* Projects Grid */}
+        {loading ? (
+          <div className="min-h-[400px] flex justify-center items-center">
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-bold text-purple-500 animate-pulse">LOAD</div>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+            {projects.map((project, index) => (
+              <ProjectCard key={project.id || index} project={project} />
+            ))}
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-24 text-center flex justify-center"
+          className="mt-24 md:mt-32 text-center"
         >
           <Button
             href="https://github.com/RishabhTomar9"
             variant="ghost"
-            className="!px-10 !py-5 uppercase tracking-widest text-xs"
+            className="group !px-8 !py-4 md:!px-12 md:!py-6 uppercase tracking-[0.2em] text-[10px] md:text-xs border border-white/10 bg-zinc-900/50 hover:bg-zinc-900 hover:border-purple-500/50 transition-all rounded-xl backdrop-blur-md"
           >
-            Access_Full_Archive
+            Access Full Archive <span className="group-hover:translate-x-1 transition-transform inline-block ml-2">→</span>
           </Button>
         </motion.div>
       </div>

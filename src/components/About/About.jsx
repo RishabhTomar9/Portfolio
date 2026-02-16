@@ -91,83 +91,88 @@ const AboutCard = ({ card, index }) => {
   );
 };
 
+import Resume from '../Resume/Resume';
+
 const About = () => {
   return (
-    <section id="about" className="py-32 relative bg-[#050505] overflow-hidden" aria-label="About Section">
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+    <>
+      <section id="about" className="py-32 relative bg-[#050505] overflow-hidden" aria-label="About Section">
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
 
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-[2px] bg-purple-500" />
-              <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Identity</span>
-            </div>
-            <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
-              Core
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Engine.</span>
-            </h2>
-          </motion.div>
-
-          <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
-            Location: Bhopal, India <br />
-            Status: Available
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-12 gap-16 items-start">
-          {/* Left Text Content - Adjusted to remove old header elements */}
-          <div className="lg:col-span-5">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-6 text-zinc-400 text-lg leading-relaxed max-w-md"
+              transition={{ duration: 0.8 }}
             >
-              <p className="font-bold italic">
-                "I don't just write code; I architect ecosystems where data flows seamlessly into experience."
-              </p>
-              <p className="text-base font-bold">
-                Currently
-                co-founding
-                <a
-                  href="https://zintrixtechnologies.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors ml-1 group font-extrabold"
-                >
-                  Zintrix Technologies <FaExternalLinkAlt className="text-[10px] opacity-50 group-hover:opacity-100 transition-opacity" />
-                </a>.
-              </p>
-
-
-              <div className="mt-12 flex items-center gap-6">
-                <Button />
-                <div className="hidden md:block text-[10px] font-bold text-zinc-600 leading-tight uppercase tracking-widest">
-                  Location: India <br />
-                  Focus: Full-Stack & Data
-                </div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-[2px] bg-purple-500" />
+                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Identity</span>
               </div>
+              <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
+                Core
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Engine.</span>
+              </h2>
             </motion.div>
+
+            <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
+              Location: Bhopal, India <br />
+              Status: Available
+            </div>
           </div>
 
-          {/* Right Cards Content */}
-          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {cardData.map((card, index) => (
-              <AboutCard key={card.id} card={card} index={index} />
-            ))}
+          <div className="grid lg:grid-cols-12 gap-16 items-start">
+            {/* Left Text Content - Adjusted to remove old header elements */}
+            <div className="lg:col-span-5">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="space-y-6 text-zinc-400 text-lg leading-relaxed max-w-md"
+              >
+                <p className="font-bold italic">
+                  "I don't just write code; I architect ecosystems where data flows seamlessly into experience."
+                </p>
+                <p className="text-base font-bold">
+                  Currently
+                  co-founding
+                  <a
+                    href="https://zintrixtechnologies.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors ml-1 group font-extrabold"
+                  >
+                    Zintrix Technologies <FaExternalLinkAlt className="text-[10px] opacity-50 group-hover:opacity-100 transition-opacity" />
+                  </a>.
+                </p>
+
+
+                <div className="mt-12 flex items-center gap-6">
+                  <Button />
+                  <div className="hidden md:block text-[10px] font-bold text-zinc-600 leading-tight uppercase tracking-widest">
+                    Location: India <br />
+                    Focus: Full-Stack & Data
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Cards Content */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {cardData.map((card, index) => (
+                <AboutCard key={card.id} card={card} index={index} />
+              ))}
+            </div>
           </div>
-        </div>
-      </div >
-    </section >
+        </div >
+      </section >
+      <Resume />
+    </>
   );
 };
 

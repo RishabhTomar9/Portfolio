@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { FaDownload } from 'react-icons/fa';
 
 const Button = ({
-  href = "https://drive.google.com/file/d/1jbqOROtleFOd6Qi-ASxT1arK_rqWliSL/view?usp=sharing",
-  children = "Download CV",
+  href = "/resume.pdf",
+  children = "Download Resume",
   className = "",
   variant = "primary", // primary, ghost
   ...props
@@ -39,7 +39,7 @@ const Button = ({
 
       {/* Content */}
       <span className="relative z-10 flex items-center gap-3 tracking-wide">
-        {children === "Download CV" && (
+        {children === "Download Resume" && (
           <FaDownload className="text-lg group-hover:-translate-y-0.5 group-hover:text-purple-600 transition-all duration-300" />
         )}
         <span className={isPrimary ? 'group-hover:text-purple-700 transition-colors' : ''}>

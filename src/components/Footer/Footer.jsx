@@ -136,7 +136,7 @@ const Footer = () => {
               {/* Outer Glow Decor */}
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
 
-              <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-3xl shadow-2xl overflow-hidden">
+              <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-xl shadow-2xl overflow-hidden">
                 {/* Decorative gradients */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
@@ -146,11 +146,11 @@ const Footer = () => {
                     <div className="space-y-3">
                       <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Name</label>
                       <div className="relative group/input">
-                         <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within/input:text-purple-400 transition-colors text-sm" />
-                         <input
-                           type="text" name="user_name" required placeholder="Rishabh Tomar"
-                           className="w-full bg-zinc-950/50 border border-white/10 rounded-xl pl-11 pr-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all placeholder:text-zinc-700 font-medium group-hover/input:border-white/20"
-                         />
+                        <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within/input:text-purple-400 transition-colors text-sm" />
+                        <input
+                          type="text" name="user_name" required placeholder="Rishabh Tomar"
+                          className="w-full bg-zinc-950/50 border border-white/10 rounded-xl pl-11 pr-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all placeholder:text-zinc-700 font-medium group-hover/input:border-white/20"
+                        />
                       </div>
                     </div>
                     <div className="space-y-3">
@@ -179,14 +179,13 @@ const Footer = () => {
                   <button
                     type="submit"
                     disabled={status === 'sending' || status === 'success'}
-                    className={`relative w-full overflow-hidden group py-5 rounded-xl font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-3 shadow-lg ${
-                      status === 'success' 
-                        ? 'bg-emerald-500 text-white border-emerald-500' 
+                    className={`relative w-full overflow-hidden group py-5 rounded-xl font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-3 shadow-lg ${status === 'success'
+                        ? 'bg-emerald-500 text-white border-emerald-500'
                         : 'bg-white text-black hover:bg-zinc-200 border-white'
-                    }`}
+                      }`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                    
+
                     <AnimatePresence mode="wait">
                       {status === 'idle' && (
                         <motion.div key="idle" className="flex items-center gap-2 relative z-10">

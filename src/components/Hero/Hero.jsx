@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
 import useWindowSize from '../../hooks/useWindowSize';
 import Button from '../Buttons/Buttons';
@@ -64,6 +64,30 @@ const DataStream = () => {
   );
 };
 
+
+const CursorSpotlight = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+      style={{
+        background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(168, 85, 247, 0.04), transparent 80%)`,
+      }}
+    />
+  );
+};
+
 const Hero = () => {
   const { width } = useWindowSize();
   const { scrollY } = useScroll();
@@ -71,49 +95,36 @@ const Hero = () => {
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
   const textY = useTransform(scrollY, [0, 500], [0, 80]);
 
-  const isMobile = width <= 768;
-
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20 bg-[#050505]">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 bg-[#050505] selection:bg-purple-500/30">
+      <CursorSpotlight />
 
       {/* Background elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0" />
       <DataStream />
 
-      {/* Floating Ambient Orbs */}
-      {/* <motion.div
-        animate={{ x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.2, 1] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 right-10 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"
-      />
-      <motion.div
-        animate={{ x: [0, -60, 0], y: [0, 60, 0], scale: [1, 1.3, 1] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
-      /> */}
-
-      <div className="container mx-auto max-w-7xl px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto max-w-7xl px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
 
         {/* Left Content */}
         <motion.div
           style={{ y: textY }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
           className="relative"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-purple-500/20 bg-purple-500/5 backdrop-blur-md"
+            transition={{ delay: 0.2 }}
+            className="inline-flex items-center gap-3 px-4 py-2 mb-8 rounded-full border border-purple-500/20 bg-purple-500/5 backdrop-blur-md hover:bg-purple-500/10 transition-colors cursor-default"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
             </span>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-purple-300 uppercase font-bold">
-              System Ready // 2026
+            <span className="text-[10px] font-bold tracking-[0.25em] text-purple-300 uppercase font-mono">
+              System Online // 2026
             </span>
           </motion.div>
 
@@ -124,133 +135,119 @@ const Hero = () => {
             </span>
           </h1>
 
-          <div className="text-xl lg:text-3xl font-bold text-zinc-300 mb-10 h-10 flex items-center font-tech tracking-tight">
-            <span className="mr-4 text-purple-500 font-bold">{'>'}</span>
+          <div className="text-xl lg:text-3xl font-bold text-zinc-400 mb-10 h-10 flex items-center font-mono tracking-tight gap-4">
+            <span className="text-purple-500">{'>'}</span>
             <Typewriter
               options={{
                 strings: [
-                  "Architecting Scalable Systems",
-                  "Mastering Data Engineering",
-                  "Building Zintrix Technologies",
-                  "PL/SQL & Snowflake Expert"
+                  "Architecting Scalable Systems...",
+                  "Building The Future of Tech...",
+                  "Data Engineering Expert...",
+                  "Forging Digital Experiences..."
                 ],
                 autoStart: true,
                 loop: true,
                 delay: 40,
                 deleteSpeed: 20,
+                wrapperClassName: "text-zinc-200",
+                cursorClassName: "text-purple-500 animate-pulse"
               }}
             />
           </div>
 
-          <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-bold">
-            I'm <span className="text-white font-semibold">Rishabh Tomar</span>.
-            Co-Founder & Co-CTO at <span className="text-blue-400 font-medium">Zintrix Technologies</span>.
-            Transforming complex data into seamless experiences.
+          <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-medium border-l-2 border-white/10 pl-6">
+            I'm <span className="text-white font-bold">Rishabh Tomar</span>.
+            Co-Founder & Co-CTO at <span className="text-purple-400 font-bold border-b border-purple-500/30 hover:border-purple-500 transition-colors">Zintrix Technologies</span>.
+            I build high-performance ecosystems where data meets design.
           </p>
 
-          <div className="flex flex-wrap gap-6 items-center">
+          <div className="flex flex-wrap gap-5 items-center">
             <Button
               href="#projects"
               variant="primary"
-              className="!rounded-full !px-8 !py-4"
+              className="!rounded-full !px-6 !py-3 group"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Explore Projects <span className="text-xl">→</span>
+              View Projects <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
             </Button>
 
             <Button
               href="#contact"
               variant="ghost"
-              className="!rounded-full !px-8 !py-4"
+              className="!rounded-full !px-6 !py-4 hover:bg-white/5"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Contact Me!
+              Contact Me
             </Button>
           </div>
 
           {/* Mini Stack */}
           <div className="mt-16 flex items-center gap-8 text-zinc-600">
-            <div className="flex gap-6 text-2xl">
-              <motion.i whileHover={{ color: '#61dafb', y: -5 }} className="devicon-react-original cursor-help transition-all"></motion.i>
-              <motion.i whileHover={{ color: '#68a063', y: -5 }} className="devicon-nodejs-plain cursor-help transition-all"></motion.i>
-              <motion.i whileHover={{ color: '#3776ab', y: -5 }} className="devicon-python-plain cursor-help transition-all"></motion.i>
-              <motion.i whileHover={{ color: '#29b5e8', y: -5 }} className="devicon-snowflake-plain cursor-help transition-all"></motion.i>
+            <div className="h-px w-12 bg-zinc-800"></div>
+            <div className="flex gap-6 text-2xl opacity-60 hover:opacity-100 transition-opacity duration-300">
+              <motion.i whileHover={{ color: '#61dafb', y: -4 }} className="devicon-react-original cursor-help transition-all"></motion.i>
+              <motion.i whileHover={{ color: '#68a063', y: -4 }} className="devicon-nodejs-plain cursor-help transition-all"></motion.i>
+              <motion.i whileHover={{ color: '#3776ab', y: -4 }} className="devicon-python-plain cursor-help transition-all"></motion.i>
+              <motion.i whileHover={{ color: '#29b5e8', y: -4 }} className="devicon-snowflake-plain cursor-help transition-all"></motion.i>
             </div>
-            <div className="h-px w-20 bg-gradient-to-r from-zinc-800 to-transparent"></div>
-            <span className="text-[10px] font-bold tracking-widest uppercase">Tech_Stack_Initialized</span>
           </div>
         </motion.div>
 
-        {/* Right Content */}
+        {/* Right Content - Tech Frame Image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.4 }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           className="relative flex justify-center lg:justify-end"
         >
-          <motion.div style={{ y: y1 }} className="relative z-10 w-full max-w-[420px] aspect-[4/5] perspective-1000">
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-blue-500/20 blur-3xl opacity-50 -z-10 animate-pulse"></div>
+          <motion.div style={{ y: y1 }} className="relative z-10 w-full max-w-[420px] aspect-[4/5] perspective-1000 group">
 
-            <div className="relative h-full w-full glass-card rounded-3xl overflow-hidden border border-white/20 preserve-3d group shadow-2xl">
-              <div className="absolute inset-0 bg-zinc-950/20 group-hover:bg-transparent transition-colors duration-700"></div>
+            {/* Tech Frame Canvas */}
+            <div className="absolute -inset-4 border border-white/10 rounded-2xl pointer-events-none z-20">
+              {/* Corners */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-purple-500/50 rounded-tl-2xl" />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-purple-500/50 rounded-tr-2xl" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-purple-500/50 rounded-bl-2xl" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-purple-500/50 rounded-br-2xl" />
+            </div>
+
+            <div className="relative h-full w-full bg-zinc-900 rounded-xl overflow-hidden shadow-2xl shadow-purple-900/20 transition-all duration-700 ease-out border border-white/5">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
 
               <img
                 src="/Images/hero-image.jpg"
                 alt="Rishabh Tomar"
-                className="w-full h-full object-cover saturate-[0.8] group-hover:saturate-100 group-hover:scale-105 transition-all duration-1000"
+                className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000"
               />
 
-              {/* HUD Elements */}
-              <div className="absolute inset-0 p-8 pointer-events-none flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                  <div className="w-12 h-12 border-t-2 border-l-2 border-white/40"></div>
-                  <div className="w-12 h-12 border-t-2 border-r-2 border-white/40"></div>
-                </div>
+              {/* Holographic Overlay */}
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mixed-blend-overlay pointer-events-none" />
 
-                <div className="space-y-4">
-                  <div className="glass-card !bg-zinc-950/80 p-5 rounded-2xl border-l-4 border-l-yellow-400 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-                    <div className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] mb-2 font-bold">Current Identity</div>
-                    <div className="flex items-center gap-3">
-                      <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
-                      <span className="font-tech text-xl font-bold text-white tracking-wider">RISHABH TOMAR</span>
-                    </div>
+              {/* Floating ID Card Info */}
+              <div className="absolute bottom-8 left-8 right-8 z-20">
+                <div className="bg-black/60 backdrop-blur-xl p-4 rounded-xl border border-white/10 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] text-zinc-400 uppercase tracking-widest font-bold mb-1">Authenticated User</div>
+                    <div className="text-white font-bold font-tech text-lg">RISHABH TOMAR</div>
                   </div>
-
-                  <div className="flex justify-between items-end">
-                    <div className="w-12 h-12 border-b-2 border-l-2 border-white/40"></div>
-                    <div className="w-12 h-12 border-b-2 border-r-2 border-white/40"></div>
+                  <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
                   </div>
                 </div>
               </div>
-
-              {/* Scanline Effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-2 w-full animate-scanline pointer-events-none"></div>
             </div>
           </motion.div>
-
-          {/* Background decoration */}
-          <motion.div style={{ y: y2 }} className="absolute -z-10 top-0 -right-4 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px]"></motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <div className="w-[1px] h-12 bg-gradient-to-b from-purple-500 to-transparent"></div>
-        <span className="text-[10px] font-bold text-zinc-500 tracking-[0.4em] uppercase">Scroll</span>
-      </motion.div>
     </section>
   );
 };
+
 
 export default Hero;

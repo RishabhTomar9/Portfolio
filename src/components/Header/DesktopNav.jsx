@@ -4,27 +4,22 @@ import { Button } from '../ui/button';
 
 const DesktopNav = ({ scrollItems, activeSection }) => {
     return (
-        <nav className="hidden md:flex items-center gap-6 px-6 py-3 rounded-full bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm shadow-sm">
+        <nav className="hidden md:flex items-center p-1 rounded-xl bg-black/20 border border-white/5 backdrop-blur-md shadow-lg shadow-purple-500/5">
             {scrollItems.map((item) => (
-                <div key={item} className="relative group">
-                    <a
-                        href={`#${item}`}
-                        className={`relative text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${activeSection === item
-                            ? "text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
-                            : "text-zinc-500 hover:text-white"
-                            }`}
-                    >
-                        {item}
-                    </a>
+                <a
+                    key={item}
+                    href={`#${item}`}
+                    className={`relative px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 z-10 ${activeSection === item ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+                >
                     {activeSection === item && (
                         <motion.div
-                            layoutId="nav-glow"
-                            className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent shadow-[0_0_15px_rgba(168,85,247,1)]"
+                            layoutId="active-pill"
+                            className="absolute inset-0 bg-white/10 border border-white/10 rounded-xl -z-10 shadow-[0_0_10px_rgba(255,255,255,0.1)]"
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
                     )}
-                    <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-px bg-white transition-all duration-300 group-hover:w-full ${activeSection === item ? 'w-0' : ''}`}></span>
-                </div>
+                    {item}
+                </a>
             ))}
         </nav>
     );

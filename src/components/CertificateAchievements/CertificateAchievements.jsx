@@ -186,7 +186,7 @@ const CertificateAchievements = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.2 }}
-                className="group relative overflow-hidden rounded-3xl bg-zinc-900/40 border border-white/5 p-1 transition-colors hover:border-orange-500/30"
+                className="group relative overflow-hidden rounded-xl bg-zinc-900/40 border border-white/5 p-1 transition-colors hover:border-orange-500/30"
               >
                 <div className="relative h-full bg-zinc-950/80 rounded-[20px] p-6 md:p-8 flex flex-col sm:flex-row justify-between items-center gap-6 overflow-hidden">
 

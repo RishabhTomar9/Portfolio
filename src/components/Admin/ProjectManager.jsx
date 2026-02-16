@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { FaPlus, FaEdit, FaTrash, FaSave, FaTimes, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSave, FaTimes, FaExternalLinkAlt, FaCode, FaThumbtack } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ProjectManager = () => {
     const [projects, setProjects] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [currentProject, setCurrentProject] = useState({ title: '', description: '', link: '', media: '', technologies: '' });
+    const [currentProject, setCurrentProject] = useState({ title: '', description: '', link: '', media: '', technologies: '', pinned: false });
     const [loading, setLoading] = useState(false);
 
     // Modal State
@@ -18,6 +18,8 @@ const ProjectManager = () => {
         const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // Sort by pinned status then by date
+            projectsData.sort((a, b) => (b.pinned === true ? 1 : 0) - (a.pinned === true ? 1 : 0));
             setProjects(projectsData);
         });
         return () => unsubscribe();
@@ -26,6 +28,16 @@ const ProjectManager = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setCurrentProject({ ...currentProject, [name]: value });
+    };
+
+    const togglePin = async (project) => {
+        try {
+            await updateDoc(doc(db, 'projects', project.id), {
+                pinned: !project.pinned
+            });
+        } catch (error) {
+            console.error("Error updating pin status:", error);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -40,6 +52,7 @@ const ProjectManager = () => {
             const projectData = {
                 ...currentProject,
                 technologies: technologiesArray,
+                pinned: currentProject.pinned || false,
                 createdAt: currentProject.createdAt || new Date().toISOString()
             };
 
@@ -49,7 +62,7 @@ const ProjectManager = () => {
                 await addDoc(collection(db, 'projects'), projectData);
             }
 
-            setCurrentProject({ title: '', description: '', link: '', media: '', technologies: '' });
+            setCurrentProject({ title: '', description: '', link: '', media: '', technologies: '', pinned: false });
             setIsEditing(false);
         } catch (error) {
             console.error("Error saving project: ", error);
@@ -114,7 +127,7 @@ const ProjectManager = () => {
                         <h3 className="text-lg font-bold text-white">Editor Interface</h3>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 md:p-8 rounded-3xl border border-white/5 space-y-6 backdrop-blur-xl relative overflow-hidden shadow-2xl">
+                    <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 md:p-8 rounded-xl border border-white/5 space-y-6 backdrop-blur-xl relative overflow-hidden shadow-2xl">
                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent pointer-events-none" />
 
                         <div className="space-y-5 relative z-10">
@@ -232,7 +245,7 @@ const ProjectManager = () => {
                         <h3 className="text-lg font-bold text-white">Visual Output</h3>
                     </div>
 
-                    <div className="bg-black/40 p-6 md:p-8 rounded-3xl border border-white/5 backdrop-blur-md min-h-[400px] md:min-h-[600px] flex items-center justify-center relative lg:sticky lg:top-24 transition-all">
+                    <div className="bg-black/40 p-6 md:p-8 rounded-xl border border-white/5 backdrop-blur-md min-h-[400px] md:min-h-[600px] flex items-center justify-center relative lg:sticky lg:top-24 transition-all">
                         {/* Preview Card */}
                         <div className="group relative rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden w-full max-w-xl mx-auto shadow-2xl transition-all hover:border-white/10">
                             <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950 border-b border-white/5">
@@ -310,7 +323,28 @@ const ProjectManager = () => {
                             >
                                 <div className="aspect-video relative overflow-hidden bg-zinc-950 border-b border-white/5">
                                     <img src={project.media} alt={project.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+
+                                    {/* Status Badge */}
+                                    <div className="absolute top-3 left-3 flex flex-col gap-2 pointer-events-none z-10">
+                                        <div className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-1 rounded border border-white/10 opacity-70 group-hover:opacity-100 transition-opacity w-fit">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
+                                            <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">Node Active</span>
+                                        </div>
+                                        {project.pinned && (
+                                            <div className="flex items-center gap-1.5 bg-yellow-500/20 backdrop-blur-md px-2 py-1 rounded border border-yellow-500/50 shadow-[0_0_10px_rgba(234,179,8,0.3)] w-fit animate-in fade-in slide-in-from-left-2">
+                                                <FaThumbtack className="text-yellow-500 text-[10px]" />
+                                                <span className="text-[9px] font-bold text-yellow-500 uppercase tracking-wider">Pinned</span>
+                                            </div>
+                                        )}
+                                    </div>
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-[2px]">
+                                        <button
+                                            onClick={() => togglePin(project)}
+                                            className={`p-3 rounded-xl text-white transition-all shadow-lg hover:scale-110 ${project.pinned ? 'bg-yellow-500 hover:bg-yellow-400 shadow-yellow-500/30' : 'bg-zinc-700 hover:bg-zinc-600'}`}
+                                            title={project.pinned ? "Unpin Node" : "Pin Node"}
+                                        >
+                                            <FaThumbtack className={project.pinned ? "rotate-45" : ""} />
+                                        </button>
                                         <button
                                             onClick={() => handleEdit(project)}
                                             className="p-3 bg-blue-600 rounded-xl text-white hover:bg-blue-500 transition-all shadow-lg hover:scale-110"

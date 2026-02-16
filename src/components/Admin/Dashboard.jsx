@@ -266,7 +266,7 @@ const Dashboard = () => {
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="text-center py-20 border border-dashed border-white/10 rounded-3xl"
+                                        className="text-center py-20 border border-dashed border-white/10 rounded-xl"
                                     >
                                         <div className="w-16 h-16 bg-zinc-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/5 p-4">
                                             <FaEnvelope className="text-3xl text-zinc-700" />

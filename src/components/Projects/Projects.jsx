@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { FaExternalLinkAlt, FaCode, FaGithub } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaCode, FaGithub, FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Button from '../Buttons/Buttons';
 import { db } from '../../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
@@ -45,7 +46,7 @@ const ProjectCard = ({ project }) => {
     >
       {/* Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-500 group-hover:opacity-100 z-10"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -58,10 +59,8 @@ const ProjectCard = ({ project }) => {
       />
 
       {/* Image Container */}
-      <a
-        href={project.link}
-        target="_blank"
-        rel="noreferrer"
+      <Link
+        to={`/projects/${project.id}`}
         className="block relative aspect-[16/9] overflow-hidden bg-zinc-950 border-b border-white/5 cursor-pointer z-20 group/image"
       >
         <div className="absolute inset-0 bg-zinc-900 animate-pulse" /> {/* Placeholder loading state */}
@@ -74,17 +73,19 @@ const ProjectCard = ({ project }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-transparent to-transparent opacity-60" />
 
         {/* Mobile/Quick Action Overlay - Subtle hint */}
-        <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /> Live
+        <div className="absolute top-4 right-4 bg-purple-500/90 backdrop-blur-md border border-white/10 rounded-full px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 shadow-lg">
+          View Details <FaArrowRight />
         </div>
-      </a>
+      </Link>
 
       {/* Content */}
       <div className="flex flex-col flex-grow p-6 md:p-8 z-20 relative">
         <div className="flex justify-between items-start mb-4 gap-4">
-          <h3 className="text-2xl font-black text-white font-tech tracking-tight leading-none group-hover:text-purple-400 transition-colors duration-300">
-            {project.title}
-          </h3>
+          <Link to={`/projects/${project.id}`} className="group-hover:underline decoration-purple-500/50 underline-offset-4 decoration-2">
+            <h3 className="text-2xl font-black text-white font-tech tracking-tight leading-none group-hover:text-purple-400 transition-colors duration-300">
+              {project.title}
+            </h3>
+          </Link>
 
           {/* Action Buttons - Always visible for better UX */}
           <div className="flex items-center gap-2 shrink-0">
@@ -140,6 +141,13 @@ const Projects = () => {
     const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // Sort: Pinned first, then by createdAt desc (which is already returned by query, but sorting again ensures pinned order)
+      projectsData.sort((a, b) => {
+        if (a.pinned === b.pinned) {
+          return 0; // Existing order (by date) is preserved if pin status is same
+        }
+        return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
+      });
       setProjects(projectsData);
       setLoading(false);
     });

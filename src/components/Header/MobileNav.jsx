@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import { HiOutlineMenuAlt3, HiOutlineX } from 'react-icons/hi';
-import { Button } from '../ui/button'; // Assuming Button is available
+import { Button } from '../ui/button';
 
 const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
 
@@ -25,22 +25,27 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
     const socialLinks = [
         { icon: <FaGithub />, link: "https://github.com/RishabhTomar9" },
         { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/rishabhtomar99/" },
-        { icon: <FaInstagram />, link: "https://www.instagram.com/_._.rishabh_._/" }
+        { icon: <FaInstagram />, link: "https://www.instagram.com/_._.rishabh_._/" },
+        { icon: <FaEnvelope />, link: "mailto:rishabhtomar9999@gmail.com" }
     ];
 
     const menuVariants = {
         closed: {
             x: "100%",
+            rotateY: -10,
+            opacity: 0,
             transition: {
-                duration: 0.8,
+                duration: 0.5,
                 ease: [0.32, 0, 0.67, 0]
             }
         },
         open: {
             x: "0%",
+            rotateY: 0,
+            opacity: 1,
             transition: {
-                duration: 0.8,
-                ease: [0.32, 0, 0.67, 0]
+                duration: 0.7,
+                ease: [0.33, 1, 0.68, 1] // Smoother, more natural ease
             }
         }
     };
@@ -54,7 +59,7 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
         },
         open: {
             transition: {
-                staggerChildren: 0.1,
+                staggerChildren: 0.06,
                 delayChildren: 0.2
             }
         }
@@ -62,16 +67,16 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
 
     const itemVariants = {
         closed: {
-            x: 100,
+            y: 40, // Slide up from bottom
             opacity: 0,
             filter: "blur(10px)",
-            transition: { duration: 0.4 }
+            transition: { duration: 0.3 }
         },
         open: {
-            x: 0,
+            y: 0,
             opacity: 1,
             filter: "blur(0px)",
-            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.5, ease: [0.33, 1, 0.68, 1] }
         }
     };
 
@@ -99,16 +104,16 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
         <>
             <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="relative z-[1100] p-3 text-white focus:outline-none mix-blend-difference"
+                className={`relative z-[1100] p-3 text-white focus:outline-none transition-all duration-300 rounded-full ${menuOpen ? 'bg-transparent' : 'bg-black/20 backdrop-blur-md border border-white/5'}`}
             >
                 <AnimatePresence mode="wait">
                     {menuOpen ? (
-                        <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.3 }}>
-                            <HiOutlineX size={28} />
+                        <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                            <HiOutlineX size={24} />
                         </motion.div>
                     ) : (
-                        <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.3 }}>
-                            <HiOutlineMenuAlt3 size={28} />
+                        <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                            <HiOutlineMenuAlt3 size={24} />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -123,106 +128,107 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5 }}
+                                transition={{ duration: 0.6 }}
                                 onClick={() => setMenuOpen(false)}
-                                className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[9999]"
+                                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999]"
                             />
 
-                            <motion.div
-                                className="fixed top-0 right-0 bottom-0 w-full sm:w-[450px] z-[10000] bg-[#0a0a0a] border-l border-white/5 flex flex-col justify-between py-16 px-8 sm:px-12 shadow-2xl"
-                                initial="closed"
-                                animate="open"
-                                exit="closed"
-                                variants={menuVariants}
-                            >
-                                {/* Header inside Drawer */}
-                                <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
-                                    <span className="text-sm font-bold text-zinc-500 tracking-widest uppercase">Navigation</span>
-
-                                    <button
-                                        onClick={() => setMenuOpen(false)}
-                                        className="p-2 text-white/50 hover:text-white transition-colors lg:hidden"
-                                    >
-                                        <HiOutlineX size={24} />
-                                    </button>
-                                </div>
-
-
-                                {/* Navigation Links */}
-                                <motion.nav
-                                    variants={containerVariants}
+                            {/* Perspective Container for 3D effect */}
+                            <div className="fixed inset-0 z-[10000] pointer-events-none flex justify-end" style={{ perspective: "1500px" }}>
+                                <motion.div
+                                    className="pointer-events-auto w-full sm:w-[500px] h-full bg-[#050505] border-l border-white/10 flex flex-col justify-between py-12 px-8 sm:px-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative transform-gpu origin-right overflow-hidden"
                                     initial="closed"
                                     animate="open"
                                     exit="closed"
-                                    className="flex flex-col gap-4 relative z-10"
+                                    variants={menuVariants}
                                 >
-                                    {scrollItems.map((item, i) => (
-                                        <motion.div
-                                            key={item}
-                                            variants={itemVariants}
-                                            className="overflow-hidden" // Clip overflow for cleaner text slide
+                                    {/* Background Grid Pattern */}
+                                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+                                    <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 via-transparent to-transparent pointer-events-none" />
+
+                                    {/* Header inside Drawer */}
+                                    <div className="flex justify-between items-center mb-8 pb-6 relative z-10">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse box-shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                                            <span className="text-xs font-bold text-zinc-500 tracking-[0.25em] uppercase">Rishabh's Portfolio</span>
+                                        </div>
+                                        <button
+                                            onClick={() => setMenuOpen(false)}
+                                            className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-zinc-400 hover:text-white transition-all transform hover:rotate-90 duration-300 backdrop-blur-sm border border-white/5"
                                         >
-                                            <a
-                                                href={`#${item}`}
-                                                className={`group flex items-center gap-6 py-2 transition-all duration-500`}
-                                                onClick={() => setMenuOpen(false)}
-                                            >
-                                                <span className={`text-xs font-bold transition-colors duration-300 ${activeSection === item ? 'text-purple-400' : 'text-zinc-600 group-hover:text-purple-300'
-                                                    }`}>
-                                                    0{i + 1}
-                                                </span>
-                                                <span className={`text-4xl sm:text-5xl font-bold font-tech tracking-tighter uppercase transition-all duration-300 ${activeSection === item
-                                                    ? "text-white translate-x-4"
-                                                    : "text-zinc-500 group-hover:text-zinc-200 group-hover:translate-x-2"
-                                                    }`}>
-                                                    {item}
-                                                </span>
-                                            </a>
-                                        </motion.div>
-                                    ))}
-                                </motion.nav>
+                                            <HiOutlineX size={20} />
+                                        </button>
+                                    </div>
 
-                                {/* Footer Section */}
-                                <div className="flex flex-col gap-8 mt-3">
-                                    <motion.div
-                                        variants={{
-                                            closed: { opacity: 0, y: 20 },
-                                            open: { opacity: 1, y: 0, transition: { delay: 0.5, duration: 0.5 } }
-                                        }}
-                                    >
-                                        <Button variant="glow" size="lg" className="w-full bg-white/5 border-white/10 hover:bg-white/10 text-zinc-300 hover:text-white" asChild>
-                                            <a
-                                                href="mailto:rishabhtomar9999@gmail.com"
-                                                onClick={() => setMenuOpen(false)}
-                                            >
-                                                Let's Work Together
-                                            </a>
-                                        </Button>
-                                    </motion.div>
 
-                                    <motion.div
-                                        variants={socialContainerVariants}
+                                    {/* Navigation Links */}
+                                    <motion.nav
+                                        variants={containerVariants}
                                         initial="closed"
                                         animate="open"
-                                        className="flex gap-4 justify-between pt-6 border-t border-white/5"
+                                        exit="closed"
+                                        className="flex flex-col gap-2 relative z-10"
                                     >
-                                        {socialLinks.map((social, idx) => (
-                                            <motion.a
-                                                key={idx}
-                                                variants={socialItemVariants}
-                                                href={social.link}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all text-xl group"
+                                        {scrollItems.map((item, i) => (
+                                            <motion.div
+                                                key={item}
+                                                variants={itemVariants}
+                                                className="overflow-hidden"
                                             >
-                                                <span className="group-hover:scale-110 transition-transform duration-300">
-                                                    {social.icon}
-                                                </span>
-                                            </motion.a>
+                                                <a
+                                                    href={`#${item}`}
+                                                    className="group flex items-baseline gap-6 py-2 transition-colors relative"
+                                                    onClick={() => setMenuOpen(false)}
+                                                >
+                                                    <span className={`text-xs font-mono transition-colors duration-300 ${activeSection === item ? 'text-purple-500' : 'text-zinc-700 group-hover:text-zinc-500'}`}>
+                                                        0{i + 1}
+                                                    </span>
+                                                    <span className={`text-5xl sm:text-7xl font-black font-tech tracking-tighter uppercase transition-all duration-500 ${activeSection === item
+                                                        ? "text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 pl-4"
+                                                        : "text-zinc-600 group-hover:text-white group-hover:pl-2"
+                                                        }`}>
+                                                        {item}
+                                                    </span>
+                                                </a>
+                                            </motion.div>
                                         ))}
-                                    </motion.div>
-                                </div>
-                            </motion.div>
+                                    </motion.nav>
+
+                                    {/* Footer Section */}
+                                    <div className="flex flex-col gap-8 mt-auto relative z-10 pt-12">
+                                        <motion.div
+                                            variants={socialContainerVariants}
+                                            initial="closed"
+                                            animate="open"
+                                            className="grid grid-cols-4 gap-4"
+                                        >
+                                            {socialLinks.map((social, idx) => (
+                                                <motion.a
+                                                    key={idx}
+                                                    variants={socialItemVariants}
+                                                    href={social.link}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="aspect-square rounded-2xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2 text-zinc-400 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all group backdrop-blur-sm shadow-lg shadow-black/20"
+                                                >
+                                                    <span className="text-xl group-hover:scale-110 transition-transform duration-300">
+                                                        {social.icon}
+                                                    </span>
+                                                </motion.a>
+                                            ))}
+                                        </motion.div>
+
+                                        <motion.div
+                                            variants={{ closed: { opacity: 0 }, open: { opacity: 1, transition: { delay: 0.4 } } }}
+                                            className="text-center"
+                                        >
+                                            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">
+                                                © 2026 Rishabh Tomar
+                                            </p>
+                                        </motion.div>
+                                    </div>
+                                </motion.div>
+                            </div>
                         </>
                     )}
                 </AnimatePresence>,

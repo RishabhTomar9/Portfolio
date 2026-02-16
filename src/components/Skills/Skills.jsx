@@ -6,23 +6,24 @@ import {
   FaJs,
   FaDatabase,
   FaGitAlt,
-  FaPython,
   FaHtml5,
   FaCss3Alt,
-  FaPencilRuler
+  FaPencilRuler,
+  FaFire,
+  FaSnowflake
 } from "react-icons/fa";
 
 const technicalSkills = [
-  { name: 'React', level: 90, icon: <FaReact />, color: "rgba(97, 218, 251, 0.3)", description: "Frontend Library", tools: "Next.js, Redux, Context" },
+  { name: 'React', level: 95, icon: <FaReact />, color: "rgba(97, 218, 251, 0.3)", description: "Frontend Library", tools: "Next.js, Redux, Context" },
   { name: 'JavaScript', level: 85, icon: <FaJs />, color: "rgba(247, 223, 30, 0.3)", description: "Core Language", tools: "ES6+, TypeScript, DOM" },
   { name: 'Node.js', level: 80, icon: <FaNodeJs />, color: "rgba(104, 160, 99, 0.3)", description: "Backend Runtime", tools: "Express, PM2, Event Loop" },
+  { name: 'Firebase', level: 95, icon: <FaFire />, color: "rgba(255, 202, 40, 0.3)", description: "Cloud Backend", tools: "Firestore, Auth, Functions" },
+  { name: 'PL/SQL', level: 80, icon: <FaDatabase />, color: "rgba(255, 0, 0, 0.3)", description: "Database Logic", tools: "Procedures, Triggers, Views" },
+  { name: 'Snowflake', level: 70, icon: <FaSnowflake />, color: "rgba(41, 181, 232, 0.3)", description: "Data Warehousing", tools: "SnowSQL, Data Sharing" },
   { name: 'HTML', level: 95, icon: <FaHtml5 />, color: "rgba(227, 76, 38, 0.3)", description: "Structure", tools: "Semantic Elements, SEO" },
   { name: 'CSS', level: 95, icon: <FaCss3Alt />, color: "rgba(38, 77, 228, 0.3)", description: "Styling", tools: "Tailwind, SASS, Animations" },
-  { name: 'Python', level: 90, icon: <FaPython />, color: "rgba(55, 118, 171, 0.3)", description: "Scripting & AI", tools: "Pandas, Flask, Automation" },
-  { name: 'MongoDB', level: 75, icon: <FaDatabase />, color: "rgba(71, 162, 72, 0.3)", description: "NoSQL Database", tools: "Mongoose, Aggregations" },
-  { name: 'SQL', level: 80, icon: <FaDatabase />, color: "rgba(0, 117, 143, 0.3)", description: "Relational DB", tools: "PostgreSQL, MySQL, PL/SQL" },
+  { name: 'Design', level: 90, icon: <FaPencilRuler />, color: "rgba(255, 0, 128, 0.3)", description: "UI/UX Concepts", tools: "Figma, Adobe XD, Wireframing" },
   { name: 'Git', level: 85, icon: <FaGitAlt />, color: "rgba(240, 80, 50, 0.3)", description: "Version Control", tools: "GitHub, GitLab, CI/CD" },
-  { name: 'Design', level: 70, icon: <FaPencilRuler />, color: "rgba(255, 0, 128, 0.3)", description: "UI/UX Concepts", tools: "Figma, Adobe XD, Wireframing" },
 ];
 
 const softSkills = [
@@ -43,6 +44,7 @@ const softSkills = [
   { name: 'Initiative', emoji: '⚡' },
   { name: 'Accountability', emoji: '🧾' },
   { name: 'Resilience', emoji: '🛡️' },
+  { name: 'Vibe Coder', emoji: '🎧' },
 ];
 
 const fadeUp = {
@@ -61,7 +63,7 @@ const SkillCard = ({ skill, index, isInView }) => (
     initial="hidden"
     animate={isInView ? "visible" : "hidden"}
     whileHover={{ y: -5 }}
-    className="relative p-6 bg-zinc-900/50 rounded-2xl group overflow-hidden border border-white/5 hover:border-white/10 transition-colors"
+    className="relative p-5 md:p-6 bg-zinc-900/60 rounded-xl group overflow-hidden border border-white/5 hover:border-white/10 transition-colors backdrop-blur-sm"
   >
     {/* Dynamic Background Glow */}
     <div
@@ -69,9 +71,9 @@ const SkillCard = ({ skill, index, isInView }) => (
       style={{ background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)` }}
     />
 
-    <div className="flex items-start gap-5 mb-6">
+    <div className="flex items-start gap-4 mb-6">
       <div
-        className="text-3xl w-14 h-14 rounded-xl bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner shrink-0"
+        className="text-2xl md:text-3xl w-12 h-12 md:w-14 md:h-14 rounded-lg bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner shrink-0"
         style={{ color: skill.color.replace('0.3', '1') }}
       >
         {skill.icon}
@@ -108,12 +110,12 @@ const Skills = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-32 relative bg-[#050505] overflow-hidden" ref={ref}>
-      {/* Background Grid Pattern */}
+    <section id="skills" className="py-20 lg:py-32 relative bg-[#050505] overflow-hidden" ref={ref}>
+      {/* Background Grid Pattern - Matched to About */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="flex flex-col gap-20">
+      <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+        <div className="flex flex-col gap-16 md:gap-20">
 
           {/* New Header Design */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -126,7 +128,7 @@ const Skills = () => {
                 <span className="w-8 h-[2px] bg-purple-500" />
                 <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Capabilities</span>
               </div>
-              <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+              <h2 className="text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
                 Tech
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Arsenal.</span>
               </h2>
@@ -138,25 +140,25 @@ const Skills = () => {
           </div>
 
           {/* TECHNICAL SKILLS GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full">
             {technicalSkills.map((skill, index) => (
               <SkillCard key={skill.name} skill={skill} index={index} isInView={isInView} />
             ))}
           </div>
 
           {/* SOFT SKILLS SECTION */}
-          <div className="mt-20">
+          <div className="mt-10 md:mt-20">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="mb-10"
+              className="mb-8 md:mb-10"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-[2px] bg-purple-500" />
                 <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Human Interface</span>
               </div>
-              <h2 className="text-4xl md:text-6xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white font-tech tracking-tighter uppercase leading-[0.85]">
                 Professional
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Ethos.</span>
               </h2>
@@ -164,12 +166,7 @@ const Skills = () => {
 
             <div className="space-y-6">
 
-              {/* Row 1: Left to Right (Actually standard marquee moves right to left usually, but user asked 'from left to right' and 'from right to left') 
-                  Let's interpret:
-                  1. Left -> Right (Content moves towards right)
-                  2. Right -> Left (Content moves towards left)
-              */}
-
+              {/* Row 1: Left to Right */}
               <MarqueeRow skills={softSkills.slice(0, Math.ceil(softSkills.length / 2))} direction="right" speed={30} />
               <MarqueeRow skills={softSkills.slice(Math.ceil(softSkills.length / 2))} direction="left" speed={30} />
 

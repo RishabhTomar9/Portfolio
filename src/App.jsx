@@ -12,10 +12,12 @@ import CursorTracker from './components/CursorTracker/CursorTracker';
 // Page Components
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
+import Resume from './components/Resume/Resume'; // New Resume Component
 import Experience from './components/Experience/Experience';
 import Skills from './components/Skills/Skills';
 import CertificateAchievements from './components/CertificateAchievements/CertificateAchievements';
 import Projects from './components/Projects/Projects';
+import ProjectDetail from './components/Projects/ProjectDetail';
 
 // Scroll To Top Utility
 const ScrollToTop = () => {
@@ -62,10 +64,12 @@ const AppContent = () => {
 
           {/* Individual Page Routes */}
           <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="/experience" element={<Experience />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/credentials" element={<CertificateAchievements />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Login />} />

@@ -78,7 +78,7 @@ const SkillCard = ({ skill, index, isInView }) => (
       </div>
       <div>
         <h3 className="text-lg font-bold text-white font-tech tracking-tight group-hover:text-purple-300 transition-colors">{skill.name}</h3>
-        <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider mt-1">{skill.description}</p>
+        <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mt-1">{skill.description}</p>
       </div>
     </div>
 
@@ -95,7 +95,7 @@ const SkillCard = ({ skill, index, isInView }) => (
         />
       </div>
 
-      <div className="flex justify-between items-center text-[10px] font-mono text-zinc-600">
+      <div className="flex justify-between items-center text-[10px] font-bold text-zinc-600">
         <span className="uppercase tracking-widest">{skill.tools}</span>
         <span className="text-white">{skill.level}%</span>
       </div>
@@ -124,14 +124,14 @@ const Skills = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-[2px] bg-purple-500" />
-                <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Capabilities</span>
+                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Capabilities</span>
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
                 Tech
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Arsenal.</span>
               </h2>
             </motion.div>
-            <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+            <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
               System: Operational<br />
               Stack: Modern_V2
             </div>
@@ -145,40 +145,65 @@ const Skills = () => {
           </div>
 
           {/* SOFT SKILLS SECTION */}
-          <div className="mt-12">
+          <div className="mt-20">
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="mb-8 flex items-center gap-3"
+              className="mb-10"
             >
-              <span className="w-8 h-[2px] bg-blue-500" />
-              <span className="text-xs font-mono text-blue-400 tracking-[0.4em] uppercase">Interpersonal Traits</span>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-8 h-[2px] bg-purple-500" />
+                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Human Interface</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
+                Professional
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Ethos.</span>
+              </h2>
             </motion.div>
 
-            <motion.div
-              className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              {softSkills.map((skill, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
-                  className="flex items-center gap-2 px-4 py-3 rounded-full bg-zinc-900/50 border border-white/5 text-sm md:text-base text-zinc-300 cursor-default hover:text-white hover:border-blue-500/30 transition-all font-tech"
-                >
-                  <span className="text-lg">{skill.emoji}</span>
-                  <span className="tracking-wide">{skill.name}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+            <div className="space-y-6">
+
+              {/* Row 1: Left to Right (Actually standard marquee moves right to left usually, but user asked 'from left to right' and 'from right to left') 
+                  Let's interpret:
+                  1. Left -> Right (Content moves towards right)
+                  2. Right -> Left (Content moves towards left)
+              */}
+
+              <MarqueeRow skills={softSkills.slice(0, Math.ceil(softSkills.length / 2))} direction="right" speed={30} />
+              <MarqueeRow skills={softSkills.slice(Math.ceil(softSkills.length / 2))} direction="left" speed={30} />
+
+            </div>
           </div>
 
         </div>
       </div>
     </section>
+  );
+};
+
+const MarqueeRow = ({ skills, direction, speed }) => {
+  return (
+    <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <motion.div
+        className="flex gap-4 pr-4"
+        initial={{ x: direction === 'left' ? 0 : "-50%" }}
+        animate={{ x: direction === 'left' ? "-50%" : 0 }}
+        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
+        style={{ width: "max-content" }}
+      >
+        {[...skills, ...skills, ...skills].map((skill, i) => (
+          <div
+            key={i}
+            className="group relative flex items-center gap-3 px-6 py-4 rounded-xl bg-zinc-900/50 border border-white/5 text-sm md:text-base text-zinc-400 cursor-default hover:text-white hover:border-purple-500/30 transition-all font-bold uppercase tracking-wider shrink-0"
+          >
+            <div className="absolute inset-0 bg-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl blur-md" />
+            <span className="text-lg relative z-10">{skill.emoji}</span>
+            <span className="relative z-10">{skill.name}</span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
   );
 };
 export default Skills;

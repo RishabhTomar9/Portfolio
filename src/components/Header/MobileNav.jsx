@@ -137,7 +137,7 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                             >
                                 {/* Header inside Drawer */}
                                 <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
-                                    <span className="text-sm font-mono text-zinc-500 tracking-widest uppercase">Navigation</span>
+                                    <span className="text-sm font-bold text-zinc-500 tracking-widest uppercase">Navigation</span>
 
                                     <button
                                         onClick={() => setMenuOpen(false)}
@@ -167,13 +167,13 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                                 className={`group flex items-center gap-6 py-2 transition-all duration-500`}
                                                 onClick={() => setMenuOpen(false)}
                                             >
-                                                <span className={`text-xs font-mono transition-colors duration-300 ${activeSection === item ? 'text-purple-400' : 'text-zinc-600 group-hover:text-purple-300'
+                                                <span className={`text-xs font-bold transition-colors duration-300 ${activeSection === item ? 'text-purple-400' : 'text-zinc-600 group-hover:text-purple-300'
                                                     }`}>
                                                     0{i + 1}
                                                 </span>
                                                 <span className={`text-4xl sm:text-5xl font-bold font-tech tracking-tighter uppercase transition-all duration-300 ${activeSection === item
-                                                        ? "text-white translate-x-4"
-                                                        : "text-zinc-500 group-hover:text-zinc-200 group-hover:translate-x-2"
+                                                    ? "text-white translate-x-4"
+                                                    : "text-zinc-500 group-hover:text-zinc-200 group-hover:translate-x-2"
                                                     }`}>
                                                     {item}
                                                 </span>

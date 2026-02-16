@@ -42,7 +42,7 @@ const DataStream = () => {
       {codes.map((code, i) => (
         <motion.div
           key={i}
-          className="absolute text-[10px] font-mono text-purple-500/40 whitespace-nowrap"
+          className="absolute text-[10px] font-bold text-purple-500/40 whitespace-nowrap"
           style={{
             top: `${(i + 1) * 15}%`,
             left: '-20%',
@@ -92,7 +92,7 @@ const Hero = () => {
         className="absolute bottom-1/4 left-10 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"
       /> */}
 
-      <div className="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto max-w-7xl px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
 
         {/* Left Content */}
         <motion.div
@@ -112,7 +112,7 @@ const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
             </span>
-            <span className="text-[10px] font-bold tracking-[0.2em] text-purple-300 uppercase font-mono">
+            <span className="text-[10px] font-bold tracking-[0.2em] text-purple-300 uppercase font-bold">
               System Ready // 2026
             </span>
           </motion.div>
@@ -124,7 +124,7 @@ const Hero = () => {
             </span>
           </h1>
 
-          <div className="text-xl lg:text-3xl font-light text-zinc-300 mb-10 h-10 flex items-center font-tech tracking-tight">
+          <div className="text-xl lg:text-3xl font-bold text-zinc-300 mb-10 h-10 flex items-center font-tech tracking-tight">
             <span className="mr-4 text-purple-500 font-bold">{'>'}</span>
             <Typewriter
               options={{
@@ -142,9 +142,8 @@ const Hero = () => {
             />
           </div>
 
-          <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-light">
+          <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-bold">
             I'm <span className="text-white font-semibold">Rishabh Tomar</span>.
-            Selected as <span className="text-purple-400 font-medium underline underline-offset-4 decoration-purple-500/30">Data Engineer</span> at HCLTech.
             Co-Founder & Co-CTO at <span className="text-blue-400 font-medium">Zintrix Technologies</span>.
             Transforming complex data into seamless experiences.
           </p>
@@ -184,7 +183,7 @@ const Hero = () => {
               <motion.i whileHover={{ color: '#29b5e8', y: -5 }} className="devicon-snowflake-plain cursor-help transition-all"></motion.i>
             </div>
             <div className="h-px w-20 bg-gradient-to-r from-zinc-800 to-transparent"></div>
-            <span className="text-[10px] font-mono tracking-widest uppercase">Tech_Stack_Initialized</span>
+            <span className="text-[10px] font-bold tracking-widest uppercase">Tech_Stack_Initialized</span>
           </div>
         </motion.div>
 
@@ -216,7 +215,7 @@ const Hero = () => {
 
                 <div className="space-y-4">
                   <div className="glass-card !bg-zinc-950/80 p-5 rounded-2xl border-l-4 border-l-yellow-400 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700">
-                    <div className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] mb-2 font-mono">Current Identity</div>
+                    <div className="text-[10px] text-zinc-500 uppercase tracking-[0.3em] mb-2 font-bold">Current Identity</div>
                     <div className="flex items-center gap-3">
                       <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
                       <span className="font-tech text-xl font-bold text-white tracking-wider">RISHABH TOMAR</span>
@@ -248,7 +247,7 @@ const Hero = () => {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-purple-500 to-transparent"></div>
-        <span className="text-[10px] font-mono text-zinc-500 tracking-[0.4em] uppercase">Scroll</span>
+        <span className="text-[10px] font-bold text-zinc-500 tracking-[0.4em] uppercase">Scroll</span>
       </motion.div>
     </section>
   );

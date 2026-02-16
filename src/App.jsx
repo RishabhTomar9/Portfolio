@@ -26,6 +26,10 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Admin Components
+import Login from './components/Admin/Login';
+import Dashboard from './components/Admin/Dashboard';
+
 // Home Page Component (Renders all sections for SPA feel)
 const Home = () => (
   <>
@@ -38,6 +42,46 @@ const Home = () => (
   </>
 );
 
+// AppContent component to handle conditional layout
+const AppContent = () => {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="App">
+      {/* <GlobalBackground /> */}
+      <CursorTracker />
+
+      {/* Header stays visible on all pages, hidden on admin */}
+      {!isAdmin && <Header />}
+
+      <main className="min-h-screen">
+        <Routes>
+          {/* Home Route Renders All Sections */}
+          <Route path="/" element={<Home />} />
+
+          {/* Individual Page Routes */}
+          <Route path="/about" element={<About />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/credentials" element={<CertificateAchievements />} />
+          <Route path="/projects" element={<Projects />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={<Login />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+
+          {/* Redirect any unknown route to Home */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </main>
+
+      {/* Footer stays visible on all pages, hidden on admin */}
+      {!isAdmin && <Footer />}
+    </div>
+  );
+};
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -49,33 +93,7 @@ function App() {
   ) : (
     <Router>
       <ScrollToTop />
-      <div className="App">
-        {/* <GlobalBackground /> */}
-        <CursorTracker />
-
-        {/* Header stays visible on all pages */}
-        <Header />
-
-        <main className="min-h-screen">
-          <Routes>
-            {/* Home Route Renders All Sections */}
-            <Route path="/" element={<Home />} />
-
-            {/* Individual Page Routes */}
-            <Route path="/about" element={<About />} />
-            <Route path="/experience" element={<Experience />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/credentials" element={<CertificateAchievements />} />
-            <Route path="/projects" element={<Projects />} />
-
-            {/* Redirect any unknown route to Home */}
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </main>
-
-        {/* Footer stays visible on all pages */}
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
   );
 }

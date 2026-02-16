@@ -143,13 +143,13 @@ const ProjectCard = ({ project }) => {
             </h3>
           </div>
 
-          <p className="text-zinc-400 text-sm mb-8 leading-relaxed font-light line-clamp-3 group-hover:text-zinc-300 transition-colors">
+          <p className="text-zinc-400 text-sm mb-8 leading-relaxed font-bold line-clamp-3 group-hover:text-zinc-300 transition-colors">
             {project.description}
           </p>
 
           <div className="mt-auto flex flex-wrap gap-2">
             {project.technologies.map((tech, i) => (
-              <span key={i} className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/5 border border-white/5 text-zinc-500 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-all">
+              <span key={i} className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/5 border border-white/5 text-zinc-500 group-hover:border-purple-500/30 group-hover:text-purple-300 transition-all">
                 {tech}
               </span>
             ))}
@@ -177,15 +177,15 @@ const Projects = () => {
           >
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-purple-500" />
-              <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Showcase</span>
+              <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Showcase</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
-              Featured 
+              Featured
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Works.</span>
             </h2>
           </motion.div>
 
-          <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+          <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
             Selection: Top_tier<br />
             Status: Deployed
           </div>

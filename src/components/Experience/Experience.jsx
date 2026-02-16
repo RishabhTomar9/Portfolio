@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaDatabase, FaRocket, FaShieldAlt } from 'react-icons/fa';
+import { FaDatabase, FaRocket, FaShieldAlt, FaBriefcase } from 'react-icons/fa';
 
 const experiences = [
     {
@@ -14,14 +14,14 @@ const experiences = [
         status: 'LIVE_OPERATIONS'
     },
     {
-        company: 'HCLTech',
-        role: 'Data Engineer (Selected)',
-        period: 'Upcoming',
-        description: 'Selected for the Data Engineer role. Specializing in extensive data warehousing, PL/SQL, and Snowflake architecture for enterprise-level solutions.',
-        icon: <FaDatabase />,
-        color: 'text-blue-400',
-        accent: 'bg-blue-500',
-        status: 'INITIALIZING_SEQUENCE'
+        company: 'Shiksha Salahkar',
+        role: 'Intern',
+        period: 'Dec 2025 - Mar 2026',
+        description: 'Contributing to software development projects and gaining hands-on experience in full-stack technologies. Assisting team in delivering high-quality solutions.',
+        icon: <FaBriefcase />,
+        color: 'text-yellow-400',
+        accent: 'bg-yellow-500',
+        status: 'ACTIVE_INTERNSHIP'
     }
 ];
 
@@ -41,7 +41,7 @@ const Experience = () => {
                     >
                         <div className="flex items-center gap-3 mb-4">
                             <span className="w-8 h-[2px] bg-purple-500" />
-                            <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Timeline</span>
+                            <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Timeline</span>
                         </div>
                         <h2 className="text-4xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-tight md:leading-[0.8]">
                             Career<br className="md:hidden" />
@@ -49,7 +49,7 @@ const Experience = () => {
                         </h2>
                     </motion.div>
 
-                    <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+                    <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
                         Log_Version: 2.0<br />
                         Sync: Auto
                     </div>
@@ -99,23 +99,23 @@ const Experience = () => {
                                                 <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center text-xl md:text-3xl ${exp.color} border border-white/5 group-hover:border-white/20 transition-colors`}>
                                                     {exp.icon}
                                                 </div>
-                                                <span className="text-[9px] md:text-[10px] font-mono text-zinc-500 border border-zinc-800 px-2 py-1 rounded-full whitespace-nowrap uppercase tracking-tighter">
+                                                <span className="text-[9px] md:text-[10px] font-bold text-zinc-500 border border-zinc-800 px-2 py-1 rounded-full whitespace-nowrap uppercase tracking-tighter">
                                                     {exp.period}
                                                 </span>
                                             </div>
 
                                             <h3 className="text-xl md:text-3xl font-bold text-white mb-1 tracking-tight">{exp.company}</h3>
-                                            <h4 className={`text-xs md:text-sm font-mono uppercase tracking-widest mb-4 md:mb-6 ${exp.color}`}>
+                                            <h4 className={`text-xs md:text-sm font-bold uppercase tracking-widest mb-4 md:mb-6 ${exp.color}`}>
                                                 {exp.role}
                                             </h4>
 
-                                            <p className="text-zinc-500 leading-relaxed text-sm mb-6 md:mb-8 font-light">
+                                            <p className="text-zinc-500 leading-relaxed text-sm mb-6 md:mb-8 font-bold">
                                                 {exp.description}
                                             </p>
 
                                             <div className="flex items-center gap-3 pt-4 md:pt-6 border-t border-white/5">
                                                 <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-green-500' : 'bg-blue-500'} animate-pulse`}></div>
-                                                <span className="text-[8px] md:text-[9px] font-mono text-zinc-500 uppercase tracking-tighter">
+                                                <span className="text-[8px] md:text-[9px] font-bold text-zinc-500 uppercase tracking-tighter">
                                                     Status: {exp.status}
                                                 </span>
                                             </div>

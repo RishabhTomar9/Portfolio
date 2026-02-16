@@ -56,7 +56,7 @@ const Loader = ({ onFinish }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] bg-[#030303] flex items-center justify-center overflow-hidden font-mono"
+      className="fixed inset-0 z-[9999] bg-[#030303] flex items-center justify-center overflow-hidden font-bold"
       exit={{
         opacity: 0,
         scale: 1.2,
@@ -116,10 +116,10 @@ const Loader = ({ onFinish }) => {
 
           <div className="flex flex-col items-center mt-4 space-y-1">
             <div className="h-px w-24 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-50" />
-            <div className="text-[10px] font-mono text-purple-400 tracking-[0.2em] uppercase">
+            <div className="text-[10px] font-bold text-purple-400 tracking-[0.2em] uppercase">
               {percent === 100 ? "ACCESS_GRANTED" : loadingText}
             </div>
-            <div className="text-[9px] font-mono text-zinc-600 uppercase">
+            <div className="text-[9px] font-bold text-zinc-600 uppercase">
               MEM_ADDR: {currentHex}
             </div>
           </div>

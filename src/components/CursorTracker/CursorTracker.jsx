@@ -39,7 +39,7 @@ const CursorTracker = () => {
       lastSpawnTimeRef.current = now
 
       const el = document.createElement('span')
-      el.className = 'cursor-particle absolute text-xs font-mono opacity-0'
+      el.className = 'cursor-particle absolute text-xs font-bold opacity-0'
       el.textContent = LANGUAGES[Math.floor(Math.random() * LANGUAGES.length)]
       el.style.left = x + 'px'
       el.style.top = y + 'px'

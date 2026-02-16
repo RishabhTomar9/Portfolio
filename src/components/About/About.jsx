@@ -72,14 +72,14 @@ const AboutCard = ({ card, index }) => {
             </div>
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-950 border border-white/5`}>
               <div className={`w-1.5 h-1.5 rounded-full ${card.accent} animate-pulse`} />
-              <span className="text-[8px] font-mono text-zinc-500 tracking-widest">{card.tag}</span>
+              <span className="text-[8px] font-bold text-zinc-500 tracking-widest">{card.tag}</span>
             </div>
           </div>
 
           <h3 className="text-2xl font-bold text-white mb-4 font-tech tracking-tight uppercase italic">
             {card.title}
           </h3>
-          <p className="text-zinc-500 leading-relaxed text-sm group-hover:text-zinc-300 transition-colors duration-300">
+          <p className="text-zinc-500 leading-relaxed text-lg group-hover:text-zinc-300 transition-colors duration-300">
             {card.description}
           </p>
         </div>
@@ -93,7 +93,7 @@ const AboutCard = ({ card, index }) => {
 
 const About = () => {
   return (
-    <section id="about" className="py-32 px-6 relative bg-[#050505] overflow-hidden" aria-label="About Section">
+    <section id="about" className="py-32 relative bg-[#050505] overflow-hidden" aria-label="About Section">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -109,7 +109,7 @@ const About = () => {
           >
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-purple-500" />
-              <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Identity</span>
+              <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Identity</span>
             </div>
             <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
               Core
@@ -117,7 +117,7 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block text-right">
+          <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
             Location: Bhopal, India <br />
             Status: Available
           </div>
@@ -132,27 +132,26 @@ const About = () => {
               viewport={{ once: true }}
               className="space-y-6 text-zinc-400 text-lg leading-relaxed max-w-md"
             >
-              <p className="font-light italic">
+              <p className="font-bold italic">
                 "I don't just write code; I architect ecosystems where data flows seamlessly into experience."
               </p>
-              <p className="text-base font-light">
-                Currently optimizing high-velocity data pipelines at
-                <span className="text-white font-mono border-b border-purple-500/30 ml-1">HCLTech</span>
-                and co-founding
+              <p className="text-base font-bold">
+                Currently
+                co-founding
                 <a
                   href="https://zintrixtechnologies.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors ml-1 group font-medium"
+                  className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors ml-1 group font-extrabold"
                 >
-                  Zintrix <FaExternalLinkAlt className="text-[10px] opacity-50 group-hover:opacity-100 transition-opacity" />
+                  Zintrix Technologies <FaExternalLinkAlt className="text-[10px] opacity-50 group-hover:opacity-100 transition-opacity" />
                 </a>.
               </p>
 
 
               <div className="mt-12 flex items-center gap-6">
                 <Button />
-                <div className="hidden md:block text-[10px] font-mono text-zinc-600 leading-tight uppercase tracking-widest">
+                <div className="hidden md:block text-[10px] font-bold text-zinc-600 leading-tight uppercase tracking-widest">
                   Location: India <br />
                   Focus: Full-Stack & Data
                 </div>

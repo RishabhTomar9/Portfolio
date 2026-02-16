@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import emailjs from 'emailjs-com'; // Removed as per request
 import { db } from '../../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaGithub, FaLinkedin, FaTwitter, FaInstagram,
-  FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle
+  FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaLock
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -81,7 +82,7 @@ const Footer = () => {
             >
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-[2px] bg-purple-500" />
-                <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Communication</span>
+                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Communication</span>
               </div>
 
               <h2 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter uppercase text-white leading-[0.8]">
@@ -107,7 +108,7 @@ const Footer = () => {
                       {item.icon}
                     </div>
                     <div>
-                      <p className="text-[10px] font-mono text-zinc-600 uppercase tracking-tighter">{item.label}</p>
+                      <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-tighter">{item.label}</p>
                       <p className="text-white font-medium group-hover:text-purple-400 transition-colors">{item.detail}</p>
                     </div>
                   </motion.a>
@@ -131,14 +132,14 @@ const Footer = () => {
                 <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-mono text-zinc-500 uppercase ml-2">Name</label>
+                      <label className="text-[10px] font-bold text-zinc-500 uppercase ml-2">Name</label>
                       <input
                         type="text" name="user_name" required placeholder="John Doe"
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all placeholder:text-zinc-700"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-mono text-zinc-500 uppercase ml-2">Email Address</label>
+                      <label className="text-[10px] font-bold text-zinc-500 uppercase ml-2">Email Address</label>
                       <input
                         type="email" name="user_email" required placeholder="john@example.com"
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all placeholder:text-zinc-700"
@@ -147,7 +148,7 @@ const Footer = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-mono text-zinc-500 uppercase ml-2">Message</label>
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase ml-2">Message</label>
                     <textarea
                       name="message" rows="4" required placeholder="Tell me about your project..."
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all resize-none placeholder:text-zinc-700"
@@ -200,12 +201,20 @@ const Footer = () => {
             ))}
           </div>
 
-          <div className="text-zinc-600 font-mono text-[9px] uppercase tracking-[0.3em] flex flex-col md:items-end gap-2">
+          <div className="text-zinc-600 font-bold text-[9px] uppercase tracking-[0.3em] flex flex-col md:items-end gap-2">
             <p>© {new Date().getFullYear()} / Rishabh Tomar / Local Time {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-            <div className="flex gap-4 opacity-50">
+            <div className="flex gap-4 opacity-50 relative">
               <span>System: Stable</span>
               <span className="w-px h-3 bg-zinc-800" />
               <span>Built with React + Tailwind</span>
+              <span className="w-px h-3 bg-zinc-800" />
+              <Link to="/admin" className="group flex items-center gap-1 hover:text-purple-500 transition-colors">
+                <FaLock className="text-[10px] opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                <span className="relative">
+                  System.Admin
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-purple-500 group-hover:w-full transition-all duration-300" />
+                </span>
+              </Link>
             </div>
           </div>
         </div>

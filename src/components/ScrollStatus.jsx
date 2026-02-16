@@ -54,7 +54,7 @@ const ScrollStatus = () => {
                             />
                         ))}
                     </div>
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]">
+                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.3em]">
                         SYSTEM_STATUS: ONLINE
                     </span>
                 </div>
@@ -66,7 +66,7 @@ const ScrollStatus = () => {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 10 }}
-                            className="text-[10px] font-mono text-white uppercase tracking-[0.2em]"
+                            className="text-[10px] font-bold text-white uppercase tracking-[0.2em]"
                         >
                             {activeSection.replace('-', '_')}
                         </motion.span>

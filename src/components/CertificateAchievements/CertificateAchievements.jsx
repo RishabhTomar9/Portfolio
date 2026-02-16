@@ -42,14 +42,14 @@ const CertificateAchievements = () => {
           >
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[2px] bg-purple-500" />
-              <span className="text-xs font-mono text-purple-400 tracking-[0.4em] uppercase">Credentials</span>
+              <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Credentials</span>
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-white font-tech tracking-tighter uppercase leading-[0.8]">
               Verified
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Milestones.</span>
             </h2>
           </motion.div>
-          <div className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest hidden md:block">
+          <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block">
             Status: Archive_Updated_2026<br />
             Auth: 2FA_Verified
           </div>
@@ -87,11 +87,11 @@ const CertificateAchievements = () => {
 
               <div className="p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <p className="text-[10px] font-mono text-purple-500 uppercase tracking-tighter">
+                  <p className="text-[10px] font-bold text-purple-500 uppercase tracking-tighter">
                     {cert.date}
                   </p>
                   {/* Subtle "Verify" text on hover */}
-                  <span className="text-[8px] font-mono text-zinc-600 opacity-0 group-hover:opacity-100 uppercase transition-opacity">
+                  <span className="text-[8px] font-bold text-zinc-600 opacity-0 group-hover:opacity-100 uppercase transition-opacity">
                     Verify_ID
                   </span>
                 </div>
@@ -105,7 +105,7 @@ const CertificateAchievements = () => {
 
         {/* 2. Badges Hex-Style Row */}
         <div className="mb-32">
-          <h3 className="text-xs font-mono text-zinc-600 uppercase tracking-[0.5em] mb-12 text-center underline decoration-zinc-800 underline-offset-8">
+          <h3 className="text-xs font-bold text-zinc-600 uppercase tracking-[0.5em] mb-12 text-center underline decoration-zinc-800 underline-offset-8">
             Digital_Collectibles
           </h3>
           <div className="flex flex-wrap justify-center gap-10 md:gap-16">
@@ -123,7 +123,7 @@ const CertificateAchievements = () => {
                 </div>
                 {/* Background Glow */}
                 <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                <p className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-mono text-zinc-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all uppercase tracking-tighter">
+                <p className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-bold text-zinc-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all uppercase tracking-tighter">
                   {badge.title}
                 </p>
               </motion.a>
@@ -148,14 +148,14 @@ const CertificateAchievements = () => {
                 className="p-8 bg-gradient-to-r from-zinc-900/80 to-transparent border-l-4 border-orange-500 rounded-r-2xl border-y border-white/5 flex justify-between items-center group cursor-pointer"
               >
                 <div>
-                  <span className="text-[10px] font-mono text-orange-400/60 uppercase tracking-widest">
+                  <span className="text-[10px] font-bold text-orange-400/60 uppercase tracking-widest">
                     {ach.date}
                   </span>
                   <h4 className="text-2xl font-bold text-white mt-1 group-hover:text-orange-400 transition-colors tracking-tight">
                     {ach.title}
                   </h4>
                   {/* Note: I added 'Verified Achievement' here, but you could add an 'org' field to your achievements array if you want specific issuers */}
-                  <p className="text-zinc-500 text-xs font-mono uppercase mt-2">
+                  <p className="text-zinc-500 text-xs font-bold uppercase mt-2">
                     Status: Verified_Credential
                   </p>
                 </div>

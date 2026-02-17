@@ -38,7 +38,7 @@ const Button = ({
       )}
 
       {/* Content */}
-      <span className="relative z-10 flex items-center gap-3 tracking-wide">
+      <span className="relative z-10 flex items-center gap-1 tracking-wide">
         {children === "Download Resume" && (
           <FaDownload className="text-lg group-hover:-translate-y-0.5 group-hover:text-purple-600 transition-all duration-300" />
         )}

@@ -154,7 +154,6 @@ const About = () => {
 
 
                 <div className="mt-12 flex items-center gap-6">
-                  <Button />
                   <div className="hidden md:block text-[10px] font-bold text-zinc-600 leading-tight uppercase tracking-widest">
                     Location: India <br />
                     Focus: Full-Stack & Data

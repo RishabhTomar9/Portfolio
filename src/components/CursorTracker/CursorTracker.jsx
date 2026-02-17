@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
 
-
 const GHOST_COUNT = 12
 const LANGUAGES = [
   'HTML', 'CSS', 'JS', 'React', 'Node', 'SQL', 'MongoDB', 'Python', 'AWS', 'Git'

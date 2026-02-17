@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import useLenis from './hooks/useLenis';
 
-// Global Layout Components
+// Global Layout Components - Keep Header/Footer eager for perceived performance
 import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
 import Loader from './components/Loader/Loader';
 import CursorTracker from './components/CursorTracker/CursorTracker';
-// import GlobalBackground from './components/common/GlobalBackground';
 
-// Page Components
-import Hero from './components/Hero/Hero';
-import About from './components/About/About';
-import Resume from './components/Resume/Resume'; // New Resume Component
-import Experience from './components/Experience/Experience';
-import Skills from './components/Skills/Skills';
-import CertificateAchievements from './components/CertificateAchievements/CertificateAchievements';
-import Projects from './components/Projects/Projects';
-import ProjectDetail from './components/Projects/ProjectDetail';
+// Lazy Load Page Components
+const Hero = lazy(() => import('./components/Hero/Hero'));
+const About = lazy(() => import('./components/About/About'));
+const Resume = lazy(() => import('./components/Resume/Resume'));
+const Experience = lazy(() => import('./components/Experience/Experience'));
+const Skills = lazy(() => import('./components/Skills/Skills'));
+const CertificateAchievements = lazy(() => import('./components/CertificateAchievements/CertificateAchievements'));
+const Projects = lazy(() => import('./components/Projects/Projects'));
+const ProjectDetail = lazy(() => import('./components/Projects/ProjectDetail'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+
+// Lazy Load Admin Components
+const Login = lazy(() => import('./components/Admin/Login'));
+const Dashboard = lazy(() => import('./components/Admin/Dashboard'));
 
 // Scroll To Top Utility
 const ScrollToTop = () => {
@@ -27,10 +30,6 @@ const ScrollToTop = () => {
   }, [pathname]);
   return null;
 };
-
-// Admin Components
-import Login from './components/Admin/Login';
-import Dashboard from './components/Admin/Dashboard';
 
 // Home Page Component (Renders all sections for SPA feel)
 const Home = () => (
@@ -51,37 +50,42 @@ const AppContent = () => {
 
   return (
     <div className="App">
-      {/* <GlobalBackground /> */}
       <CursorTracker />
 
       {/* Header stays visible on all pages, hidden on admin */}
       {!isAdmin && <Header />}
 
       <main className="min-h-screen">
-        <Routes>
-          {/* Home Route Renders All Sections */}
-          <Route path="/" element={<Home />} />
+        <Suspense fallback={<div className="min-h-screen bg-black" />}>
+          <Routes>
+            {/* Home Route Renders All Sections */}
+            <Route path="/" element={<Home />} />
 
-          {/* Individual Page Routes */}
-          <Route path="/about" element={<About />} />
-          <Route path="/resume" element={<Resume />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/credentials" element={<CertificateAchievements />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
+            {/* Individual Page Routes */}
+            <Route path="/about" element={<About />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/credentials" element={<CertificateAchievements />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin" element={<Login />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
+            {/* Admin Routes */}
+            <Route path="/admin" element={<Login />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
 
-          {/* Redirect any unknown route to Home */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            {/* Redirect any unknown route to Home */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Suspense>
       </main>
 
       {/* Footer stays visible on all pages, hidden on admin */}
-      {!isAdmin && <Footer />}
+      {!isAdmin && (
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      )}
     </div>
   );
 };

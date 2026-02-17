@@ -1,32 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
 import useWindowSize from '../../hooks/useWindowSize';
 import Button from '../Buttons/Buttons';
-
-
-const MovingGrid = () => {
-  return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <motion.div
-        className="absolute inset-[-50%] w-[200%] h-[200%] opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-        animate={{
-          transform: ['translate(0, 0)', 'translate(-60px, -60px)']
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 15,
-          ease: "linear"
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950"></div>
-    </div>
-  );
-};
 
 const DataStream = () => {
   const codes = [
@@ -38,17 +14,18 @@ const DataStream = () => {
   ];
 
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20 hidden lg:block">
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20 hidden lg:block select-none">
       {codes.map((code, i) => (
         <motion.div
           key={i}
-          className="absolute text-[10px] font-bold text-purple-500/40 whitespace-nowrap"
+          className="absolute text-[10px] font-bold text-purple-500/40 whitespace-nowrap will-change-transform"
           style={{
             top: `${(i + 1) * 15}%`,
-            left: '-20%',
+            x: '-100%',
+            left: 0
           }}
           animate={{
-            left: ['-20%', '110%'],
+            x: '100vw',
           }}
           transition={{
             duration: 20 + i * 5,
@@ -65,42 +42,19 @@ const DataStream = () => {
 };
 
 
-const CursorSpotlight = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  return (
-    <motion.div
-      className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-      style={{
-        background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(168, 85, 247, 0.04), transparent 80%)`,
-      }}
-    />
-  );
-};
-
 const Hero = () => {
   const { width } = useWindowSize();
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
-  const textY = useTransform(scrollY, [0, 500], [0, 80]);
+
+  // Optimize parallax with spring smoothing or simplified transforms
+  const y1 = useTransform(scrollY, [0, 500], [0, 100]); // Reduced range for lighter feel
+  const y2 = useTransform(scrollY, [0, 500], [0, -50]);
+  const textY = useTransform(scrollY, [0, 300], [0, 50]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 bg-[#050505] selection:bg-purple-500/30">
-      <CursorSpotlight />
-
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 selection:bg-purple-500/30 overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 pointer-events-none" />
       <DataStream />
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
@@ -110,7 +64,7 @@ const Hero = () => {
           style={{ y: textY }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="relative"
         >
           <motion.div
@@ -157,7 +111,7 @@ const Hero = () => {
 
           <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-medium border-l-2 border-white/10 pl-6">
             I'm <span className="text-white font-bold">Rishabh Tomar</span>.
-            Co-Founder & Co-CTO at <span className="text-purple-400 font-bold border-b border-purple-500/30 hover:border-purple-500 transition-colors">Zintrix Technologies</span>.
+            Co-Founder & Co-CTO at <a href="https://zintrixtechnologies.com/" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-bold border-b border-purple-500/30 hover:border-purple-500 transition-colors">Zintrix Technologies</a>.
             I build high-performance ecosystems where data meets design.
           </p>
 
@@ -166,10 +120,6 @@ const Hero = () => {
               href="#projects"
               variant="primary"
               className="!rounded-full !px-6 !py-3 group"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-              }}
             >
               View Projects <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
             </Button>
@@ -178,10 +128,6 @@ const Hero = () => {
               href="#contact"
               variant="ghost"
               className="!rounded-full !px-6 !py-4 hover:bg-white/5"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
             >
               Contact Me
             </Button>
@@ -203,7 +149,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="relative flex justify-center lg:justify-end"
         >
           <motion.div style={{ y: y1 }} className="relative z-10 w-full max-w-[420px] aspect-[4/5] perspective-1000 group">
@@ -223,7 +169,8 @@ const Hero = () => {
               <img
                 src="/Images/hero-image.jpg"
                 alt="Rishabh Tomar"
-                className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000"
+                className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 will-change-transform"
+                loading="eager"
               />
 
               {/* Holographic Overlay */}
@@ -248,6 +195,5 @@ const Hero = () => {
     </section>
   );
 };
-
 
 export default Hero;

@@ -1,77 +1,32 @@
 import React from 'react';
+import { db } from '../../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { FaDatabase, FaRocket, FaShieldAlt, FaBriefcase, FaGraduationCap, FaLaptopCode, FaTerminal } from 'react-icons/fa';
 
-const experiences = [
-    {
-        company: 'Zintrix Technologies',
-        role: 'Co-Founder & Co-CTO',
-        period: 'Present',
-        description: 'Leading technical strategy and product development. Architecting scalable full-stack solutions and driving innovation in tech services.',
-        icon: <FaRocket />,
-        color: 'text-purple-400',
-        accent: 'bg-purple-500',
-        status: 'LIVE_OPERATIONS',
-        tag: 'STRATEGIC'
-    },
-    {
-        company: 'Shiksha Salahkar',
-        role: 'Intern',
-        period: 'Dec 2025 - Mar 2026',
-        description: 'Contributing to software development projects and gaining hands-on experience in full-stack technologies. Assisting team in delivering high-quality solutions.',
-        icon: <FaBriefcase />,
-        color: 'text-yellow-400',
-        accent: 'bg-yellow-500',
-        status: 'ACTIVE_INTERNSHIP',
-        tag: 'DEVELOPMENT'
-    },
-    {
-        company: 'NXTWave Academy',
-        role: 'Upskilling',
-        period: 'Sep 2022 - Present',
-        description: 'Intensive full-stack development building. Mastering multiple technology stacks (MERN/Python) and industry-standard practices.',
-        icon: <FaLaptopCode />,
-        color: 'text-orange-400',
-        accent: 'bg-orange-500',
-        status: 'SKILL_ACQUISITION',
-        tag: 'FULLSTACK'
-    },
-    {
-        company: 'Technocrats Institute',
-        role: 'B.Tech (CSE-AIML)',
-        period: '2022 - 2026',
-        description: 'Pursuing Bachelor of Technology in Computer Science & Engineering with specialization in AI & ML. Maintaining a focus on neural networks and data science.',
-        icon: <FaGraduationCap />,
-        color: 'text-blue-400',
-        accent: 'bg-blue-500',
-        status: 'UNDERGRADUATE',
-        tag: 'ACADEMIC'
-    },
-    {
-        company: 'VN Convent School',
-        role: 'Higher Secondary',
-        period: '2022',
-        description: 'Completed Class 12th with 87.4%. Specialized in the PCM stream (Physics, Chemistry, and Mathematics).',
-        icon: <FaShieldAlt />,
-        color: 'text-emerald-400',
-        accent: 'bg-emerald-500',
-        status: 'COMPLETED',
-        tag: 'FOUNDATION'
-    },
-    {
-        company: 'Bhartiyam High School',
-        role: 'High School',
-        period: '2020',
-        description: 'Completed Class 10th with 90.33%. Built a strong analytical foundation in core science and mathematical disciplines.',
-        icon: <FaDatabase />,
-        color: 'text-pink-400',
-        accent: 'bg-pink-500',
-        status: 'COMPLETED',
-        tag: 'EARLY_LOG'
-    }
-];
+const ICON_MAP = {
+    'Rocket': <FaRocket />,
+    'Briefcase': <FaBriefcase />,
+    'LaptopCode': <FaLaptopCode />,
+    'GraduationCap': <FaGraduationCap />,
+    'ShieldAlt': <FaShieldAlt />,
+    'Database': <FaDatabase />
+};
 
 const Experience = () => {
+    const [experiences, setExperiences] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const q = query(collection(db, 'experiences'), orderBy('createdAt', 'desc'));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            setExperiences(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            setLoading(false);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    if (loading) return null; // Or a skeleton loader if preferred
     return (
         <section id="experience" className="py-20 lg:py-32 relative bg-[#050505] overflow-hidden">
             {/* Background Grid Pattern - Matched to About */}
@@ -164,7 +119,7 @@ const Experience = () => {
                                             {/* Top Metadata Row */}
                                             <div className="flex items-start justify-between mb-6">
                                                 <div className={`p-3 rounded-lg bg-white/5 border border-white/5 text-xl md:text-3xl ${exp.color} transition-colors duration-300`}>
-                                                    {exp.icon}
+                                                    {ICON_MAP[exp.iconName] || <FaBriefcase />}
                                                 </div>
                                                 <div className="flex flex-col items-end gap-2">
                                                     <span className="text-[10px] font-mono text-zinc-500 border border-zinc-800 px-2 py-0.5 rounded">

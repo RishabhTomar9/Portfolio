@@ -1,31 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { db } from '../../firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { FaAward, FaMedal, FaTrophy, FaExternalLinkAlt, FaCheckCircle } from 'react-icons/fa';
 
-const certificates = [
-  { title: 'AWS Academy Cloud Foundations', date: 'May 2025', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1748260666/Screenshot_2025-05-26_172133_lkg753.png', link: 'https://www.jioaicloud.com/l/?u=kcIluVmkXp6xM12t7TueIeymDqgmg-Cx5hBpUFkejDE=doB' },
-  { title: 'Node.js and Express.js', date: 'April 2025', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746971296/Screenshot_2025-05-11_191751_ue4va1.png', link: 'https://www.jioaicloud.com/l/?u=hjbN1JPii5CCg61hiyDXwcoQr64YycyFyEYHxdvuiQ4=Oe5' },
-  { title: 'Developer Foundations', date: 'Dec 2024', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746955411/Screenshot_2025-05-11_145258_dsmdoo.png', link: 'https://www.jioaicloud.com/l/?u=LgbHYxH-m9gdHagJK9ITE9UudsFF1jHcMWqn2iqs-Cg=VaU' },
-  { title: 'Introduction to DataBases', date: 'Sept 2024', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746954120/Screenshot_2025-05-11_143141_uoul4w.png', link: 'https://www.jioaicloud.com/l/?u=-b5ZP3QF616YeACnvyteOxqDRP5W6NHxfxgjy7FKES0=PuU' },
-  { title: 'Programming with Python', date: 'Feb 2024', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953656/Screenshot_2025-05-11_142347_e7e0nc.png', link: 'https://www.jioaicloud.com/l/?u=a-vfOZs5kAITTNbQiQVg41u09INcwT9XI4GEhGauyaA=Oe5' },
-  { title: 'XPM 4.0', date: 'Jan 2024', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746996899/1746993018249_pc2kfr.png', link: 'https://www.jioaicloud.com/l/?u=nEH2FKBehkNfovuhMKF6uHC-kqDNNxoo3SV_YdBBoJ4=hkW' },
-  { title: 'Build Responsive Website', date: 'Nov 2023', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1746953825/Screenshot_2025-05-11_142613_o10cku.png', link: 'https://www.jioaicloud.com/l/?u=mB4__GiFNzIxmyUzwX_AO5gww2GTGWiOPT4083p6HIA=jqE' },
-];
-
-const badges = [
-  { title: 'Google Cloud Skills Boost', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753703682/badgeskill_dv4tzr.jpg', link: 'https://developers.google.com/profile/u/rishabhtomar9/my-community/gca_agents' },
-  { title: 'Firebase Studio Community', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753700985/badge_1_e5tguo.svg', link: 'https://developers.google.com/profile/badges/community/firebasestudio/firebase-studio' },
-  { title: 'Gemini Code Assist Agents', image: 'https://developers.google.com/static/profile/badges/community/sdlcagents/gca-agents/badge.svg', link: 'https://developers.google.com/ai/gemini-code-assist' },
-  { title: 'AWS Academy', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1753702767/aws-academy-graduate-aws-academy-cloud-foundations_vrpczx.png', link: 'https://www.credly.com/badges/09927c28-2ec8-4cb4-88d9-ea0737eaa496/public_url' },
-  { title: 'Google Cloud Innovators', image: 'https://developers.google.com/static/profile/badges/community/innovators/cloud/2021_member/badge.svg', link: 'https://developers.google.com/profile/badges/community/innovators/cloud/2021_member' },
-];
-
-const achievements = [
-  { title: 'Tech25 Gamified Internship', date: 'July 2025', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1752135319/Screenshot_2025-07-10_134341_ryfzi8.png', link: 'https://www.jioaicloud.com/l/?u=q_R8VGzMuySsJNCf6VImTVNm8s4FcNRp8YRkCl07W7w=VaU' },
-  { title: 'Frontend Hackathon Winner', date: 'July 2025', image: 'https://res.cloudinary.com/dvkzdok8c/image/upload/v1754231732/IMG20250803195609_k1yyfy.jpg', link: 'https://www.jioaicloud.com/l/?u=9Y7o5guuwrH62va1a6O44UvQPbourQFr0cf_UfCBvqU=MZA' },
-];
-
 const CertificateAchievements = () => {
+  const [certificates, setCertificates] = useState([]);
+  const [badges, setBadges] = useState([]);
+  const [achievements, setAchievements] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubCert = onSnapshot(query(collection(db, 'certificates'), orderBy('createdAt', 'desc')), (snap) => {
+      setCertificates(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    const unsubBadge = onSnapshot(query(collection(db, 'badges'), orderBy('createdAt', 'desc')), (snap) => {
+      setBadges(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    const unsubAch = onSnapshot(query(collection(db, 'achievements'), orderBy('createdAt', 'desc')), (snap) => {
+      setAchievements(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setLoading(false);
+    });
+
+    return () => { unsubCert(); unsubBadge(); unsubAch(); };
+  }, []);
+
+  if (loading) return null;
+
   return (
     <section id="milestones" className="py-32 relative bg-[#050505] overflow-hidden">
       {/* Dynamic Grid Background */}

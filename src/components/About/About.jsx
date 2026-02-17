@@ -92,6 +92,7 @@ const AboutCard = ({ card, index }) => {
 };
 
 import Resume from '../Resume/Resume';
+import Community from './Community';
 
 const About = () => {
   return (
@@ -172,6 +173,7 @@ const About = () => {
         </div >
       </section >
       <Resume />
+      <Community />
     </>
   );
 };

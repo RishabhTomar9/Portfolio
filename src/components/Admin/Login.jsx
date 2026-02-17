@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaGoogle, FaLock } from 'react-icons/fa';
@@ -12,10 +13,10 @@ const Login = () => {
     const handleGoogleLogin = async () => {
         const provider = new GoogleAuthProvider();
         try {
+            await setPersistence(auth, browserLocalPersistence);
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            // Seed/Check Admin Logic
             if (user.email === 'rishabhtomar9999@gmail.com') {
                 navigate('/admin/dashboard');
             } else {
@@ -29,7 +30,6 @@ const Login = () => {
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Elements */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
             <motion.div

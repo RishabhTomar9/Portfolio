@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { db } from '../../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { motion } from 'framer-motion';
-import { FaDatabase, FaRocket, FaShieldAlt, FaBriefcase, FaGraduationCap, FaLaptopCode, FaTerminal, FaChevronRight } from 'react-icons/fa';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { FaDatabase, FaRocket, FaShieldAlt, FaBriefcase, FaGraduationCap, FaLaptopCode, FaTerminal, FaChevronDown } from 'react-icons/fa';
 
 const ICON_MAP = {
     'Rocket': <FaRocket />,
@@ -13,9 +13,179 @@ const ICON_MAP = {
     'Database': <FaDatabase />
 };
 
+const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
+    const cardRef = useRef(null);
+    const isExpanded = expandedId === exp.id;
+
+    // Detect when card leaves the viewport (especially for mobile scroll auto-collapse)
+    return (
+        <motion.div 
+            ref={cardRef}
+            className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-32 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+            onViewportLeave={() => {
+                // Auto-collapse on scroll if it leaves the active viewport area
+                if (isExpanded) {
+                    setExpandedId(null);
+                }
+            }}
+            viewport={{ amount: 0.2 }} // Trigger when 20% of the card is visible/invisible
+        >
+
+            {/* Timeline Node */}
+            <div className="absolute left-4 md:left-1/2 w-10 h-10 -ml-5 md:-ml-5 z-30 flex items-center justify-center top-0 md:top-1/2 md:-translate-y-1/2 group">
+                <div className="absolute inset-0 bg-purple-500/5 blur-xl transition-all duration-700" />
+                <motion.div
+                    className={`w-5 h-5 rounded-sm bg-zinc-950 border border-white/20 flex items-center justify-center transition-all duration-300 ${isExpanded ? 'border-purple-500 rotate-45' : 'rotate-0'}`}
+                    initial={{ scale: 0, rotate: 0 }}
+                    whileInView={{ scale: 1, rotate: isExpanded ? 45 : 0 }}
+                    viewport={{ once: true }}
+                >
+                    <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse' : 'bg-zinc-600 transition-colors'} ${isExpanded ? 'bg-purple-400' : ''}`} />
+                </motion.div>
+            </div>
+
+            {/* Content Card */}
+            <motion.div
+                className="pl-12 md:pl-0 w-full md:w-[calc(50%-100px)]"
+                initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
+            >
+                <div 
+                    className="group relative cursor-pointer"
+                    onMouseEnter={() => !('ontouchstart' in window) && setExpandedId(exp.id)}
+                    onMouseLeave={() => !('ontouchstart' in window) && setExpandedId(null)}
+                    onClick={() => setExpandedId(isExpanded ? null : exp.id)}
+                >
+                    {/* Background Ghost Number */}
+                    <div className={`absolute -z-10 top-1/2 -translate-y-1/2 text-[10rem] font-black text-white/[0.02] left-[-3rem] pointer-events-none select-none transition-colors leading-none ${isExpanded ? 'text-purple-500/[0.03]' : ''}`}>
+                        0{index + 1}
+                    </div>
+
+                    <div className={`relative bg-[#080808] border transition-all duration-700 rounded-2xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden ${isExpanded ? 'bg-[#0c0c0c] border-purple-500/40' : 'bg-[#060606] border-white/5'} p-6 md:p-10 `}>
+                        
+                        {/* Glow Hover Layer */}
+                        <div className={`absolute inset-0 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_50%_-20%,rgba(168,85,247,0.1),transparent_70%)] ${isExpanded ? 'opacity-100' : 'opacity-0'}`} />
+
+                        {/* Watermark/Background Icon */}
+                        <div className={`absolute -right-8 -bottom-8 text-[12rem] md:text-[18rem] transition-all duration-700 pointer-events-none flex items-center justify-center ${exp.color} rotate-12 ${isExpanded ? 'opacity-[0.05]' : 'opacity-[0.02]'}`}>
+                            {ICON_MAP[exp.iconName] || <FaBriefcase />}
+                        </div>
+
+                        {/* Top Metadata Header bar */}
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-5 border-b border-white/5 relative z-10 gap-4 md:gap-0">
+                            <div className="flex items-center gap-3">
+                                <div className="flex gap-1">
+                                    <div className={`w-1 h-3 rounded-full ${exp.accent} bg-opacity-80`} />
+                                    <div className={`w-1 h-3 rounded-full ${exp.accent} bg-opacity-40`} />
+                                    <div className="w-1 h-3 rounded-full bg-zinc-800" />
+                                </div>
+                                <span className="text-[10px] font-black text-zinc-600 tracking-[0.3em] uppercase">VERIFIED_LOG_00{index + 1}</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-zinc-800'}`} />
+                                <span className="text-[10px] font-black text-zinc-700 tracking-widest uppercase transition-colors">{exp.period}</span>
+                            </div>
+                        </div>
+
+                        {/* Company & Core Info - ALWAYS VISIBLE */}
+                        <div className="group/header relative z-10">
+                            <div className="w-full">
+                                <h3 className={`text-2xl md:text-5xl font-black text-white leading-[0.9] tracking-tighter uppercase italic transition-all duration-700 break-words ${isExpanded ? exp.color : ''}`}>
+                                    {exp.company}
+                                </h3>
+                                
+                                <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
+                                    <div className="flex items-center gap-4">
+                                        <FaTerminal className={`text-[12px] ${exp.color} opacity-80`} />
+                                        <span className="text-[11px] font-black text-white uppercase tracking-[0.3em] font-tech">{exp.role}</span>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-[1px] w-8 bg-white/10 hidden md:block" />
+                                        <span className="px-3 py-1 bg-white/5 rounded-md text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+                                            {exp.tag}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <AnimatePresence initial={false}>
+                                    {isExpanded ? (
+                                        <motion.div 
+                                            key="description"
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                                            className="overflow-hidden"
+                                        >
+                                            {/* Technical Description Content ONLY */}
+                                            <div className="relative mt-8 mb-10 bg-zinc-950/60 border border-white/5 rounded-2xl p-6 md:p-8 z-10 shadow-2xl">
+                                                {/* Industrial Corner Decals */}
+                                                <div className="absolute top-4 left-4 w-2 h-2 border-l-2 border-t-2 border-zinc-900" />
+                                                <div className="absolute bottom-4 right-4 w-2 h-2 border-r-2 border-b-2 border-zinc-900" />
+                                                
+                                                <p className="text-zinc-500 leading-relaxed text-sm md:text-base font-bold transition-colors selection:bg-purple-500 selection:text-white">
+                                                    {exp.description}
+                                                </p>
+                                            </div>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div 
+                                            key="expand-prompt"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="mt-8 mb-4 flex items-center gap-3 text-[9px] font-black text-zinc-700 uppercase tracking-widest"
+                                        >
+                                            <div className="flex gap-1">
+                                                <div className="w-1 h-1 bg-zinc-800 rounded-full animate-bounce" />
+                                                <div className="w-1 h-1 bg-zinc-800 rounded-full animate-bounce [animation-delay:0.2s]" />
+                                                <div className="w-1 h-1 bg-zinc-800 rounded-full animate-bounce [animation-delay:0.4s]" />
+                                            </div>
+                                            <span className="group-hover:text-zinc-500 transition-colors">Analyze Log Entry // Expand Dossier</span>
+                                            <FaChevronDown className="animate-bounce" />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* Professional Status Bar - ALWAYS VISIBLE */}
+                                <div className="flex items-center justify-between pt-8 border-t border-white/5 relative z-10 transition-all duration-500">
+                                    <div className="flex items-center gap-6">
+                                        <div className="flex flex-col">                                            <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full bg-black border border-white/5 transition-all ${exp.period === 'Present' ? 'text-emerald-500' : 'text-zinc-600'}`}>
+                                                <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]' : 'bg-zinc-800'}`} />
+                                                <span className="text-[9px] font-black uppercase tracking-[0.1em]">{exp.status}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col items-end">
+                                        <div className={`font-tech text-3xl font-black tracking-tighter transition-all duration-500 italic ${isExpanded ? exp.color : 'text-zinc-800'}`}>
+                                            #0{index + 1}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Interactive Border Pulse Effect */}
+                        <div className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-700 ${isExpanded ? 'opacity-50' : 'opacity-0'}`}>
+                            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+                            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Neutral Spacer */}
+            <div className="hidden md:block w-[calc(50%-100px)]" />
+        </motion.div>
+    );
+};
+
 const Experience = () => {
     const [experiences, setExperiences] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [expandedId, setExpandedId] = useState(null);
 
     React.useEffect(() => {
         const q = query(collection(db, 'experiences'), orderBy('createdAt', 'desc'));
@@ -30,12 +200,10 @@ const Experience = () => {
 
     return (
         <section id="experience" className="py-24 lg:py-48 relative bg-[#050505] overflow-hidden">
-            {/* Background Grid Pattern - Blueprint Style */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:40px_40px]" />
 
             <div className="container mx-auto px-6 relative z-10">
-
-                {/* Section Header - High Fidelity Sync with About */}
+                {/* Section Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 lg:mb-40 gap-8">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -63,11 +231,9 @@ const Experience = () => {
                 </div>
 
                 <div className="relative max-w-7xl mx-auto">
-
                     {/* Central High-Tech Rail */}
                     <div className="absolute left-4 md:left-1/2 top-4 bottom-4 w-[1px] md:-translate-x-1/2 bg-zinc-900">
                         <div className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent,transparent_10px,#a855f710_10px,#a855f720_12px)]" />
-                        
                         <motion.div
                             className="absolute top-0 w-full h-full bg-gradient-to-b from-purple-500 via-blue-500 to-transparent origin-top"
                             initial={{ scaleY: 0 }}
@@ -77,130 +243,15 @@ const Experience = () => {
                         />
                     </div>
 
-                    <div className="space-y-24 md:space-y-56">
+                    <div className="space-y-16 md:space-y-48">
                         {experiences.map((exp, index) => (
-                            <div key={index} className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-32 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-
-                                {/* Timeline Node */}
-                                <div className="absolute left-4 md:left-1/2 w-10 h-10 -ml-5 md:-ml-5 z-30 flex items-center justify-center top-0 md:top-1/2 md:-translate-y-1/2 group">
-                                    <div className="absolute inset-0 bg-purple-500/5 blur-xl group-hover:bg-purple-400/20 transition-all duration-700" />
-                                    <motion.div
-                                        className={`w-5 h-5 rounded-sm bg-zinc-950 border border-white/20 flex items-center justify-center transition-all duration-300 group-hover:border-purple-500 group-hover:rotate-45 shadow-2xl`}
-                                        initial={{ scale: 0, rotate: 0 }}
-                                        whileInView={{ scale: 1, rotate: 45 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse' : 'bg-zinc-600 group-hover:bg-purple-400'}`} />
-                                    </motion.div>
-                                </div>
-
-                                {/* Content Card */}
-                                <motion.div
-                                    className="pl-12 md:pl-0 w-full md:w-[calc(50%-100px)]"
-                                    initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-                                >
-                                    <div className="group relative">
-                                        {/* Background Ghost Number */}
-                                        <div className="absolute -z-10 top-1/2 -translate-y-1/2 text-[10rem] font-black text-white/[0.02] left-[-3rem] pointer-events-none select-none group-hover:text-purple-500/[0.03] transition-colors leading-none">
-                                            0{index + 1}
-                                        </div>
-
-                                        <div 
-                                            className={`relative bg-[#080808] border border-white/5 p-6 md:p-10 rounded-2xl transition-all duration-700 group-hover:bg-[#0c0c0c] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden hover:border-opacity-50`}
-                                        >
-                                            {/* Glow Hover Layer */}
-                                            <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_50%_-20%,rgba(168,85,247,0.1),transparent_70%)]`} />
-
-                                            {/* Watermark/Background Icon */}
-                                            <div className={`absolute -right-8 -bottom-8 text-[12rem] md:text-[18rem] opacity-[0.02] group-hover:opacity-[0.05] transition-opacity duration-700 pointer-events-none flex items-center justify-center ${exp.color} rotate-12`}>
-                                                {ICON_MAP[exp.iconName] || <FaBriefcase />}
-                                            </div>
-
-                                            {/* Top Metadata Header bar */}
-                                            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 md:mb-10 pb-5 border-b border-white/5 relative z-10 gap-4 md:gap-0">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="flex gap-1">
-                                                        <div className={`w-1 h-3 rounded-full ${exp.accent} bg-opacity-80`} />
-                                                        <div className={`w-1 h-3 rounded-full ${exp.accent} bg-opacity-40`} />
-                                                        <div className="w-1 h-3 rounded-full bg-zinc-800" />
-                                                    </div>
-                                                    <span className="text-[10px] font-black text-zinc-600 tracking-[0.3em] uppercase">VERIFIED_LOG_00{index + 1}</span>
-                                                </div>
-                                                <div className="flex items-center gap-3">
-                                                    <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-zinc-800'}`} />
-                                                    <span className="text-[10px] font-black text-zinc-500 tracking-widest uppercase transition-colors group-hover:text-zinc-300">{exp.period}</span>
-                                                </div>
-                                            </div>
-
-                                            {/* Company - Expanding to Full Container Width */}
-                                            <div className="mb-10 group/header relative z-10">
-                                                <div className="w-full">
-                                                    <h3 className={`text-3xl md:text-6xl font-black text-white leading-[0.9] tracking-tighter uppercase italic transition-all duration-700 group-hover:${exp.color} break-words`}>
-                                                        {exp.company}
-                                                    </h3>
-                                                    <div className="flex items-center gap-3 mt-4">
-                                                        <div className="h-[2px] w-12 bg-white/10 group-hover:w-20 group-hover:bg-purple-500/50 transition-all duration-500" />
-                                                        <span className="px-3 py-1 bg-white/5 rounded-md text-[10px] font-black text-zinc-500 uppercase tracking-widest group-hover:text-zinc-200 group-hover:bg-white/10 transition-all">
-                                                            {exp.tag}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Technical Dossier Content */}
-                                            <div className="relative mb-10 bg-zinc-950/40 border border-white/5 rounded-2xl p-6 md:p-8 group-hover:bg-black/60 transition-all duration-500 z-10">
-                                                {/* Industrial Corner Decals */}
-                                                <div className={`absolute top-4 left-4 w-2 h-2 border-l-2 border-t-2 border-zinc-900 group-hover:border-white transition-colors`} />
-                                                <div className={`absolute bottom-4 right-4 w-2 h-2 border-r-2 border-b-2 border-zinc-900 group-hover:border-white transition-colors`} />
-
-                                                <div className="flex items-center gap-4 mb-4">
-                                                    <FaTerminal className={`text-[12px] ${exp.color} opacity-80`} />
-                                                    <span className="text-[11px] font-black text-white uppercase tracking-[0.3em] font-tech text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-500">{exp.role}</span>
-                                                </div>
-                                                <p className="text-zinc-500 leading-relaxed text-sm md:text-base font-bold group-hover:text-zinc-300 transition-colors selection:bg-purple-500 selection:text-white">
-                                                    {exp.description}
-                                                </p>
-                                            </div>
-
-                                            {/* Professional Status Bar */}
-                                            <div className="flex items-center justify-between pt-8 border-t border-white/5 relative z-10 transition-all duration-500 group-hover:border-white/20">
-                                                <div className="flex items-center gap-6">
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[8px] font-black text-zinc-700 uppercase tracking-[0.3em] mb-2">VALID_STATE:</span>
-                                                        <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full bg-black border border-white/5 group-hover:border-current transition-all ${exp.period === 'Present' ? 'text-emerald-500' : 'text-zinc-600'}`}>
-                                                            <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]' : 'bg-zinc-800'}`} />
-                                                            <span className="text-[9px] font-black uppercase tracking-[0.1em]">{exp.status}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div className="flex flex-col items-end">
-                                                    <span className="text-[8px] font-black text-zinc-700 uppercase tracking-[0.3em] mb-2">INDEX_UID:</span>
-                                                    <div className={`font-tech text-3xl font-black tracking-tighter opacity-20 group-hover:opacity-100 group-hover:${exp.color} transition-all duration-500 italic`}>
-                                                        XP#0{index + 1}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Interactive Border Pulse Effect */}
-                                            <motion.div 
-                                                className="absolute inset-0 pointer-events-none rounded-2xl"
-                                                initial={false}
-                                                whileHover={{ scale: 1 }}
-                                            >
-                                                <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-0 group-hover:opacity-50 transition-opacity`} />
-                                                <div className={`absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-0 group-hover:opacity-50 transition-opacity`} />
-                                            </motion.div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Neutral Spacer */}
-                                <div className="hidden md:block w-[calc(50%-100px)]" />
-                            </div>
+                            <ExperienceCard 
+                                key={exp.id} 
+                                index={index} 
+                                exp={exp} 
+                                expandedId={expandedId}
+                                setExpandedId={setExpandedId}
+                            />
                         ))}
                     </div>
                 </div>

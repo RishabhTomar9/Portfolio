@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { FaPlus, FaEdit, FaTrash, FaCheckCircle, FaAward, FaMedal, FaTrophy, FaImage } from 'react-icons/fa';
+import { MoreVertical, Edit2, Trash2, ExternalLink, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ImageUpload from './ImageUpload';
 
@@ -19,6 +20,7 @@ const CertificateManager = () => {
     const [loading, setLoading] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
+    const [activeActionMenu, setActiveActionMenu] = useState(null);
 
     useEffect(() => {
         const q = query(collection(db, activeTab), orderBy('createdAt', 'desc'));
@@ -216,9 +218,44 @@ const CertificateManager = () => {
                                 >
                                     <div className="aspect-video bg-black relative shadow-inner overflow-hidden">
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all group-hover:scale-105 duration-700" />
-                                        <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        
+                                        {/* Desktop Actions */}
+                                        <div className="absolute top-2 right-2 hidden lg:flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                                             <button onClick={() => handleEdit(item)} className="p-1.5 bg-black/50 backdrop-blur rounded text-white hover:bg-orange-600 transition-colors"><FaEdit className="text-xs" /></button>
                                             <button onClick={() => handleDelete(item)} className="p-1.5 bg-black/50 backdrop-blur rounded text-white hover:bg-red-600 transition-colors"><FaTrash className="text-xs" /></button>
+                                        </div>
+
+                                        {/* Mobile 3-Dot Menu */}
+                                        <div className="lg:hidden absolute top-2 right-2 z-20">
+                                            <button 
+                                                onClick={() => setActiveActionMenu(activeActionMenu === item.id ? null : item.id)}
+                                                className="p-1.5 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white"
+                                            >
+                                                <MoreVertical className="w-3.5 h-3.5" />
+                                            </button>
+                                            <AnimatePresence>
+                                                {activeActionMenu === item.id && (
+                                                    <motion.div 
+                                                        initial={{ opacity: 0, scale: 0.9, x: -10 }}
+                                                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                                                        exit={{ opacity: 0, scale: 0.9, x: -10 }}
+                                                        className="absolute right-0 top-10 w-28 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl z-20 overflow-hidden"
+                                                    >
+                                                        <button 
+                                                            onClick={() => { handleEdit(item); setActiveActionMenu(null); }}
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 text-[10px] font-bold uppercase tracking-widest text-orange-400 hover:bg-white/5 transition-colors"
+                                                        >
+                                                            <Edit2 className="w-3 h-3" /> Edit
+                                                        </button>
+                                                        <button 
+                                                            onClick={() => { handleDelete(item); setActiveActionMenu(null); }}
+                                                            className="w-full flex items-center gap-3 px-3 py-2.5 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:bg-white/5 transition-colors border-t border-white/5"
+                                                        >
+                                                            <Trash2 className="w-3 h-3" /> Delete
+                                                        </button>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
                                         </div>
                                     </div>
                                     <div className="p-4 flex flex-col flex-grow">

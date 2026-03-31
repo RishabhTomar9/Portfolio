@@ -20,7 +20,12 @@ const ProjectDetail = () => {
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    setProject({ id: docSnap.id, ...docSnap.data() });
+                    const data = docSnap.data();
+                    if (data.status === 'Archived') {
+                        navigate('/projects');
+                        return;
+                    }
+                    setProject({ id: docSnap.id, ...data });
                 } else {
                     console.error("No such document!");
                     navigate('/projects');

@@ -24,6 +24,7 @@ const ExperienceManager = () => {
     const [loading, setLoading] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [expToDelete, setExpToDelete] = useState(null);
+    const [activeActionMenu, setActiveActionMenu] = useState(null);
 
     useEffect(() => {
         const q = query(collection(db, 'experiences'), orderBy('createdAt', 'desc'));
@@ -286,13 +287,52 @@ const ExperienceManager = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button onClick={() => handleEdit(exp)} className="p-2 hover:bg-white/10 rounded-lg text-blue-400 transition-colors">
-                                                <FaEdit />
-                                            </button>
-                                            <button onClick={() => handleDelete(exp)} className="p-2 hover:bg-red-500/10 rounded-lg text-red-400 transition-colors">
-                                                <FaTrash />
-                                            </button>
+                                        <div className="flex md:flex-col gap-2">
+                                            {/* Desktop Actions */}
+                                            <div className="hidden lg:flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <button onClick={() => handleEdit(exp)} className="p-2 hover:bg-white/10 rounded-lg text-blue-400 transition-colors">
+                                                    <FaEdit />
+                                                </button>
+                                                <button onClick={() => handleDelete(exp)} className="p-2 hover:bg-red-500/10 rounded-lg text-red-400 transition-colors">
+                                                    <FaTrash />
+                                                </button>
+                                            </div>
+
+                                            {/* Mobile 3-Dot Menu */}
+                                            <div className="lg:hidden relative">
+                                                <button 
+                                                    onClick={() => setActiveActionMenu(activeActionMenu === exp.id ? null : exp.id)}
+                                                    className="p-2 bg-white/5 border border-white/10 rounded-lg text-zinc-400"
+                                                >
+                                                    {renderDynamicIcon('MoreVertical', { size: 16 })}
+                                                </button>
+                                                <AnimatePresence>
+                                                    {activeActionMenu === exp.id && (
+                                                        <>
+                                                            <div className="fixed inset-0 z-10" onClick={() => setActiveActionMenu(null)} />
+                                                            <motion.div 
+                                                                initial={{ opacity: 0, scale: 0.9, x: -10 }}
+                                                                animate={{ opacity: 1, scale: 1, x: 0 }}
+                                                                exit={{ opacity: 0, scale: 0.9, x: -10 }}
+                                                                className="absolute right-0 top-10 w-32 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl z-20 overflow-hidden"
+                                                            >
+                                                                <button 
+                                                                    onClick={() => { handleEdit(exp); setActiveActionMenu(null); }}
+                                                                    className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:bg-white/5 transition-colors"
+                                                                >
+                                                                    <FaEdit /> Edit
+                                                                </button>
+                                                                <button 
+                                                                    onClick={() => { handleDelete(exp); setActiveActionMenu(null); }}
+                                                                    className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:bg-white/5 transition-colors border-t border-white/5"
+                                                                >
+                                                                    <FaTrash /> Delete
+                                                                </button>
+                                                            </motion.div>
+                                                        </>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
                                         </div>
                                     </div>
                                     <p className="mt-3 text-sm text-zinc-500 line-clamp-2">{exp.description}</p>

@@ -140,12 +140,12 @@ const Projects = () => {
   React.useEffect(() => {
     const q = query(collection(db, 'projects'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      // Sort: Pinned first, then by createdAt desc (which is already returned by query, but sorting again ensures pinned order)
+      const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+        .filter(p => p.status !== 'Archived');
+        
+      // Sort: Pinned first, then by createdAt desc (which is already returned by query)
       projectsData.sort((a, b) => {
-        if (a.pinned === b.pinned) {
-          return 0; // Existing order (by date) is preserved if pin status is same
-        }
+        if (a.pinned === b.pinned) return 0;
         return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
       });
       setProjects(projectsData);

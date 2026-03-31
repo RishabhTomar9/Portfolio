@@ -185,15 +185,15 @@ const ProjectManager = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-4 ml-auto lg:ml-0">
-                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-2xl backdrop-blur-xl border-l-2 border-l-emerald-500/50">
+                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-xl backdrop-blur-xl border-l-2 border-l-emerald-500/50">
                         <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Active Nodes</p>
                         <p className="text-2xl font-black text-white">{projects.filter(p => p.status !== 'Archived').length}</p>
                     </div>
-                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-2xl backdrop-blur-xl border-l-2 border-l-purple-500/50">
+                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-xl backdrop-blur-xl border-l-2 border-l-purple-500/50">
                         <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Pinned Items</p>
                         <p className="text-2xl font-black text-purple-400">{projects.filter(p => p.pinned).length}</p>
                     </div>
-                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-2xl backdrop-blur-xl border-l-2 border-l-zinc-500/50">
+                    <div className="bg-zinc-900/60 border border-white/5 px-6 py-3 rounded-xl backdrop-blur-xl border-l-2 border-l-zinc-500/50">
                         <p className="text-[10px] text-zinc-500 uppercase font-black tracking-widest mb-1">Archived</p>
                         <p className="text-2xl font-black text-zinc-400">{projects.filter(p => p.status === 'Archived').length}</p>
                     </div>
@@ -466,14 +466,14 @@ const ProjectManager = () => {
                                 placeholder="Search Registry..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-zinc-900/40 border border-white/5 rounded-2xl py-3 pl-12 pr-4 text-xs font-bold text-white focus:outline-none focus:border-purple-500/50 backdrop-blur-xl"
+                                className="w-full bg-zinc-900/40 border border-white/5 rounded-xl py-3 pl-12 pr-4 text-xs font-bold text-white focus:outline-none focus:border-purple-500/50 backdrop-blur-xl"
                             />
                         </div>
                         {/* Filter */}
                         <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
                             <button
                                 onClick={() => setFilterCategory('All')}
-                                className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === 'All' ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                                className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === 'All' ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
                                     }`}
                             >
                                 All Regions
@@ -482,7 +482,7 @@ const ProjectManager = () => {
                                 <button
                                     key={cat}
                                     onClick={() => setFilterCategory(cat)}
-                                    className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === cat ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                                    className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === cat ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
                                         }`}
                                 >
                                     {cat}
@@ -492,7 +492,7 @@ const ProjectManager = () => {
                         {/* Archive Toggle */}
                         <button
                             onClick={() => setShowArchived(!showArchived)}
-                            className={`flex items-center gap-2 px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${showArchived ? 'bg-zinc-100 text-black border-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                            className={`flex items-center gap-2 px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${showArchived ? 'bg-zinc-100 text-black border-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
                                 }`}
                         >
                             <Archive className="w-3 h-3" />
@@ -570,33 +570,33 @@ const ProjectManager = () => {
                                                 <div className="grid grid-cols-2 gap-2 w-full max-w-[240px]">
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); togglePin(project); setActiveActionMenu(null); }}
-                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${project.pinned ? 'bg-purple-500 text-white' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
+                                                        className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-all ${project.pinned ? 'bg-purple-500 text-white' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
                                                             }`}
                                                     >
                                                         <Pin className="w-4 h-4" />
                                                     </button>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); handleEdit(project); setActiveActionMenu(null); }}
-                                                        className="flex items-center justify-center gap-2 p-3 bg-white text-black hover:bg-zinc-200 rounded-2xl transition-all"
+                                                        className="flex items-center justify-center gap-2 p-3 bg-white text-black hover:bg-zinc-200 rounded-xl transition-all"
                                                     >
                                                         <Edit3 className="w-4 h-4" />
                                                     </button>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); toggleArchive(project); setActiveActionMenu(null); }}
-                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${project.status === 'Archived' ? 'bg-zinc-100 text-black' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
+                                                        className={`flex items-center justify-center gap-2 p-3 rounded-xl transition-all ${project.status === 'Archived' ? 'bg-zinc-100 text-black' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
                                                             }`}
                                                     >
                                                         <Archive className="w-4 h-4" />
                                                     </button>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); copyToClipboard(project.link, project.id); setActiveActionMenu(null); }}
-                                                        className="flex items-center justify-center gap-2 p-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-2xl transition-all"
+                                                        className="flex items-center justify-center gap-2 p-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl transition-all"
                                                     >
                                                         {copySuccess === project.id ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                                                     </button>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); handleDelete(project); setActiveActionMenu(null); }}
-                                                        className="col-span-2 flex items-center justify-center gap-2 p-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl transition-all border border-red-500/20"
+                                                        className="col-span-2 flex items-center justify-center gap-2 p-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-xl transition-all border border-red-500/20"
                                                     >
                                                         <Trash2 className="w-4 h-4" />
                                                         <span className="text-[10px] font-black uppercase tracking-widest">Purge Node</span>
@@ -677,13 +677,13 @@ const ProjectManager = () => {
                                             setIsDeleteModalOpen(false);
                                             setProjectToDelete(null);
                                         }}
-                                        className="px-6 py-4 rounded-2xl bg-zinc-900 text-zinc-400 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] border border-white/5"
+                                        className="px-6 py-4 rounded-xl bg-zinc-900 text-zinc-400 hover:text-white transition-all text-[10px] font-black uppercase tracking-[0.2em] border border-white/5"
                                     >
                                         Abort
                                     </button>
                                     <button
                                         onClick={confirmDelete}
-                                        className="px-6 py-4 rounded-2xl bg-red-600 text-white hover:bg-red-500 transition-all text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-red-900/40"
+                                        className="px-6 py-4 rounded-xl bg-red-600 text-white hover:bg-red-500 transition-all text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-red-900/40"
                                     >
                                         Purge
                                     </button>

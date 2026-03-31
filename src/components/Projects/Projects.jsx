@@ -142,7 +142,7 @@ const Projects = () => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const projectsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
         .filter(p => p.status !== 'Archived');
-        
+
       // Sort: Pinned first, then by createdAt desc (which is already returned by query)
       projectsData.sort((a, b) => {
         if (a.pinned === b.pinned) return 0;

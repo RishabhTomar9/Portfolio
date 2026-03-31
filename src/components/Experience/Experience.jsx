@@ -15,7 +15,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
     };
 
     return (
-        <motion.div 
+        <motion.div
             ref={cardRef}
             className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-32 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
             onViewportLeave={() => {
@@ -47,7 +47,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
             >
-                <div 
+                <div
                     className="group relative cursor-pointer"
                     onMouseEnter={() => !('ontouchstart' in window) && setExpandedId(exp.id)}
                     onMouseLeave={() => !('ontouchstart' in window) && setExpandedId(null)}
@@ -58,8 +58,8 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                         0{index + 1}
                     </div>
 
-                    <div className={`relative bg-[#080808] border transition-all duration-700 rounded-2xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden ${isExpanded ? 'bg-[#0c0c0c] border-purple-500/40' : 'bg-[#060606] border-white/5'} p-6 md:p-10 `}>
-                        
+                    <div className={`relative bg-[#080808] border transition-all duration-700 rounded-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden ${isExpanded ? 'bg-[#0c0c0c] border-purple-500/40' : 'bg-[#060606] border-white/5'} p-6 md:p-10 `}>
+
                         {/* Glow Hover Layer */}
                         <div className={`absolute inset-0 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_50%_-20%,rgba(168,85,247,0.1),transparent_70%)] ${isExpanded ? 'opacity-100' : 'opacity-0'}`} />
 
@@ -90,7 +90,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                                 <h3 className={`text-2xl md:text-5xl font-black text-white leading-[0.9] tracking-tighter uppercase italic transition-all duration-700 break-words ${isExpanded ? exp.color : ''}`}>
                                     {exp.company}
                                 </h3>
-                                
+
                                 <div className="flex flex-col md:flex-row md:items-center gap-4 mt-6">
                                     <div className="flex items-center gap-4">
                                         <FaTerminal className={`text-[12px] ${exp.color} opacity-80`} />
@@ -106,7 +106,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
 
                                 <AnimatePresence initial={false}>
                                     {isExpanded ? (
-                                        <motion.div 
+                                        <motion.div
                                             key="description"
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: 'auto', opacity: 1 }}
@@ -115,18 +115,18 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                                             className="overflow-hidden"
                                         >
                                             {/* Technical Description Content ONLY */}
-                                            <div className="relative mt-8 mb-10 bg-zinc-950/60 border border-white/5 rounded-2xl p-6 md:p-8 z-10 shadow-2xl">
+                                            <div className="relative mt-8 mb-10 bg-zinc-950/60 border border-white/5 rounded-xl p-6 md:p-8 z-10 shadow-2xl">
                                                 {/* Industrial Corner Decals */}
                                                 <div className="absolute top-4 left-4 w-2 h-2 border-l-2 border-t-2 border-zinc-900" />
                                                 <div className="absolute bottom-4 right-4 w-2 h-2 border-r-2 border-b-2 border-zinc-900" />
-                                                
+
                                                 <p className="text-zinc-500 leading-relaxed text-sm md:text-base font-bold transition-colors selection:bg-purple-500 selection:text-white">
                                                     {exp.description}
                                                 </p>
                                             </div>
                                         </motion.div>
                                     ) : (
-                                        <motion.div 
+                                        <motion.div
                                             key="expand-prompt"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
@@ -147,12 +147,12 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                                 <div className="flex items-center justify-between pt-8 border-t border-white/5 relative z-10 transition-all duration-500">
                                     <div className="flex items-center gap-6">
                                         <div className="flex flex-col">                                            <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full bg-black border border-white/5 transition-all ${exp.period === 'Present' ? 'text-emerald-500' : 'text-zinc-600'}`}>
-                                                <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]' : 'bg-zinc-800'}`} />
-                                                <span className="text-[9px] font-black uppercase tracking-[0.1em]">{exp.status}</span>
-                                            </div>
+                                            <div className={`w-1.5 h-1.5 rounded-full ${exp.period === 'Present' ? 'bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]' : 'bg-zinc-800'}`} />
+                                            <span className="text-[9px] font-black uppercase tracking-[0.1em]">{exp.status}</span>
+                                        </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="flex flex-col items-end">
                                         <div className={`font-tech text-3xl font-black tracking-tighter transition-all duration-500 italic ${isExpanded ? exp.color : 'text-zinc-800'}`}>
                                             #0{index + 1}
@@ -163,7 +163,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
                         </div>
 
                         {/* Interactive Border Pulse Effect */}
-                        <div className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-700 ${isExpanded ? 'opacity-50' : 'opacity-0'}`}>
+                        <div className={`absolute inset-0 pointer-events-none rounded-xl transition-opacity duration-700 ${isExpanded ? 'opacity-50' : 'opacity-0'}`}>
                             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
                         </div>
@@ -218,8 +218,8 @@ const Experience = () => {
 
                     <div className="hidden md:flex flex-col items-end gap-3 text-right">
                         <div className="flex items-center gap-2 px-4 py-1.5 rounded-sm bg-zinc-900 border border-white/5 uppercase font-black text-[9px] tracking-widest text-zinc-500">
-                           <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
-                           System_Sync: Active
+                            <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]" />
+                            System_Sync: Active
                         </div>
                         <span className="text-[8px] font-black text-zinc-700 tracking-[0.3em] uppercase">Bhopal//India_Region</span>
                     </div>
@@ -240,10 +240,10 @@ const Experience = () => {
 
                     <div className="space-y-16 md:space-y-48">
                         {experiences.map((exp, index) => (
-                            <ExperienceCard 
-                                key={exp.id} 
-                                index={index} 
-                                exp={exp} 
+                            <ExperienceCard
+                                key={exp.id}
+                                index={index}
+                                exp={exp}
                                 expandedId={expandedId}
                                 setExpandedId={setExpandedId}
                             />
@@ -251,7 +251,7 @@ const Experience = () => {
                     </div>
                 </div>
             </div>
-            
+
             <style>{`
                 @keyframes scan {
                     0% { transform: translateY(-100%); }

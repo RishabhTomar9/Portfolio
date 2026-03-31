@@ -29,12 +29,11 @@ const AboutCard = ({ card, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative p-6 md:p-10 rounded-2xl border border-white/5 bg-zinc-900/30 backdrop-blur-xl overflow-hidden transition-all duration-700 ${
-        index === 0 ? 'lg:col-span-2' : 'lg:col-span-1'
-      } hover:border-white/10 hover:bg-zinc-900/50 shadow-2xl`}
+      className={`group relative p-6 md:p-10 rounded-xl border border-white/5 bg-zinc-900/30 backdrop-blur-xl overflow-hidden transition-all duration-700 ${index === 0 ? 'lg:col-span-2' : 'lg:col-span-1'
+        } hover:border-white/10 hover:bg-zinc-900/50 shadow-2xl`}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition duration-500"
         style={{
           background: useTransform(
             [mouseX, mouseY],
@@ -46,17 +45,17 @@ const AboutCard = ({ card, index }) => {
       <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
           <div className="flex items-start justify-between mb-10">
-            <div 
-              className="p-5 rounded-2xl bg-zinc-950 border flex items-center justify-center text-white group-hover:scale-110 transition-all duration-700 shadow-3xl"
+            <div
+              className="p-5 rounded-xl bg-zinc-950 border flex items-center justify-center text-white group-hover:scale-110 transition-all duration-700 shadow-3xl"
               style={{ borderColor: `${card.color}30`, color: card.color, boxShadow: `0 0 30px ${card.color}10` }}
             >
               {renderIcon(card.icon)}
             </div>
-            <div 
+            <div
               className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950 border border-white/5 shadow-inner"
             >
-              <div 
-                className="w-1.5 h-1.5 rounded-full animate-pulse shadow-lg" 
+              <div
+                className="w-1.5 h-1.5 rounded-full animate-pulse shadow-lg"
                 style={{ backgroundColor: card.color, boxShadow: `0 0 10px ${card.color}` }}
               />
               <span className="text-[10px] font-black text-zinc-500 tracking-[0.2em] uppercase">{card.tag}</span>
@@ -92,7 +91,7 @@ const About = () => {
 
   if (!aboutData) return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-[10px] font-black text-zinc-800 uppercase tracking-[1em] animate-pulse">Initializing Identity...</div>
+      <div className="text-[10px] font-black text-zinc-800 uppercase tracking-[1em] animate-pulse">Initializing Identity...</div>
     </div>
   );
 
@@ -148,13 +147,13 @@ const About = () => {
             </motion.div>
 
             <div className="lg:text-right space-y-2">
-                <div className="inline-flex items-center gap-3 bg-zinc-950 px-5 py-2.5 rounded-full border border-white/5 shadow-2xl">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest leading-none mt-0.5">Live Status: {aboutData.status}</span>
-                </div>
-                <div className="text-zinc-600 font-bold text-[10px] uppercase tracking-[0.4em] leading-loose pr-4">
-                  Node: {aboutData.location}
-                </div>
+              <div className="inline-flex items-center gap-3 bg-zinc-950 px-5 py-2.5 rounded-full border border-white/5 shadow-2xl">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_#10b981]" />
+                <span className="text-[10px] font-black text-white uppercase tracking-widest leading-none mt-0.5">Live Status: {aboutData.status}</span>
+              </div>
+              <div className="text-zinc-600 font-bold text-[10px] uppercase tracking-[0.4em] leading-loose pr-4">
+                Node: {aboutData.location}
+              </div>
             </div>
           </div>
 
@@ -168,35 +167,35 @@ const About = () => {
                 className="space-y-10"
               >
                 <div className="relative">
-                    <span className="absolute -top-10 -left-6 text-8xl text-white/5 font-black font-tech">"</span>
-                    <p className="text-2xl md:text-3xl font-bold italic text-white/90 leading-tight tracking-tight relative z-10">
+                  <span className="absolute -top-10 -left-6 text-8xl text-white/5 font-black font-tech">"</span>
+                  <p className="text-2xl md:text-3xl font-bold italic text-white/90 leading-tight tracking-tight relative z-10">
                     {aboutData.quote}
-                    </p>
+                  </p>
                 </div>
-                
+
                 <p className="text-lg md:text-xl text-zinc-500 font-medium leading-relaxed border-l-2 border-white/5 pl-8 hover:border-emerald-500/30 transition-colors duration-500">
                   {aboutData.mainDescription}
                 </p>
 
                 <div className="flex flex-col gap-6 pt-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-inner">
-                            <Lucide.Cpu className="text-emerald-500" size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Mainstream focus</div>
-                            <div className="text-sm font-bold text-white uppercase tracking-tight">Full-Stack & Data Architecture</div>
-                        </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-inner">
+                      <Lucide.Cpu className="text-emerald-500" size={20} />
                     </div>
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-inner">
-                            <Lucide.Activity className="text-purple-500" size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Systems uptime</div>
-                            <div className="text-sm font-bold text-white uppercase tracking-tight">Deployment active in {aboutData.location}</div>
-                        </div>
+                    <div>
+                      <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Mainstream focus</div>
+                      <div className="text-sm font-bold text-white uppercase tracking-tight">Full-Stack & Data Architecture</div>
                     </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-inner">
+                      <Lucide.Activity className="text-purple-500" size={20} />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Systems uptime</div>
+                      <div className="text-sm font-bold text-white uppercase tracking-tight">Deployment active in {aboutData.location}</div>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>

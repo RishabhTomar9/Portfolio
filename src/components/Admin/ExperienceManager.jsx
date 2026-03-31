@@ -115,7 +115,7 @@ const ExperienceManager = () => {
                 <div className="lg:col-span-5 space-y-6">
                     <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 rounded-xl border border-white/5 space-y-5 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-50" />
-                        
+
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Company / Institution</label>
                             <input
@@ -300,7 +300,7 @@ const ExperienceManager = () => {
 
                                             {/* Mobile 3-Dot Menu */}
                                             <div className="lg:hidden relative">
-                                                <button 
+                                                <button
                                                     onClick={() => setActiveActionMenu(activeActionMenu === exp.id ? null : exp.id)}
                                                     className="p-2 bg-white/5 border border-white/10 rounded-lg text-zinc-400"
                                                 >
@@ -310,19 +310,19 @@ const ExperienceManager = () => {
                                                     {activeActionMenu === exp.id && (
                                                         <>
                                                             <div className="fixed inset-0 z-10" onClick={() => setActiveActionMenu(null)} />
-                                                            <motion.div 
+                                                            <motion.div
                                                                 initial={{ opacity: 0, scale: 0.9, x: -10 }}
                                                                 animate={{ opacity: 1, scale: 1, x: 0 }}
                                                                 exit={{ opacity: 0, scale: 0.9, x: -10 }}
                                                                 className="absolute right-0 top-10 w-32 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl z-20 overflow-hidden"
                                                             >
-                                                                <button 
+                                                                <button
                                                                     onClick={() => { handleEdit(exp); setActiveActionMenu(null); }}
                                                                     className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:bg-white/5 transition-colors"
                                                                 >
                                                                     <FaEdit /> Edit
                                                                 </button>
-                                                                <button 
+                                                                <button
                                                                     onClick={() => { handleDelete(exp); setActiveActionMenu(null); }}
                                                                     className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:bg-white/5 transition-colors border-t border-white/5"
                                                                 >

@@ -77,29 +77,29 @@ const Footer = () => {
   };
 
   const contactItems = [
-    { 
-      icon: <FaEnvelope />, 
-      label: "Email", 
-      value: "Email", 
-      detail: settings?.email || "rishabhtomar9999@gmail.com", 
-      href: `mailto:${settings?.email || "rishabhtomar9999@gmail.com"}`, 
-      color: "purple" 
+    {
+      icon: <FaEnvelope />,
+      label: "Email",
+      value: "Email",
+      detail: settings?.email || "rishabhtomar9999@gmail.com",
+      href: `mailto:${settings?.email || "rishabhtomar9999@gmail.com"}`,
+      color: "purple"
     },
-    { 
-      icon: <FaPhoneAlt />, 
-      label: "Phone", 
-      value: "Phone", 
-      detail: "+91 9981909017", 
-      href: "tel:+919981909017", 
-      color: "blue" 
+    {
+      icon: <FaPhoneAlt />,
+      label: "Phone",
+      value: "Phone",
+      detail: "+91 9981909017",
+      href: "tel:+919981909017",
+      color: "blue"
     },
-    { 
-      icon: <FaMapMarkerAlt />, 
-      label: "Location", 
-      value: "Location", 
-      detail: settings?.location || "Bhopal, India", 
-      href: "#", 
-      color: "yellow" 
+    {
+      icon: <FaMapMarkerAlt />,
+      label: "Location",
+      value: "Location",
+      detail: settings?.location || "Bhopal, India",
+      href: "#",
+      color: "yellow"
     }
   ];
 

@@ -53,22 +53,22 @@ const ImageUpload = ({ onUpload, currentImage, folder = 'portfolio' }) => {
 
     return (
         <div className="group relative">
-            <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-2xl bg-black/40 border border-white/5 backdrop-blur-xl group-hover:border-purple-500/20 transition-all duration-500">
+            <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-xl bg-black/40 border border-white/5 backdrop-blur-xl group-hover:border-purple-500/20 transition-all duration-500">
                 {/* Preview Frame */}
-                <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-zinc-900 border border-white/10 overflow-hidden shadow-2xl flex-shrink-0 group/preview">
+                <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-xl bg-zinc-900 border border-white/10 overflow-hidden shadow-2xl flex-shrink-0 group/preview">
                     <AnimatePresence mode="wait">
                         {preview ? (
-                            <motion.img 
+                            <motion.img
                                 key="preview"
                                 initial={{ opacity: 0, scale: 1.1 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                src={preview} 
-                                alt="Preview" 
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover/preview:scale-110" 
+                                src={preview}
+                                alt="Preview"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover/preview:scale-110"
                             />
                         ) : (
-                            <motion.div 
+                            <motion.div
                                 key="placeholder"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -99,23 +99,22 @@ const ImageUpload = ({ onUpload, currentImage, folder = 'portfolio' }) => {
 
                     <div className="flex flex-wrap gap-3">
                         <label className="relative cursor-pointer group/label">
-                            <div className={`px-5 py-3 rounded-xl border transition-all flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] overflow-hidden relative ${
-                                uploading ? 'bg-zinc-800 border-white/5 text-zinc-600 cursor-not-allowed' : 'bg-white text-black hover:bg-zinc-200 shadow-lg group-hover/label:shadow-purple-500/10'
-                            }`}>
+                            <div className={`px-5 py-3 rounded-xl border transition-all flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] overflow-hidden relative ${uploading ? 'bg-zinc-800 border-white/5 text-zinc-600 cursor-not-allowed' : 'bg-white text-black hover:bg-zinc-200 shadow-lg group-hover/label:shadow-purple-500/10'
+                                }`}>
                                 <CloudUpload className={`w-4 h-4 ${uploading ? 'animate-bounce' : ''}`} />
                                 {uploading ? 'Processing' : (preview ? 'Replace Node' : 'Upload Node')}
                             </div>
-                            <input 
-                                type="file" 
-                                className="hidden" 
-                                accept="image/*" 
-                                onChange={handleUpload} 
+                            <input
+                                type="file"
+                                className="hidden"
+                                accept="image/*"
+                                onChange={handleUpload}
                                 disabled={uploading}
                             />
                         </label>
-                        
+
                         {preview && !uploading && (
-                            <button 
+                            <button
                                 onClick={() => { setPreview(null); onUpload(''); }}
                                 className="p-3 rounded-xl border border-white/5 bg-white/5 text-zinc-500 hover:text-red-400 hover:bg-red-400/10 hover:border-red-400/20 transition-all"
                                 title="Clear Asset"
@@ -129,17 +128,17 @@ const ImageUpload = ({ onUpload, currentImage, folder = 'portfolio' }) => {
                     <div className="min-h-[16px] flex items-center gap-3">
                         <AnimatePresence mode="wait">
                             {error ? (
-                                <motion.span 
-                                    initial={{ opacity: 0, x: -10 }} 
-                                    animate={{ opacity: 1, x: 0 }} 
+                                <motion.span
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
                                     className="text-red-400 text-[8px] font-black uppercase tracking-widest flex items-center gap-2"
                                 >
                                     <AlertCircle className="w-3 h-3" /> {error}
                                 </motion.span>
                             ) : preview && !uploading ? (
-                                <motion.span 
-                                    initial={{ opacity: 0, x: -10 }} 
-                                    animate={{ opacity: 1, x: 0 }} 
+                                <motion.span
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
                                     className="text-emerald-500 text-[8px] font-black uppercase tracking-widest flex items-center gap-2"
                                 >
                                     <CheckCircle2 className="w-3 h-3 shadow-[0_0_10px_#10b981]" /> Asset Live & Synchronized
@@ -149,9 +148,9 @@ const ImageUpload = ({ onUpload, currentImage, folder = 'portfolio' }) => {
                     </div>
                 </div>
             </div>
-            
+
             {/* Background Glow */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/0 via-purple-500/0 to-blue-500/0 rounded-2xl blur group-hover:from-purple-500/5 group-hover:to-blue-500/5 -z-10 transition-all duration-500" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/0 via-purple-500/0 to-blue-500/0 rounded-xl blur group-hover:from-purple-500/5 group-hover:to-blue-500/5 -z-10 transition-all duration-500" />
         </div>
     );
 };

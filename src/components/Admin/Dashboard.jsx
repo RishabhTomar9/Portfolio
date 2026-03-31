@@ -26,7 +26,7 @@ const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filter, setFilter] = useState('all'); // 'all', 'read', 'unread'
     const [selectedMessage, setSelectedMessage] = useState(null);
-    const [activeTab, setActiveTab] = useState('messages'); 
+    const [activeTab, setActiveTab] = useState('messages');
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [messageToDelete, setMessageToDelete] = useState(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -181,7 +181,7 @@ const Dashboard = () => {
                 <Icon className={`text-base ${isActive ? tab.color : 'group-hover:text-zinc-300'}`} />
                 <span className="hidden xl:inline">{tab.label}</span>
                 {isActive && (
-                    <motion.div 
+                    <motion.div
                         layoutId="activeTabGlow"
                         className={`absolute inset-0 rounded-xl border border-white/20 opacity-50`}
                     />
@@ -213,7 +213,7 @@ const Dashboard = () => {
                     </div>
 
                     {/* Desktop Tabs */}
-                    <div className="hidden lg:flex items-center gap-1 p-1 rounded-2xl border border-white/5 bg-zinc-900/40 backdrop-blur-md">
+                    <div className="hidden lg:flex items-center gap-1 p-1 rounded-xl border border-white/5 bg-zinc-900/40 backdrop-blur-md">
                         {TABS.map((tab) => (
                             <MenuItem key={tab.id} tab={tab} isActive={activeTab === tab.id} />
                         ))}
@@ -228,9 +228,9 @@ const Dashboard = () => {
                                 <FaPowerOff />
                             </button>
                         </div>
-                        
-                        <button 
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             className="lg:hidden w-10 h-10 flex items-center justify-center text-white bg-purple-600/10 rounded-xl border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.1)] active:scale-95 transition-all"
                         >
                             <AnimatePresence mode="wait">
@@ -253,17 +253,17 @@ const Dashboard = () => {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <>
-                        <motion.div 
-                            initial={{ opacity: 0 }} 
-                            animate={{ opacity: 1 }} 
-                            exit={{ opacity: 0 }} 
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] lg:hidden"
                         />
-                        <motion.div 
-                            initial={{ x: '100%' }} 
-                            animate={{ x: 0 }} 
-                            exit={{ x: '100%' }} 
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                             className="fixed top-0 right-0 bottom-0 w-[280px] xs:w-[320px] bg-zinc-950 border-l border-white/5 z-[80] shadow-2xl lg:hidden flex flex-col pt-24"
                         >
@@ -274,14 +274,13 @@ const Dashboard = () => {
                                         {TABS.map((tab) => {
                                             const Icon = tab.icon;
                                             return (
-                                                <button 
-                                                    key={tab.id} 
-                                                    onClick={() => { setActiveTab(tab.id); setIsMobileMenuOpen(false); }} 
-                                                    className={`w-full flex items-center justify-between p-4 rounded-2xl border transition-all ${
-                                                        activeTab === tab.id 
-                                                            ? 'bg-purple-600/10 border-purple-500/30 text-white shadow-[0_4px_15px_rgba(168,85,247,0.1)]' 
-                                                            : 'bg-black/20 border-transparent text-zinc-500 hover:bg-white/5'
-                                                    }`}
+                                                <button
+                                                    key={tab.id}
+                                                    onClick={() => { setActiveTab(tab.id); setIsMobileMenuOpen(false); }}
+                                                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all ${activeTab === tab.id
+                                                        ? 'bg-purple-600/10 border-purple-500/30 text-white shadow-[0_4px_15px_rgba(168,85,247,0.1)]'
+                                                        : 'bg-black/20 border-transparent text-zinc-500 hover:bg-white/5'
+                                                        }`}
                                                 >
                                                     <div className="flex items-center gap-4">
                                                         <div className={`p-2.5 rounded-xl ${activeTab === tab.id ? 'bg-purple-500 text-white' : 'bg-zinc-900 text-zinc-700'}`}>
@@ -298,10 +297,10 @@ const Dashboard = () => {
                             </div>
 
                             <div className="p-6 border-t border-white/5 bg-zinc-900/20 space-y-3">
-                                <button onClick={handleReturnToSite} className="w-full py-4 rounded-2xl bg-zinc-900 border border-white/5 text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+                                <button onClick={handleReturnToSite} className="w-full py-4 rounded-xl bg-zinc-900 border border-white/5 text-zinc-400 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
                                     <FaHome /> Visit Nexus
                                 </button>
-                                <button onClick={handleLogout} className="w-full py-4 rounded-2xl bg-red-600/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+                                <button onClick={handleLogout} className="w-full py-4 rounded-xl bg-red-600/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
                                     <FaPowerOff /> Terminate Session
                                 </button>
                             </div>
@@ -312,7 +311,7 @@ const Dashboard = () => {
 
             <main className="max-w-[1800px] mx-auto px-4 md:px-8 py-8 relative z-10 mt-20 md:mt-24">
                 {error && (
-                    <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl flex items-center gap-4 animate-shake">
+                    <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl flex items-center gap-4 animate-shake">
                         <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 shrink-0">
                             <FaShieldAlt className="text-red-500" />
                         </div>
@@ -359,7 +358,7 @@ const Dashboard = () => {
                         >
                             {activeTab === 'messages' && (
                                 <div className="space-y-6">
-                                    <div className="flex flex-col md:flex-row gap-4 sticky top-24 z-20 bg-black/50 backdrop-blur-xl p-4 -mx-4 md:mx-0 rounded-2xl border border-white/5 mb-8">
+                                    <div className="flex flex-col md:flex-row gap-4 sticky top-24 z-20 bg-black/50 backdrop-blur-xl p-4 -mx-4 md:mx-0 rounded-xl border border-white/5 mb-8">
                                         <div className="relative flex-1">
                                             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-600" />
                                             <input type="text" placeholder="Search transmissions..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-black/40 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-sm focus:border-purple-500 outline-none text-zinc-300" />
@@ -384,22 +383,20 @@ const Dashboard = () => {
                                             </div>
                                         ) : (
                                             filteredMessages.map((msg) => (
-                                                <div 
-                                                    key={msg.id} 
-                                                    onClick={() => setSelectedMessage(selectedMessage?.id === msg.id ? null : msg)} 
-                                                    className={`group relative bg-zinc-900/30 border rounded-[2rem] p-5 md:p-8 cursor-pointer transition-all duration-500 overflow-hidden ${
-                                                        selectedMessage?.id === msg.id 
-                                                            ? 'border-purple-500/50 bg-zinc-900/60 shadow-[0_0_50px_rgba(168,85,247,0.1)] ring-1 ring-purple-500/20' 
-                                                            : 'border-white/5 hover:border-white/10 hover:bg-zinc-900/40'
-                                                    }`}
+                                                <div
+                                                    key={msg.id}
+                                                    onClick={() => setSelectedMessage(selectedMessage?.id === msg.id ? null : msg)}
+                                                    className={`group relative bg-zinc-900/30 border rounded-[2rem] p-5 md:p-8 cursor-pointer transition-all duration-500 overflow-hidden ${selectedMessage?.id === msg.id
+                                                        ? 'border-purple-500/50 bg-zinc-900/60 shadow-[0_0_50px_rgba(168,85,247,0.1)] ring-1 ring-purple-500/20'
+                                                        : 'border-white/5 hover:border-white/10 hover:bg-zinc-900/40'
+                                                        }`}
                                                 >
                                                     <div className="flex flex-col md:flex-row md:items-center gap-6 relative z-10">
                                                         <div className="flex items-center gap-6 flex-1">
-                                                            <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex flex-shrink-0 items-center justify-center text-xl font-black border transition-all ${
-                                                                !msg.read 
-                                                                    ? 'bg-purple-600 border-purple-400 text-white shadow-[0_0_25px_rgba(168,85,247,0.4)]' 
-                                                                    : 'bg-zinc-950 border-white/5 text-zinc-600'
-                                                            }`}>
+                                                            <div className={`w-14 h-14 md:w-16 md:h-16 rounded-xl flex flex-shrink-0 items-center justify-center text-xl font-black border transition-all ${!msg.read
+                                                                ? 'bg-purple-600 border-purple-400 text-white shadow-[0_0_25px_rgba(168,85,247,0.4)]'
+                                                                : 'bg-zinc-950 border-white/5 text-zinc-600'
+                                                                }`}>
                                                                 {msg.name?.charAt(0).toUpperCase()}
                                                             </div>
                                                             <div className="flex-1 min-w-0">
@@ -417,21 +414,20 @@ const Dashboard = () => {
                                                             <div className="text-[9px] font-black text-zinc-600 uppercase tracking-widest bg-black/40 px-5 py-2.5 rounded-full border border-white/5 flex items-center gap-2">
                                                                 <FaClock className="text-zinc-700" /> {getRelativeTime(msg.timestamp)}
                                                             </div>
-                                                            
+
                                                             {/* Mobile Header Actions are always visible or in a menu */}
                                                             <div className="flex items-center gap-2">
-                                                                <button 
-                                                                    onClick={(e) => handleToggleRead(msg.id, msg.read, e)} 
-                                                                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                                                                        msg.read ? 'text-zinc-700 hover:text-white bg-white/5' : 'text-purple-500 bg-purple-500/10 border border-purple-500/20'
-                                                                    }`}
+                                                                <button
+                                                                    onClick={(e) => handleToggleRead(msg.id, msg.read, e)}
+                                                                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${msg.read ? 'text-zinc-700 hover:text-white bg-white/5' : 'text-purple-500 bg-purple-500/10 border border-purple-500/20'
+                                                                        }`}
                                                                 >
                                                                     {msg.read ? <div className="w-1.5 h-1.5 rounded-full border-2 border-current" /> : <div className="w-2 h-2 bg-purple-500 rounded-full shadow-[0_0_10px_#a855f7]" />}
                                                                 </button>
-                                                                
+
                                                                 {/* 3-Dot Style Menu for secondary actions */}
-                                                                <button 
-                                                                    onClick={(e) => handleDelete(msg, e)} 
+                                                                <button
+                                                                    onClick={(e) => handleDelete(msg, e)}
                                                                     className="w-10 h-10 flex items-center justify-center text-zinc-700 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
                                                                 >
                                                                     <FaTrash />
@@ -443,7 +439,7 @@ const Dashboard = () => {
                                                         {selectedMessage?.id === msg.id && (
                                                             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                                                                 <div className="mt-8 pt-8 border-t border-white/5 space-y-6">
-                                                                    <div className="bg-black/60 p-8 rounded-2xl border border-white/5 text-zinc-400 text-base leading-relaxed font-medium whitespace-pre-wrap">{msg.content}</div>
+                                                                    <div className="bg-black/60 p-8 rounded-xl border border-white/5 text-zinc-400 text-base leading-relaxed font-medium whitespace-pre-wrap">{msg.content}</div>
                                                                     <div className="flex justify-end"><a href={`mailto:${msg.email}`} className="bg-white text-black px-8 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-3 hover:bg-zinc-200 transition-all shadow-xl shadow-white/5"><FaReply /> Respond via Protocol</a></div>
                                                                 </div>
                                                             </motion.div>

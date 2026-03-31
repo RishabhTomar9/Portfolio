@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, useScroll, useMotionValueEvent, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent, useSpring, useTransform, useMotionValue } from 'framer-motion';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
@@ -9,7 +9,22 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Parallax Values for Refraction
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
   const { scrollY, scrollYProgress } = useScroll();
+
+  const handleMouseMove = ({ currentTarget, clientX, clientY }) => {
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = (clientX - left) / width;
+    const y = (clientY - top) / height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const gridX = useTransform(mouseX, [0, 1], [-10, 10]);
+  const gridY = useTransform(mouseY, [0, 1], [-5, 5]);
 
   // Smooth scroll progress for the progress bar
   const scaleX = useSpring(scrollYProgress, {
@@ -17,10 +32,6 @@ const Header = () => {
     damping: 30,
     restDelta: 0.001
   });
-
-  // Dynamic header width based on scroll
-  const headerWidth = useTransform(scrollY, [0, 100], ['100%', '90%']);
-  const headerPadding = useTransform(scrollY, [0, 100], ['1.5rem', '1rem']);
 
   const scrollItems = ['home', 'about', 'experience', 'skills', 'milestones', 'projects', 'contact'];
   const activeSection = useScrollSpy(scrollItems, 100);
@@ -34,57 +45,87 @@ const Header = () => {
   });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] flex flex-col items-center pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-[100] flex flex-col items-center pointer-events-none group/hdr">
       <motion.div
+        onMouseMove={handleMouseMove}
         layout
-        className="pointer-events-auto flex items-center justify-between w-full h-16 md:h-20 transition-all duration-500 ease-[0.22, 1, 0.36, 1] shadow-2xl relative overflow-hidden backdrop-blur-3xl border-b border-white/10 px-6 md:px-10 lg:px-20 bg-black/60"
+        className="pointer-events-auto flex items-center justify-between w-full h-16 md:h-20 shadow-[0_30px_60px_rgba(0,0,0,0.7)] relative overflow-hidden backdrop-blur-[100px] border-b border-white/10 px-6 md:px-10 lg:px-20 bg-black/80"
       >
-        {/* Dashboard Aesthetics: Grid & Mesh */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-blue-500/5 opacity-30 pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none opacity-20" />
+        {/* PARALLAX REFRAC ENGINE: Fresnel Grid & Noise */}
+        <motion.div
+          style={{ x: gridX, y: gridY }}
+          className="absolute inset-[-40px] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.08] mix-blend-overlay pointer-events-none"
+        />
+        <motion.div
+          style={{ x: useTransform(mouseX, [0, 1], [15, -15]), y: useTransform(mouseY, [0, 1], [8, -8]) }}
+          className="absolute inset-[-40px] bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none opacity-20"
+        />
 
-        {/* LEFT: BRANDING ONLY */}
-        <div className="flex items-center gap-8 min-w-[200px]">
-          <a href="/#home" className="flex items-center gap-3 group/logo relative">
-            <motion.div className="flex items-center gap-2" whileHover={{ x: 2 }}>
+        {/* PHYSICAL DASHBOARD REFRAC: Fresnel Top Edge */}
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/30 to-transparent z-50 pointer-events-none" />
+
+        {/* LEFT: ICONIC BRANDING & LIVE HUD */}
+        <div className="flex items-center gap-12 min-w-[240px]">
+          <a href="/#home" className="flex items-center gap-5 group/logo relative">
+            <motion.div className="flex items-center gap-4" whileHover={{ x: 2 }}>
               <div className="relative">
-                <span className="text-xl md:text-2xl font-black tracking-tighter text-white font-tech italic">
-                    R<span className="text-purple-500">.</span>
+                <span className="text-2xl md:text-3xl font-black tracking-tighter text-white font-tech italic leading-none block">
+                  R<span className="text-purple-500 transition-all duration-700 group-hover/logo:text-white group-hover/logo:drop-shadow-[0_0_15px_#fff]">.</span>
                 </span>
-                <motion.div 
-                    className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-purple-500 blur-[2px]"
-                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+
+                {/* Holographic Fluid Beacon */}
+                <motion.div
+                  className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-purple-500 blur-[5px]"
+                  animate={{ scale: [1, 1.8, 1], opacity: [0.3, 0.9, 0.3] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                />
+
+                {/* Periodic Glitch Effect */}
+                <motion.div
+                  className="absolute inset-0 bg-white/30 blur-sm opacity-0 group-hover/logo:opacity-100"
+                  animate={{ opacity: [0, 0.4, 0], scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 15 }}
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-[12px] font-black tracking-tighter text-white uppercase leading-none">Rishabh.</span>
+                <span className="text-[14px] font-black tracking-tighter text-white uppercase leading-none">Rishabh.</span>
               </div>
             </motion.div>
           </a>
         </div>
 
-        {/* CENTER: UNIFIED NAVIGATION */}
+        {/* CENTER: NESTED TACTICAL DOCK ENGINE */}
         <div className="hidden md:block">
-          <DesktopNav scrollItems={scrollItems} activeSection={activeSection} isDocked={true} />
+          <div className="relative p-1.5 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-2xl shadow-inner group-hover/hdr:border-white/10 transition-colors duration-700 overflow-hidden">
+            {/* Dock Highlight Fresnel */}
+            <div className="absolute top-0 left-0 right-0 h-[0.5px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <DesktopNav scrollItems={scrollItems} activeSection={activeSection} />
+          </div>
         </div>
 
-        {/* RIGHT: ACTION CENTER */}
-        <div className="flex items-center gap-6 md:min-w-[200px] justify-end">
+        {/* RIGHT: COMMAND CENTER ACTION HUB */}
+        <div className="flex items-center gap-10 md:min-w-[240px] justify-end">
+
           <Button
             variant="ghost"
             size="sm"
-            className="hidden md:flex group relative overflow-hidden rounded-full font-black transition-all text-[9px] tracking-[0.2em] uppercase bg-white/5 text-white hover:bg-white/10 border border-white/10 hover:border-purple-500/30 h-11 px-8"
+            className="hidden md:flex group relative overflow-hidden rounded-xl font-black transition-all text-[10px] tracking-[0.2em] uppercase bg-white/5 text-zinc-400 hover:text-white border border-white/5 hover:border-white/20 h-11 px-8 backdrop-blur-md"
             asChild
           >
             <a href="mailto:rishabhtomar9999@gmail.com?subject=Project%20Inquiry">
               <span className="relative z-10 flex items-center gap-3">
-                Drop Mail 
-                <div className="flex gap-0.5">
-                    <div className="w-1 h-1 rounded-full bg-white group-hover:bg-purple-500 transition-all" />
-                    <div className="w-1 h-1 rounded-full bg-white/40 group-hover:bg-purple-800 transition-all" />
+                Drop Mail
+                <div className="flex gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-purple-500 transition-all duration-300 shadow-[0_0_12px_#fff]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-purple-800 transition-all duration-500" />
                 </div>
               </span>
+
+              {/* Button Reflect Effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <motion.div
+                className="absolute inset-0 bg-white/[0.04] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700"
+              />
             </a>
           </Button>
 
@@ -93,15 +134,27 @@ const Header = () => {
           </div>
         </div>
 
-        {/* HUD Progress Bar */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent origin-left z-20"
-          style={{ scaleX }}
-        />
+        {/* ENERGY-PULSE PROGRESS CORE */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/[0.05] overflow-hidden">
+          <motion.div
+            className="h-full bg-gradient-to-r from-purple-600 via-white to-blue-600 relative"
+            style={{ scaleX }}
+          >
+            {/* High-Intensity Bloom */}
+            <div className="absolute inset-0 shadow-[0_0_25px_rgba(255,255,255,1)]" />
+
+            {/* Recursive Pulse Animation */}
+            <motion.div
+              className="absolute inset-0 bg-white/50 blur-md"
+              animate={{ x: ["-100%", "250%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        </div>
       </motion.div>
 
-      {/* Ambiant Glow */}
-      <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[150px] bg-purple-500/5 blur-[120px] pointer-events-none transition-opacity duration-1000 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
+      {/* AMBIENT UNDER-GLOW */}
+      <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[90%] h-[180px] bg-purple-500/[0.03] blur-[150px] pointer-events-none transition-opacity duration-1000 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
     </header>
   );
 };

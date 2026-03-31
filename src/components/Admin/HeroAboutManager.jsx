@@ -132,7 +132,7 @@ const HeroAboutManager = () => {
                             onSubmit={handleHeroSubmit}
                             className="grid lg:grid-cols-12 gap-8"
                         >
-                            <div className="lg:col-span-12 bg-zinc-900/60 p-6 md:p-8 rounded-2xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                            <div className="lg:col-span-12 bg-zinc-900/60 p-6 md:p-8 rounded-xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-50" />
 
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -218,7 +218,7 @@ const HeroAboutManager = () => {
                                     <textarea
                                         value={heroData.description}
                                         onChange={(e) => setHeroData({ ...heroData, description: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-white focus:border-blue-500 outline-none h-32 resize-none leading-relaxed text-sm font-medium"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-6 text-white focus:border-blue-500 outline-none h-32 resize-none leading-relaxed text-sm font-medium"
                                         required
                                     />
                                 </div>
@@ -243,7 +243,7 @@ const HeroAboutManager = () => {
                             onSubmit={handleAboutSubmit}
                             className="space-y-8"
                         >
-                            <div className="bg-zinc-900/60 p-8 rounded-2xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                            <div className="bg-zinc-900/60 p-8 rounded-xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-50" />
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -298,14 +298,14 @@ const HeroAboutManager = () => {
                                     <textarea
                                         value={aboutData.quote}
                                         onChange={(e) => setAboutData({ ...aboutData, quote: e.target.value })}
-                                        className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-white focus:border-emerald-500 outline-none h-24 resize-none italic font-bold text-lg leading-relaxed shadow-inner"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-6 text-white focus:border-emerald-500 outline-none h-24 resize-none italic font-bold text-lg leading-relaxed shadow-inner"
                                         required
                                     />
                                 </div>
 
                                 <div className="grid md:grid-cols-3 gap-6">
                                     {[1, 2, 3].map(num => (
-                                        <div key={num} className="bg-black/40 p-6 rounded-2xl border border-white/5 space-y-6 group hover:border-white/10 transition-all shadow-xl">
+                                        <div key={num} className="bg-black/40 p-6 rounded-xl border border-white/5 space-y-6 group hover:border-white/10 transition-all shadow-xl">
                                             <div className="flex items-center justify-between">
                                                 <div className="relative group/icon">
                                                     <div

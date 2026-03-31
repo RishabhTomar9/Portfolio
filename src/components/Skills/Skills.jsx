@@ -5,22 +5,22 @@ import { db } from '../../firebase';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 const TECH_ICON_MAP = {
-    'React': 'Atom',
-    'JavaScript': 'FileJson',
-    'Node.js': 'Server',
-    'Firebase': 'Flame',
-    'PL/SQL': 'Database',
-    'Snowflake': 'Snowflake',
-    'HTML': 'Code2',
-    'CSS': 'Layers',
-    'Design': 'Palette',
-    'Git': 'GitBranch',
-    'C++': 'Terminal',
-    'Python': 'FileCode',
-    'SQL': 'Database',
-    'MongoDB': 'Leaf',
-    'Java': 'Coffee',
-    'AWS': 'Cloud'
+  'React': 'Atom',
+  'JavaScript': 'FileJson',
+  'Node.js': 'Server',
+  'Firebase': 'Flame',
+  'PL/SQL': 'Database',
+  'Snowflake': 'Snowflake',
+  'HTML': 'Code2',
+  'CSS': 'Layers',
+  'Design': 'Palette',
+  'Git': 'GitBranch',
+  'C++': 'Terminal',
+  'Python': 'FileCode',
+  'SQL': 'Database',
+  'MongoDB': 'Leaf',
+  'Java': 'Coffee',
+  'AWS': 'Cloud'
 };
 
 const SkillCard = ({ skill, index, isInView }) => {
@@ -30,16 +30,16 @@ const SkillCard = ({ skill, index, isInView }) => {
 
     // 2. Smart Mapping match (case-insensitive)
     if (!Icon) {
-        const mappedName = Object.keys(TECH_ICON_MAP).find(
-            key => key.toLowerCase() === iconName?.toLowerCase()
-        );
-        if (mappedName) Icon = Lucide[TECH_ICON_MAP[mappedName]];
+      const mappedName = Object.keys(TECH_ICON_MAP).find(
+        key => key.toLowerCase() === iconName?.toLowerCase()
+      );
+      if (mappedName) Icon = Lucide[TECH_ICON_MAP[mappedName]];
     }
 
     // 3. PascalCase fix attempt
     if (!Icon && iconName) {
-        const pascalName = iconName.charAt(0).toUpperCase() + iconName.slice(1).replace(/\s+/g, '');
-        Icon = Lucide[pascalName];
+      const pascalName = iconName.charAt(0).toUpperCase() + iconName.slice(1).replace(/\s+/g, '');
+      Icon = Lucide[pascalName];
     }
 
     return Icon ? <Icon {...props} /> : <Lucide.Cpu {...props} />;

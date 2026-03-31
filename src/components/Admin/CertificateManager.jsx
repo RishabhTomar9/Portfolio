@@ -146,9 +146,9 @@ const CertificateManager = () => {
 
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2"><FaImage /> Asset Upload (Cloudinary)</label>
-                            <ImageUpload 
-                                currentImage={currentItem.image} 
-                                onUpload={(url) => setCurrentItem({...currentItem, image: url})}
+                            <ImageUpload
+                                currentImage={currentItem.image}
+                                onUpload={(url) => setCurrentItem({ ...currentItem, image: url })}
                                 folder={activeTab}
                             />
                             <input
@@ -218,7 +218,7 @@ const CertificateManager = () => {
                                 >
                                     <div className="aspect-video bg-black relative shadow-inner overflow-hidden">
                                         <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all group-hover:scale-105 duration-700" />
-                                        
+
                                         {/* Desktop Actions */}
                                         <div className="absolute top-2 right-2 hidden lg:flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                                             <button onClick={() => handleEdit(item)} className="p-1.5 bg-black/50 backdrop-blur rounded text-white hover:bg-orange-600 transition-colors"><FaEdit className="text-xs" /></button>
@@ -227,7 +227,7 @@ const CertificateManager = () => {
 
                                         {/* Mobile 3-Dot Menu */}
                                         <div className="lg:hidden absolute top-2 right-2 z-20">
-                                            <button 
+                                            <button
                                                 onClick={() => setActiveActionMenu(activeActionMenu === item.id ? null : item.id)}
                                                 className="p-1.5 bg-black/60 backdrop-blur-md border border-white/10 rounded-lg text-white"
                                             >
@@ -235,19 +235,19 @@ const CertificateManager = () => {
                                             </button>
                                             <AnimatePresence>
                                                 {activeActionMenu === item.id && (
-                                                    <motion.div 
+                                                    <motion.div
                                                         initial={{ opacity: 0, scale: 0.9, x: -10 }}
                                                         animate={{ opacity: 1, scale: 1, x: 0 }}
                                                         exit={{ opacity: 0, scale: 0.9, x: -10 }}
                                                         className="absolute right-0 top-10 w-28 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl z-20 overflow-hidden"
                                                     >
-                                                        <button 
+                                                        <button
                                                             onClick={() => { handleEdit(item); setActiveActionMenu(null); }}
                                                             className="w-full flex items-center gap-3 px-3 py-2.5 text-[10px] font-bold uppercase tracking-widest text-orange-400 hover:bg-white/5 transition-colors"
                                                         >
                                                             <Edit2 className="w-3 h-3" /> Edit
                                                         </button>
-                                                        <button 
+                                                        <button
                                                             onClick={() => { handleDelete(item); setActiveActionMenu(null); }}
                                                             className="w-full flex items-center gap-3 px-3 py-2.5 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:bg-white/5 transition-colors border-t border-white/5"
                                                         >

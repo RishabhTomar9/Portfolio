@@ -53,20 +53,20 @@ const SettingsManager = () => {
             <div className="max-w-3xl mx-auto">
                 <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 md:p-8 rounded-xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500 opacity-50" />
-                    
+
                     {/* Social Section */}
                     <div className="space-y-6">
                         <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2 border-l-2 border-orange-500 pl-3">
                             <FaShareAlt className="text-orange-400" /> Digital Presence
                         </h3>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2"><FaGithub /> GitHub URL</label>
                                 <input
                                     type="text"
                                     value={settings.github}
-                                    onChange={(e) => setSettings({...settings, github: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, github: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     placeholder="https://github.com/..."
                                 />
@@ -76,7 +76,7 @@ const SettingsManager = () => {
                                 <input
                                     type="text"
                                     value={settings.linkedin}
-                                    onChange={(e) => setSettings({...settings, linkedin: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, linkedin: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     placeholder="https://linkedin.com/in/..."
                                 />
@@ -86,7 +86,7 @@ const SettingsManager = () => {
                                 <input
                                     type="text"
                                     value={settings.twitter}
-                                    onChange={(e) => setSettings({...settings, twitter: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, twitter: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     placeholder="https://twitter.com/..."
                                 />
@@ -96,7 +96,7 @@ const SettingsManager = () => {
                                 <input
                                     type="text"
                                     value={settings.instagram}
-                                    onChange={(e) => setSettings({...settings, instagram: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, instagram: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     placeholder="https://instagram.com/..."
                                 />
@@ -109,14 +109,14 @@ const SettingsManager = () => {
                         <h3 className="text-sm font-bold text-white uppercase tracking-widest flex items-center gap-2 border-l-2 border-orange-500 pl-3">
                             <FaTools className="text-orange-400" /> System Params
                         </h3>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2"><FaEnvelope /> Primary Email</label>
                                 <input
                                     type="email"
                                     value={settings.email}
-                                    onChange={(e) => setSettings({...settings, email: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, email: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     required
                                 />
@@ -126,7 +126,7 @@ const SettingsManager = () => {
                                 <input
                                     type="text"
                                     value={settings.location}
-                                    onChange={(e) => setSettings({...settings, location: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, location: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     required
                                 />
@@ -139,7 +139,7 @@ const SettingsManager = () => {
                                 <input
                                     type="text"
                                     value={settings.footerCredit}
-                                    onChange={(e) => setSettings({...settings, footerCredit: e.target.value})}
+                                    onChange={(e) => setSettings({ ...settings, footerCredit: e.target.value })}
                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                     required
                                 />
@@ -150,7 +150,7 @@ const SettingsManager = () => {
                                     <input
                                         type="text"
                                         value={settings.contactHeading}
-                                        onChange={(e) => setSettings({...settings, contactHeading: e.target.value})}
+                                        onChange={(e) => setSettings({ ...settings, contactHeading: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                         required
                                     />
@@ -160,7 +160,7 @@ const SettingsManager = () => {
                                     <input
                                         type="text"
                                         value={settings.contactSubheading}
-                                        onChange={(e) => setSettings({...settings, contactSubheading: e.target.value})}
+                                        onChange={(e) => setSettings({ ...settings, contactSubheading: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm"
                                         required
                                     />

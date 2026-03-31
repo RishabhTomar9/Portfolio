@@ -80,7 +80,7 @@ const Resume = () => {
                                         <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
                                         <div className="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/50" />
                                     </div>
-                                    <span className="text-[10px] font-mono text-zinc-400 tracking-wider hidden sm:inline-block">RESUME_V2024.PDF</span>
+                                    <span className="text-[10px] font-bold text-zinc-400 tracking-wider hidden sm:inline-block">RESUME_V2024.PDF</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <button onClick={handlePrint} className="p-2 hover:bg-white/10 rounded-lg transition-colors text-zinc-400 hover:text-white" title="Print Document">
@@ -189,14 +189,14 @@ const Resume = () => {
                             {/* Enhanced Metadata Grid */}
                             <div className="mt-auto bg-black/20 rounded-xl p-4 border border-white/5">
                                 <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-2">
-                                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Metadata</span>
+                                    <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Metadata</span>
                                     <div className="flex gap-1">
                                         <div className="w-1 h-1 rounded-full bg-zinc-700" />
                                         <div className="w-1 h-1 rounded-full bg-zinc-700" />
                                         <div className="w-1 h-1 rounded-full bg-zinc-700" />
                                     </div>
                                 </div>
-                                <div className="space-y-3 font-mono text-[10px]">
+                                <div className="space-y-3 font-bold text-[10px]">
                                     <div className="flex justify-between items-center">
                                         <span className="text-zinc-600">FILE_TYPE</span>
                                         <span className="text-zinc-300 bg-white/5 px-2 py-0.5 rounded">PDF/A-1b</span>

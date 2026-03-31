@@ -72,9 +72,9 @@ const Hero = () => {
   ].filter(Boolean);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 selection:bg-purple-500/30 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 pointer-events-none" />
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 selection:bg-purple-500/30 overflow-hidden bg-[#050505]">
+      {/* Background Grid System - Synchronized with Dashboard */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 pointer-events-none opacity-50" />
       <DataStream />
 
       <div className="container mx-auto px-6  relative z-10 grid lg:grid-cols-2 gap-12 items-center">
@@ -192,7 +192,7 @@ const Hero = () => {
               />
 
               {/* Holographic Overlay */}
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mixed-blend-overlay pointer-events-none" />
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.03] mixed-blend-overlay pointer-events-none" />
 
               {/* Floating ID Card Info */}
               <div className="absolute bottom-8 left-8 right-8 z-20">

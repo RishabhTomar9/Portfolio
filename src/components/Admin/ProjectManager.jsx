@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
-import { 
-    Plus, Edit3, Trash2, Save, X, ExternalLink, Code2, Pin, Image, 
-    Search, Filter, Layout, Box, Braces, Rocket, Shield, Eye, 
+import {
+    Plus, Edit3, Trash2, Save, X, ExternalLink, Code2, Pin, Image,
+    Search, Filter, Layout, Box, Braces, Rocket, Shield, Eye,
     ArrowRight, Copy, Check, Info, Briefcase, Globe, Github, Monitor, Archive,
     MoreVertical
 } from 'lucide-react';
@@ -13,16 +13,16 @@ import ImageUpload from './ImageUpload';
 const ProjectManager = () => {
     const [projects, setProjects] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
-    const [currentProject, setCurrentProject] = useState({ 
-        title: '', 
-        description: '', 
-        link: '', 
+    const [currentProject, setCurrentProject] = useState({
+        title: '',
+        description: '',
+        link: '',
         github: '',
-        media: '', 
-        technologies: '', 
+        media: '',
+        technologies: '',
         pinned: false,
         category: 'Web',
-        status: 'Production' 
+        status: 'Production'
     });
     const [loading, setLoading] = useState(false);
     const [copySuccess, setCopySuccess] = useState(null);
@@ -53,8 +53,8 @@ const ProjectManager = () => {
     const filteredProjects = useMemo(() => {
         return projects
             .filter(p => {
-                const matchesSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                                     p.description.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    p.description.toLowerCase().includes(searchTerm.toLowerCase());
                 const matchesCategory = filterCategory === 'All' || p.category === filterCategory;
                 const matchesArchive = showArchived ? true : p.status !== 'Archived';
                 return matchesSearch && matchesCategory && matchesArchive;
@@ -118,16 +118,16 @@ const ProjectManager = () => {
                 await addDoc(collection(db, 'projects'), projectData);
             }
 
-            setCurrentProject({ 
-                title: '', 
-                description: '', 
-                link: '', 
+            setCurrentProject({
+                title: '',
+                description: '',
+                link: '',
                 github: '',
-                media: '', 
-                technologies: '', 
+                media: '',
+                technologies: '',
                 pinned: false,
                 category: 'Web',
-                status: 'Production' 
+                status: 'Production'
             });
             setIsEditing(false);
         } catch (error) {
@@ -211,7 +211,7 @@ const ProjectManager = () => {
                             <h3 className="text-lg font-bold text-white tracking-tight">Configuration Hub</h3>
                         </div>
                         {isEditing && (
-                            <button 
+                            <button
                                 onClick={() => {
                                     setIsEditing(false);
                                     setCurrentProject({ title: '', description: '', link: '', github: '', media: '', technologies: '', category: 'Web', status: 'Production' });
@@ -225,7 +225,7 @@ const ProjectManager = () => {
 
                     <form onSubmit={handleSubmit} className="bg-zinc-900/40 p-6 md:p-8 rounded-3xl border border-white/5 space-y-6 backdrop-blur-3xl relative overflow-hidden shadow-2xl ring-1 ring-white/5 group">
                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-                        
+
                         <div className="space-y-5 relative z-10">
                             {/* Category & Status Selection */}
                             <div className="grid grid-cols-2 gap-4">
@@ -311,9 +311,9 @@ const ProjectManager = () => {
                             {/* Media Upload */}
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest ml-1 flex items-center gap-2"><Image className="w-3 h-3" /> Visual Asset</label>
-                                <ImageUpload 
-                                    currentImage={currentProject.media} 
-                                    onUpload={(url) => setCurrentProject({...currentProject, media: url})}
+                                <ImageUpload
+                                    currentImage={currentProject.media}
+                                    onUpload={(url) => setCurrentProject({ ...currentProject, media: url })}
                                     folder="projects"
                                 />
                                 <input
@@ -322,7 +322,7 @@ const ProjectManager = () => {
                                     placeholder="Direct Media URL..."
                                     value={currentProject.media}
                                     onChange={handleInputChange}
-                                    className="w-full bg-black/50 border border-white/5 rounded-lg p-2 text-[9px] text-zinc-500 outline-none truncate font-mono"
+                                    className="w-full bg-black/50 border border-white/5 rounded-lg p-2 text-[9px] text-zinc-500 outline-none truncate font-bold"
                                     required
                                 />
                             </div>
@@ -366,7 +366,7 @@ const ProjectManager = () => {
 
                     <div className="bg-black/60 rounded-3xl border border-white/10 backdrop-blur-3xl p-6 md:p-12 flex flex-col items-center justify-center relative lg:sticky lg:top-8 overflow-hidden min-h-[600px]">
                         <div className="absolute inset-0 tech-grid-bg opacity-30" />
-                        
+
                         {/* Status Float */}
                         <div className="absolute top-6 left-6 flex items-center gap-3">
                             <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
@@ -379,7 +379,7 @@ const ProjectManager = () => {
                         </div>
 
                         {/* Preview Card */}
-                        <motion.div 
+                        <motion.div
                             layoutId={currentProject.id || 'preview'}
                             className="group relative w-full lg:w-[500px] bg-zinc-950 rounded-[2.5rem] border border-white/10 overflow-hidden shadow-2xl transition-all duration-500 hover:border-purple-500/50"
                         >
@@ -398,7 +398,7 @@ const ProjectManager = () => {
                                         <p className="text-[10px] font-black uppercase tracking-[0.3em]">Awaiting Asset</p>
                                     </div>
                                 )}
-                                
+
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-8 flex flex-col justify-end">
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="px-3 py-1 bg-purple-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
@@ -413,7 +413,7 @@ const ProjectManager = () => {
                                     </h3>
                                 </div>
                             </div>
-                            
+
                             <div className="p-8 space-y-6">
                                 <p className="text-zinc-400 text-sm leading-relaxed line-clamp-3">
                                     {currentProject.description || 'System output pending. Provide node data to begin rendering cycle.'}
@@ -461,7 +461,7 @@ const ProjectManager = () => {
                         {/* Search */}
                         <div className="relative group flex-1 md:w-64">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-purple-500 transition-colors" />
-                            <input 
+                            <input
                                 type="text"
                                 placeholder="Search Registry..."
                                 value={searchTerm}
@@ -471,32 +471,29 @@ const ProjectManager = () => {
                         </div>
                         {/* Filter */}
                         <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-                            <button 
+                            <button
                                 onClick={() => setFilterCategory('All')}
-                                className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
-                                    filterCategory === 'All' ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
-                                }`}
+                                className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === 'All' ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                                    }`}
                             >
                                 All Regions
                             </button>
                             {categories.map(cat => (
-                                <button 
+                                <button
                                     key={cat}
                                     onClick={() => setFilterCategory(cat)}
-                                    className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${
-                                        filterCategory === cat ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
-                                    }`}
+                                    className={`px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all whitespace-nowrap ${filterCategory === cat ? 'bg-purple-500 border-purple-500 text-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                                        }`}
                                 >
                                     {cat}
                                 </button>
                             ))}
                         </div>
                         {/* Archive Toggle */}
-                        <button 
+                        <button
                             onClick={() => setShowArchived(!showArchived)}
-                            className={`flex items-center gap-2 px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${
-                                showArchived ? 'bg-zinc-100 text-black border-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
-                            }`}
+                            className={`flex items-center gap-2 px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest border transition-all ${showArchived ? 'bg-zinc-100 text-black border-white' : 'bg-zinc-900/40 border-white/5 text-zinc-500 hover:border-white/10'
+                                }`}
                         >
                             <Archive className="w-3 h-3" />
                             {showArchived ? 'Hide Archived' : 'Show Archived'}
@@ -517,7 +514,7 @@ const ProjectManager = () => {
                             >
                                 <div className="aspect-video relative overflow-hidden bg-zinc-950 border-b border-white/5">
                                     <img src={project.media} alt={project.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
-                                    
+
                                     {/* Badges */}
                                     <div className="absolute top-4 left-4 flex flex-col gap-2 pointer-events-none z-10">
                                         <div className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 flex items-center gap-2">
@@ -540,7 +537,7 @@ const ProjectManager = () => {
 
                                     {/* Mobile 3-Dot Menu Trigger */}
                                     <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
-                                        <button 
+                                        <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setActiveActionMenu(activeActionMenu === project.id ? null : project.id);
@@ -554,7 +551,7 @@ const ProjectManager = () => {
                                     {/* Action Menu (Mobile Dropdown or Desktop Hover Overlay) */}
                                     <AnimatePresence>
                                         {(activeActionMenu === project.id || true) && (
-                                            <motion.div 
+                                            <motion.div
                                                 initial={activeActionMenu === project.id ? { opacity: 0, scale: 0.9, y: 10 } : { opacity: 0 }}
                                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                                 exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -562,7 +559,7 @@ const ProjectManager = () => {
                                             >
                                                 {/* Close button for mobile menu */}
                                                 {activeActionMenu === project.id && (
-                                                    <button 
+                                                    <button
                                                         onClick={(e) => { e.stopPropagation(); setActiveActionMenu(null); }}
                                                         className="absolute top-4 right-4 p-2 text-zinc-500 hover:text-white"
                                                     >
@@ -573,9 +570,8 @@ const ProjectManager = () => {
                                                 <div className="grid grid-cols-2 gap-2 w-full max-w-[240px]">
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); togglePin(project); setActiveActionMenu(null); }}
-                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${
-                                                            project.pinned ? 'bg-purple-500 text-white' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
-                                                        }`}
+                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${project.pinned ? 'bg-purple-500 text-white' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
+                                                            }`}
                                                     >
                                                         <Pin className="w-4 h-4" />
                                                     </button>
@@ -587,9 +583,8 @@ const ProjectManager = () => {
                                                     </button>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); toggleArchive(project); setActiveActionMenu(null); }}
-                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${
-                                                            project.status === 'Archived' ? 'bg-zinc-100 text-black' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
-                                                        }`}
+                                                        className={`flex items-center justify-center gap-2 p-3 rounded-2xl transition-all ${project.status === 'Archived' ? 'bg-zinc-100 text-black' : 'bg-white/5 hover:bg-white/10 text-zinc-400'
+                                                            }`}
                                                     >
                                                         <Archive className="w-4 h-4" />
                                                     </button>
@@ -636,7 +631,7 @@ const ProjectManager = () => {
                         ))}
                     </AnimatePresence>
                 </div>
-                
+
                 {filteredProjects.length === 0 && (
                     <div className="flex flex-col items-center justify-center py-20 bg-zinc-900/20 rounded-3xl border border-white/5 border-dashed">
                         <Box className="w-12 h-12 text-zinc-800 mb-4" />
@@ -663,7 +658,7 @@ const ProjectManager = () => {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 via-orange-500 to-red-600" />
-                            
+
                             <div className="flex flex-col items-center text-center space-y-6">
                                 <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20">
                                     <Shield className="w-10 h-10 text-red-500" />

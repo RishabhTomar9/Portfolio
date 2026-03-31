@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Loader = ({ onFinish }) => {
+const Loader = ({ onFinish, isReady }) => {
   const [percent, setPercent] = useState(0);
-  const [logs, setLogs] = useState(["INITIALIZING_KERNEL..."]);
+  const [logs, setLogs] = useState(["SYSTEM_INITIALIZING..."]);
   const [hexDump, setHexDump] = useState([]);
 
   // Hex Dump Generator
@@ -21,25 +21,37 @@ const Loader = ({ onFinish }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setPercent(prev => {
+        // If we reach 95%, we wait for isReady to jump to 100%
+        if (prev >= 95 && !isReady) return 95;
+
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onFinish, 1000); // Wait a bit before finish
+          // Small debounce/settle time after 100%
+          const timer = setTimeout(() => {
+             onFinish();
+          }, 800);
           return 100;
         }
 
         // Add random logs based on progress
         if (Math.random() > 0.6) {
           const key = Math.random().toString(36).substring(7).toUpperCase();
-          setLogs(prevLogs => [...prevLogs.slice(-6), `> [${key}] MODULE_LOADED... OK`]);
+          const messages = [
+            "SHADOW_BUFFER_FETCHED", "PROTOCOL_LAYER_INIT", 
+            "KERNEL_SYNC_COMPLETE", "UI_THREAD_ESTABLISHED",
+            "FIREBASE_SOCKET_ACTIVE", "DATA_STREAM_HANDSHAKE"
+          ];
+          const msg = messages[Math.floor(Math.random() * messages.length)];
+          setLogs(prevLogs => [...prevLogs.slice(-6), `> [${key}] ${msg}... OK`]);
         }
 
         // Non-linear progress increment
-        const increment = Math.random() > 0.8 ? 5 : 1;
+        const increment = Math.random() > 0.8 ? 5 : (Math.random() > 0.5 ? 2 : 1);
         return Math.min(prev + increment, 100);
       });
-    }, 40);
+    }, 30); // Faster initial interval
     return () => clearInterval(interval);
-  }, [onFinish]);
+  }, [onFinish, isReady]);
 
   return (
     <motion.div

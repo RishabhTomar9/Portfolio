@@ -45,11 +45,14 @@ const useScrollSpy = (ids, offset = 0) => {
         };
 
         window.addEventListener('scroll', listener);
-        // Call once on mount to set initial state
-        listener();
+        // Call once on mount to set initial state with a small delay for lazy-loaded content settling
+        const initTimer = setTimeout(() => {
+            requestAnimationFrame(listener);
+        }, 100);
 
         return () => {
             window.removeEventListener('scroll', listener);
+            clearTimeout(initTimer);
         };
     }, [ids, offset]);
 

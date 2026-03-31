@@ -252,7 +252,7 @@ const Experience = () => {
                 </div>
             </div>
             
-            <style jsx>{`
+            <style>{`
                 @keyframes scan {
                     0% { transform: translateY(-100%); }
                     100% { transform: translateY(100%); }

@@ -126,11 +126,8 @@ const About = () => {
   return (
     <>
       <section id="about" className="py-24 md:py-48 relative bg-[#050505] overflow-hidden" aria-label="About Section">
-        {/* Background Grid System */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40" />
-        
-        {/* Decorative Light Leak */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-conic from-purple-500/10 via-transparent to-transparent blur-[120px] pointer-events-none" />
+        {/* Background Grid System - Synchronized with Resume */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-50" />
 
         <div className="container mx-auto px-6  relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 md:mb-32 gap-10">

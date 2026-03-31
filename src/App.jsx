@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import useLenis from './hooks/useLenis';
 
 // Global Layout Components - Keep Header/Footer eager for perceived performance
@@ -22,6 +23,8 @@ const Footer = lazy(() => import('./components/Footer/Footer'));
 const Login = lazy(() => import('./components/Admin/Login'));
 const Dashboard = lazy(() => import('./components/Admin/Dashboard'));
 
+import useDataPrefetch from './hooks/useDataPrefetch';
+
 // Scroll To Top Utility
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -32,16 +35,18 @@ const ScrollToTop = () => {
 };
 
 // Home Page Component (Renders all sections for SPA feel)
-const Home = () => (
-  <>
-    <Hero />
-    <About />
-    <Experience />
-    <Skills />
-    <CertificateAchievements />
-    <Projects />
-  </>
-);
+const Home = () => {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Experience />
+      <Skills />
+      <CertificateAchievements />
+      <Projects />
+    </>
+  );
+};
 
 // AppContent component to handle conditional layout
 const AppContent = () => {
@@ -53,7 +58,9 @@ const AppContent = () => {
       <CursorTracker />
 
       {/* Header stays visible on all pages, hidden on admin */}
-      {!isAdmin && <Header />}
+      <AnimatePresence mode="wait">
+        {!isAdmin && <Header key="site-header" />}
+      </AnimatePresence>
 
       <main className="min-h-screen">
         <Suspense fallback={<div className="min-h-screen bg-black" />}>
@@ -92,17 +99,29 @@ const AppContent = () => {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const isDataReady = useDataPrefetch(500); // 500ms safety buffer
 
   // Initialize Lenis smooth scrolling
   useLenis(!loading);
 
-  return loading ? (
-    <Loader onFinish={() => setLoading(false)} />
-  ) : (
-    <Router>
-      <ScrollToTop />
-      <AppContent />
-    </Router>
+  return (
+    <AnimatePresence mode="wait">
+      {loading ? (
+        <Loader key="global-loader" isReady={isDataReady} onFinish={() => setLoading(false)} />
+      ) : (
+        <motion.div 
+          key="main-content" 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 0.8 }}
+        >
+          <Router>
+            <ScrollToTop />
+            <AppContent />
+          </Router>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

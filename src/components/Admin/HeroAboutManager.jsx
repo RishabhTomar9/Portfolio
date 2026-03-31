@@ -9,7 +9,7 @@ import * as Lucide from 'lucide-react';
 const HeroAboutManager = () => {
     const [activeTab, setActiveTab] = useState('hero'); // 'hero', 'about'
     const [loading, setLoading] = useState(false);
-    
+
     const [heroData, setHeroData] = useState({
         name: 'Rishabh Tomar',
         role1: 'Architecting Scalable Systems...',
@@ -124,17 +124,17 @@ const HeroAboutManager = () => {
             <div className="max-w-[1200px] mx-auto">
                 <AnimatePresence mode="wait">
                     {activeTab === 'hero' ? (
-                        <motion.form 
+                        <motion.form
                             key="hero-form"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            onSubmit={handleHeroSubmit} 
+                            onSubmit={handleHeroSubmit}
                             className="grid lg:grid-cols-12 gap-8"
                         >
                             <div className="lg:col-span-12 bg-zinc-900/60 p-6 md:p-8 rounded-2xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-50" />
-                                
+
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                     <div className="md:col-span-2 space-y-6">
                                         <div className="grid md:grid-cols-2 gap-6">
@@ -143,7 +143,7 @@ const HeroAboutManager = () => {
                                                 <input
                                                     type="text"
                                                     value={heroData.name}
-                                                    onChange={(e) => setHeroData({...heroData, name: e.target.value})}
+                                                    onChange={(e) => setHeroData({ ...heroData, name: e.target.value })}
                                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none font-bold text-lg"
                                                     required
                                                 />
@@ -153,7 +153,7 @@ const HeroAboutManager = () => {
                                                 <input
                                                     type="text"
                                                     value={heroData.company}
-                                                    onChange={(e) => setHeroData({...heroData, company: e.target.value})}
+                                                    onChange={(e) => setHeroData({ ...heroData, company: e.target.value })}
                                                     className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none font-bold"
                                                     required
                                                 />
@@ -169,7 +169,7 @@ const HeroAboutManager = () => {
                                                         <input
                                                             type="text"
                                                             value={heroData[`role${i}`]}
-                                                            onChange={(e) => setHeroData({...heroData, [`role${i}`]: e.target.value})}
+                                                            onChange={(e) => setHeroData({ ...heroData, [`role${i}`]: e.target.value })}
                                                             className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-blue-500 outline-none text-xs font-bold"
                                                             placeholder={`Signal 0${i}`}
                                                             required
@@ -183,17 +183,17 @@ const HeroAboutManager = () => {
                                     <div className="space-y-6">
                                         <div className="space-y-3">
                                             <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2"><FaImage className="text-blue-400" /> Visual Identity Core</label>
-                                            <ImageUpload 
-                                                currentImage={heroData.heroImage} 
-                                                onUpload={(url) => setHeroData({...heroData, heroImage: url})}
+                                            <ImageUpload
+                                                currentImage={heroData.heroImage}
+                                                onUpload={(url) => setHeroData({ ...heroData, heroImage: url })}
                                                 folder="hero"
                                             />
                                             <div className="relative">
                                                 <input
                                                     type="text"
                                                     value={heroData.heroImage}
-                                                    onChange={(e) => setHeroData({...heroData, heroImage: e.target.value})}
-                                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-[9px] text-zinc-600 focus:border-blue-500 outline-none truncate font-mono"
+                                                    onChange={(e) => setHeroData({ ...heroData, heroImage: e.target.value })}
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-[9px] text-zinc-600 focus:border-blue-500 outline-none truncate font-bold"
                                                     placeholder="Asset Protocol URL"
                                                     required
                                                 />
@@ -205,7 +205,7 @@ const HeroAboutManager = () => {
                                             <input
                                                 type="text"
                                                 value={heroData.resumeLink}
-                                                onChange={(e) => setHeroData({...heroData, resumeLink: e.target.value})}
+                                                onChange={(e) => setHeroData({ ...heroData, resumeLink: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-blue-500 outline-none text-xs font-bold"
                                                 placeholder="https://cloud.storage/resume.pdf"
                                             />
@@ -217,7 +217,7 @@ const HeroAboutManager = () => {
                                     <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2">Core Directive Description</label>
                                     <textarea
                                         value={heroData.description}
-                                        onChange={(e) => setHeroData({...heroData, description: e.target.value})}
+                                        onChange={(e) => setHeroData({ ...heroData, description: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-white focus:border-blue-500 outline-none h-32 resize-none leading-relaxed text-sm font-medium"
                                         required
                                     />
@@ -235,17 +235,17 @@ const HeroAboutManager = () => {
                             </div>
                         </motion.form>
                     ) : (
-                        <motion.form 
+                        <motion.form
                             key="about-form"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            onSubmit={handleAboutSubmit} 
+                            onSubmit={handleAboutSubmit}
                             className="space-y-8"
                         >
                             <div className="bg-zinc-900/60 p-8 rounded-2xl border border-white/5 space-y-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-50" />
-                                
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-6">
                                         <div className="space-y-2">
@@ -253,7 +253,7 @@ const HeroAboutManager = () => {
                                             <input
                                                 type="text"
                                                 value={aboutData.heading}
-                                                onChange={(e) => setAboutData({...aboutData, heading: e.target.value})}
+                                                onChange={(e) => setAboutData({ ...aboutData, heading: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-emerald-500 outline-none font-black text-xl italic"
                                                 required
                                             />
@@ -263,7 +263,7 @@ const HeroAboutManager = () => {
                                             <input
                                                 type="text"
                                                 value={aboutData.location}
-                                                onChange={(e) => setAboutData({...aboutData, location: e.target.value})}
+                                                onChange={(e) => setAboutData({ ...aboutData, location: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-emerald-500 outline-none text-sm font-bold"
                                                 required
                                             />
@@ -275,7 +275,7 @@ const HeroAboutManager = () => {
                                             <input
                                                 type="text"
                                                 value={aboutData.subheading}
-                                                onChange={(e) => setAboutData({...aboutData, subheading: e.target.value})}
+                                                onChange={(e) => setAboutData({ ...aboutData, subheading: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:border-emerald-500 outline-none font-bold tracking-[0.2em]"
                                                 required
                                             />
@@ -285,7 +285,7 @@ const HeroAboutManager = () => {
                                             <input
                                                 type="text"
                                                 value={aboutData.status}
-                                                onChange={(e) => setAboutData({...aboutData, status: e.target.value})}
+                                                onChange={(e) => setAboutData({ ...aboutData, status: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-4 text-emerald-400 focus:border-emerald-500 outline-none text-sm font-black uppercase"
                                                 required
                                             />
@@ -297,7 +297,7 @@ const HeroAboutManager = () => {
                                     <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Manifesto Quote</label>
                                     <textarea
                                         value={aboutData.quote}
-                                        onChange={(e) => setAboutData({...aboutData, quote: e.target.value})}
+                                        onChange={(e) => setAboutData({ ...aboutData, quote: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-2xl p-6 text-white focus:border-emerald-500 outline-none h-24 resize-none italic font-bold text-lg leading-relaxed shadow-inner"
                                         required
                                     />
@@ -308,17 +308,17 @@ const HeroAboutManager = () => {
                                         <div key={num} className="bg-black/40 p-6 rounded-2xl border border-white/5 space-y-6 group hover:border-white/10 transition-all shadow-xl">
                                             <div className="flex items-center justify-between">
                                                 <div className="relative group/icon">
-                                                    <div 
+                                                    <div
                                                         className="w-12 h-12 rounded-xl bg-zinc-900 border flex items-center justify-center text-xl shadow-2xl"
                                                         style={{ color: aboutData[`card${num}Color`], borderColor: `${aboutData[`card${num}Color`]}40` }}
                                                     >
                                                         {renderDynamicIcon(aboutData[`card${num}Icon`], { size: 24 })}
                                                     </div>
                                                 </div>
-                                                <input 
-                                                    type="color" 
-                                                    value={aboutData[`card${num}Color`] || '#ffffff'} 
-                                                    onChange={(e) => setAboutData({...aboutData, [`card${num}Color`]: e.target.value})}
+                                                <input
+                                                    type="color"
+                                                    value={aboutData[`card${num}Color`] || '#ffffff'}
+                                                    onChange={(e) => setAboutData({ ...aboutData, [`card${num}Color`]: e.target.value })}
                                                     className="w-8 h-8 rounded-full bg-transparent border-none cursor-pointer overflow-hidden shadow-lg translate-x-2"
                                                 />
                                             </div>
@@ -329,8 +329,8 @@ const HeroAboutManager = () => {
                                                     <input
                                                         type="text"
                                                         value={aboutData[`card${num}Icon`]}
-                                                        onChange={(e) => setAboutData({...aboutData, [`card${num}Icon`]: e.target.value})}
-                                                        className="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-white focus:border-emerald-500 outline-none text-[10px] font-mono"
+                                                        onChange={(e) => setAboutData({ ...aboutData, [`card${num}Icon`]: e.target.value })}
+                                                        className="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-white focus:border-emerald-500 outline-none text-[10px] font-bold"
                                                         placeholder="Lucide Icon (e.g. Code)"
                                                     />
                                                 </div>
@@ -339,7 +339,7 @@ const HeroAboutManager = () => {
                                                     <input
                                                         type="text"
                                                         value={aboutData[`card${num}Title`]}
-                                                        onChange={(e) => setAboutData({...aboutData, [`card${num}Title`]: e.target.value})}
+                                                        onChange={(e) => setAboutData({ ...aboutData, [`card${num}Title`]: e.target.value })}
                                                         className="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-white focus:border-emerald-500 outline-none text-xs font-black uppercase tracking-tight"
                                                     />
                                                 </div>
@@ -348,7 +348,7 @@ const HeroAboutManager = () => {
                                                     <input
                                                         type="text"
                                                         value={aboutData[`card${num}Tag`]}
-                                                        onChange={(e) => setAboutData({...aboutData, [`card${num}Tag`]: e.target.value})}
+                                                        onChange={(e) => setAboutData({ ...aboutData, [`card${num}Tag`]: e.target.value })}
                                                         className="w-full bg-black/40 border border-white/10 rounded-lg p-2.5 text-white focus:border-emerald-500 outline-none text-[9px] font-black uppercase tracking-widest"
                                                     />
                                                 </div>
@@ -356,7 +356,7 @@ const HeroAboutManager = () => {
                                                     <label className="text-[8px] font-black text-zinc-600 uppercase tracking-[0.2em]">Core Logic</label>
                                                     <textarea
                                                         value={aboutData[`card${num}Desc`]}
-                                                        onChange={(e) => setAboutData({...aboutData, [`card${num}Desc`]: e.target.value})}
+                                                        onChange={(e) => setAboutData({ ...aboutData, [`card${num}Desc`]: e.target.value })}
                                                         className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:border-emerald-500 outline-none h-24 resize-none text-[10px] leading-relaxed font-medium"
                                                     />
                                                 </div>

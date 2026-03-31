@@ -30,11 +30,11 @@ const SkillsManager = () => {
     const [activeTab, setActiveTab] = useState('technical'); // 'technical', 'soft'
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+
     // Technical Skill Form
-    const [currentTechSkill, setCurrentTechSkill] = useState({ 
-        name: '', level: 80, iconName: 'Cpu', color: 'rgba(168, 85, 247, 0.3)', 
-        description: '', tools: '' 
+    const [currentTechSkill, setCurrentTechSkill] = useState({
+        name: '', level: 80, iconName: 'Cpu', color: 'rgba(168, 85, 247, 0.3)',
+        description: '', tools: ''
     });
 
     // Soft Skill Form
@@ -204,7 +204,7 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="React, Node.js, etc."
                                         value={currentTechSkill.name}
-                                        onChange={(e) => setCurrentTechSkill({...currentTechSkill, name: e.target.value})}
+                                        onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, name: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none font-bold"
                                         required
                                     />
@@ -218,7 +218,7 @@ const SkillsManager = () => {
                                             min="0"
                                             max="100"
                                             value={currentTechSkill.level}
-                                            onChange={(e) => setCurrentTechSkill({...currentTechSkill, level: parseInt(e.target.value)})}
+                                            onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, level: parseInt(e.target.value) })}
                                             className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-purple-500"
                                         />
                                     </div>
@@ -229,7 +229,7 @@ const SkillsManager = () => {
                                                 type="text"
                                                 placeholder="Cpu, Code, Layers..."
                                                 value={currentTechSkill.iconName}
-                                                onChange={(e) => setCurrentTechSkill({...currentTechSkill, iconName: e.target.value})}
+                                                onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, iconName: e.target.value })}
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none text-sm pr-10"
                                                 required
                                             />
@@ -247,8 +247,8 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="rgba(168, 85, 247, 0.3)"
                                         value={currentTechSkill.color}
-                                        onChange={(e) => setCurrentTechSkill({...currentTechSkill, color: e.target.value})}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none text-xs font-mono"
+                                        onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, color: e.target.value })}
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none text-xs font-bold"
                                         required
                                     />
                                 </div>
@@ -259,7 +259,7 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="Frontend Library, Core Language, etc."
                                         value={currentTechSkill.description}
-                                        onChange={(e) => setCurrentTechSkill({...currentTechSkill, description: e.target.value})}
+                                        onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, description: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none text-sm"
                                         required
                                     />
@@ -271,7 +271,7 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="Next.js, Redux, Context"
                                         value={currentTechSkill.tools}
-                                        onChange={(e) => setCurrentTechSkill({...currentTechSkill, tools: e.target.value})}
+                                        onChange={(e) => setCurrentTechSkill({ ...currentTechSkill, tools: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-purple-500 outline-none text-sm"
                                         required
                                     />
@@ -311,7 +311,7 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="Teamwork, Problem Solving, etc."
                                         value={currentSoftSkill.name}
-                                        onChange={(e) => setCurrentSoftSkill({...currentSoftSkill, name: e.target.value})}
+                                        onChange={(e) => setCurrentSoftSkill({ ...currentSoftSkill, name: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-emerald-500 outline-none font-bold"
                                         required
                                     />
@@ -322,7 +322,7 @@ const SkillsManager = () => {
                                         type="text"
                                         placeholder="🤝, 🧠, etc."
                                         value={currentSoftSkill.emoji}
-                                        onChange={(e) => setCurrentSoftSkill({...currentSoftSkill, emoji: e.target.value})}
+                                        onChange={(e) => setCurrentSoftSkill({ ...currentSoftSkill, emoji: e.target.value })}
                                         className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-emerald-500 outline-none text-2xl text-center"
                                         required
                                     />
@@ -372,7 +372,7 @@ const SkillsManager = () => {
                                     <div className="flex items-center gap-4">
                                         {activeTab === 'technical' ? (
                                             <>
-                                                <div 
+                                                <div
                                                     className="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-xl border border-white/5"
                                                     style={{ color: skill.color?.replace('0.3', '1') }}
                                                 >
@@ -401,13 +401,13 @@ const SkillsManager = () => {
                                     <div className="flex gap-2">
                                         {/* Desktop Actions */}
                                         <div className="hidden lg:flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button 
+                                            <button
                                                 onClick={() => handleEdit(skill, activeTab)}
                                                 className="p-2 hover:bg-white/10 rounded-lg text-blue-400 transition-colors"
                                             >
                                                 <FaEdit className="text-sm" />
                                             </button>
-                                            <button 
+                                            <button
                                                 onClick={() => handleDeleteClick(skill, activeTab)}
                                                 className="p-2 hover:bg-red-500/10 rounded-lg text-red-400 transition-colors"
                                             >
@@ -417,7 +417,7 @@ const SkillsManager = () => {
 
                                         {/* Mobile 3-Dot Menu */}
                                         <div className="lg:hidden relative">
-                                            <button 
+                                            <button
                                                 onClick={() => setActiveActionMenu(activeActionMenu === skill.id ? null : skill.id)}
                                                 className="p-2 bg-white/5 border border-white/10 rounded-lg text-zinc-400"
                                             >
@@ -427,19 +427,19 @@ const SkillsManager = () => {
                                                 {activeActionMenu === skill.id && (
                                                     <>
                                                         <div className="fixed inset-0 z-10" onClick={() => setActiveActionMenu(null)} />
-                                                        <motion.div 
+                                                        <motion.div
                                                             initial={{ opacity: 0, scale: 0.9, x: -10 }}
                                                             animate={{ opacity: 1, scale: 1, x: 0 }}
                                                             exit={{ opacity: 0, scale: 0.9, x: -10 }}
                                                             className="absolute right-0 top-10 w-32 bg-zinc-950 border border-white/10 rounded-xl shadow-2xl z-20 overflow-hidden"
                                                         >
-                                                            <button 
+                                                            <button
                                                                 onClick={() => { handleEdit(skill, activeTab); setActiveActionMenu(null); }}
                                                                 className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-blue-400 hover:bg-white/5 transition-colors"
                                                             >
                                                                 <FaEdit /> Edit
                                                             </button>
-                                                            <button 
+                                                            <button
                                                                 onClick={() => { handleDeleteClick(skill, activeTab); setActiveActionMenu(null); }}
                                                                 className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:bg-white/5 transition-colors border-t border-white/5"
                                                             >

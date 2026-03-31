@@ -85,7 +85,7 @@ const CertificateManager = () => {
                 <div>
                     <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                         Credentials Vault
-                        <span className="text-[10px] bg-orange-500/10 text-orange-400 px-2 py-1 rounded border border-orange-500/20 font-mono">v1.1</span>
+                        <span className="text-[10px] bg-orange-500/10 text-orange-400 px-2 py-1 rounded border border-orange-500/20 font-bold">v1.1</span>
                     </h2>
                     <p className="text-zinc-500 text-xs uppercase tracking-widest mt-1 font-bold">Manage Certs & Awards</p>
                 </div>
@@ -148,7 +148,7 @@ const CertificateManager = () => {
                                 name="image"
                                 value={currentItem.image}
                                 onChange={handleInputChange}
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm font-mono"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm font-bold"
                                 required
                             />
                         </div>
@@ -160,7 +160,7 @@ const CertificateManager = () => {
                                 name="link"
                                 value={currentItem.link}
                                 onChange={handleInputChange}
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm font-mono"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm font-bold"
                                 required
                             />
                         </div>
@@ -217,9 +217,9 @@ const CertificateManager = () => {
                                     <div className="p-4 flex flex-col flex-grow">
                                         <h4 className="font-bold text-white text-sm line-clamp-1 mb-1">{item.title}</h4>
                                         {item.date && (
-                                            <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider bg-white/5 px-2 py-0.5 rounded w-fit mb-2">{item.date}</span>
+                                            <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider bg-white/5 px-2 py-0.5 rounded w-fit mb-2">{item.date}</span>
                                         )}
-                                        <a href={item.link} target="_blank" rel="noreferrer" className="mt-auto text-[10px] text-orange-400 hover:underline truncate block font-mono">{item.link}</a>
+                                        <a href={item.link} target="_blank" rel="noreferrer" className="mt-auto text-[10px] text-orange-400 hover:underline truncate block font-bold">{item.link}</a>
                                     </div>
                                 </motion.div>
                             ))}
@@ -236,7 +236,7 @@ const CertificateManager = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-zinc-900 border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+                            className="bg-zinc-900 border border-white/10 rounded-xl p-6 max-w-sm w-full shadow-2xl"
                             onClick={e => e.stopPropagation()}
                         >
                             <h3 className="text-xl font-bold text-white mb-2">Confirm Delete?</h3>

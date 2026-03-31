@@ -32,7 +32,7 @@ const CertificateAchievements = () => {
       {/* Dynamic Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-6 relative z-10 ">
 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
@@ -69,7 +69,7 @@ const CertificateAchievements = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05, duration: 0.5 }}
               whileHover={{ y: -5 }}
-              className="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer block border border-white/5 shadow-2xl bg-zinc-950"
+              className="group relative aspect-video rounded-xl overflow-hidden cursor-pointer block border border-white/5 shadow-2xl bg-zinc-950"
             >
               {/* Full Background Image */}
               <img
@@ -169,7 +169,7 @@ const CertificateAchievements = () => {
             whileInView={{ opacity: 1, x: 0 }}
             className="text-3xl md:text-5xl font-black text-white font-tech uppercase flex items-center gap-5"
           >
-            <span className="p-3 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 relative overflow-hidden">
+            <span className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/20 text-orange-500 relative overflow-hidden">
               <span className="absolute inset-0 bg-orange-500/20 blur-lg animate-pulse" />
               <FaTrophy className="text-2xl md:text-3xl relative z-10" />
             </span>
@@ -211,7 +211,7 @@ const CertificateAchievements = () => {
                   </div>
 
                   <div className="relative z-10">
-                    <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:border-orange-500/30 transition-all duration-300">
+                    <div className="w-16 h-16 rounded-xl bg-zinc-900 border border-white/5 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:border-orange-500/30 transition-all duration-300">
                       <FaMedal className="text-3xl text-zinc-600 group-hover:text-orange-400 switch-colors duration-300" />
                     </div>
                   </div>

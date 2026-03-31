@@ -28,11 +28,11 @@ const SocialCard = ({ platform, handle }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className={`group relative flex flex-col items-center justify-center p-12 rounded-2xl border border-white/5 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all duration-500 ${borderColor} ${shadowColor} hover:-translate-y-2`}
+            className={`group relative flex flex-col items-center justify-center p-12 rounded-xl border border-white/5 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all duration-500 ${borderColor} ${shadowColor} hover:-translate-y-2`}
         >
             {/* Dynamic Spotlight */}
             <motion.div
-                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300"
+                className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition duration-300"
                 style={{
                     background: useTransform(
                         [mouseX, mouseY],
@@ -54,7 +54,7 @@ const SocialCard = ({ platform, handle }) => {
                 <h3 className="text-2xl font-bold text-white font-tech uppercase tracking-wider">
                     {platform}
                 </h3>
-                <p className="text-zinc-500 font-mono text-sm tracking-widest group-hover:text-zinc-300 transition-colors">
+                <p className="text-zinc-500 font-bold text-sm tracking-widest group-hover:text-zinc-300 transition-colors">
                     @{handle.name}
                 </p>
             </div>
@@ -76,7 +76,7 @@ const Community = () => {
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-            <div className="container mx-auto px-6 max-w-7xl relative z-10">
+            <div className="container mx-auto px-6  relative z-10">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
                     <motion.div

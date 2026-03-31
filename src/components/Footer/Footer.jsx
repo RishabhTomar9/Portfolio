@@ -78,7 +78,7 @@ const Footer = () => {
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-6 relative z-10 ">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
 
           {/* Left Side: Contact Branding */}
@@ -112,7 +112,7 @@ const Footer = () => {
                     whileHover={{ x: 10 }}
                     className="flex items-center gap-6 group cursor-pointer"
                   >
-                    <div className={`w-14 h-14 rounded-2xl bg-zinc-900/50 border border-white/5 flex items-center justify-center text-xl transition-all duration-300 group-hover:border-${item.color}-500/50 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]`}>
+                    <div className={`w-14 h-14 rounded-xl bg-zinc-900/50 border border-white/5 flex items-center justify-center text-xl transition-all duration-300 group-hover:border-${item.color}-500/50 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]`}>
                       {item.icon}
                     </div>
                     <div>
@@ -134,7 +134,7 @@ const Footer = () => {
           >
             <div className="relative group">
               {/* Outer Glow Decor */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
 
               <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-xl shadow-2xl overflow-hidden">
                 {/* Decorative gradients */}
@@ -180,8 +180,8 @@ const Footer = () => {
                     type="submit"
                     disabled={status === 'sending' || status === 'success'}
                     className={`relative w-full overflow-hidden group py-5 rounded-xl font-bold tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-3 shadow-lg ${status === 'success'
-                        ? 'bg-emerald-500 text-white border-emerald-500'
-                        : 'bg-white text-black hover:bg-zinc-200 border-white'
+                      ? 'bg-emerald-500 text-white border-emerald-500'
+                      : 'bg-white text-black hover:bg-zinc-200 border-white'
                       }`}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-shimmer" />
@@ -242,7 +242,7 @@ const Footer = () => {
             <div className="flex flex-wrap justify-center md:justify-end gap-3 sm:gap-4 items-center mb-2">
               <span className="text-zinc-500 hover:text-white transition-colors">© {currentTime.getFullYear()} Rishabh Tomar</span>
               <span className="text-zinc-800 hidden sm:inline">|</span>
-              <div className="font-mono text-zinc-400 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/5">
+              <div className="font-bold text-zinc-400 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/5">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
                 <span>
                   {currentTime.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' })}

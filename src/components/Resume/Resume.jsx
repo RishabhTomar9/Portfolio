@@ -32,7 +32,7 @@ const Resume = () => {
             {/* Background Grid Pattern - Matched with About */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-            <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+            <div className="container mx-auto px-4 md:px-6  relative z-10">
 
                 {/* Header Section - Matched with About */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-20 gap-6">
@@ -70,7 +70,7 @@ const Resume = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                             onMouseMove={handleMouseMove}
-                            className="relative w-full h-[400px] md:h-[600px] lg:h-[850px] group rounded-2xl bg-zinc-950 border border-white/5 overflow-hidden shadow-2xl transition-all duration-500 hover:border-purple-500/30"
+                            className="relative w-full h-[400px] md:h-[600px] lg:h-[850px] group rounded-xl bg-zinc-950 border border-white/5 overflow-hidden shadow-2xl transition-all duration-500 hover:border-purple-500/30"
                         >
                             {/* Control Bar - Floating Inside */}
                             <div className="absolute top-4 left-4 right-4 z-40 flex items-center justify-between bg-zinc-900/90 border border-white/10 rounded-xl p-2 px-4 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -94,7 +94,7 @@ const Resume = () => {
 
                             {/* Spotlight Effect */}
                             <motion.div
-                                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100 z-20"
+                                className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-500 group-hover:opacity-100 z-20"
                                 style={{
                                     background: useMotionTemplate`
                                         radial-gradient(
@@ -148,7 +148,7 @@ const Resume = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2 }}
-                            className="bg-zinc-900/60 border border-white/5 rounded-2xl p-6 lg:p-8 backdrop-blur-xl relative overflow-hidden group h-full flex flex-col"
+                            className="bg-zinc-900/60 border border-white/5 rounded-xl p-6 lg:p-8 backdrop-blur-xl relative overflow-hidden group h-full flex flex-col"
                         >
                             {/* Tech Corner Accent */}
                             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-purple-500/10 to-transparent -z-10 rounded-tr-2xl" />

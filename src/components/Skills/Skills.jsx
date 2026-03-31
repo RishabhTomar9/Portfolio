@@ -114,7 +114,7 @@ const Skills = () => {
       {/* Background Grid Pattern - Matched to About */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+      <div className="container mx-auto px-4 md:px-6  relative z-10">
         <div className="flex flex-col gap-16 md:gap-20">
 
           {/* New Header Design */}

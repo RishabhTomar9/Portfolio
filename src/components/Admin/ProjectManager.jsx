@@ -111,7 +111,7 @@ const ProjectManager = () => {
                 <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight flex items-center gap-3">
                         Project Access Node
-                        <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-1 rounded border border-purple-500/20 font-mono">v2.0</span>
+                        <span className="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-1 rounded border border-purple-500/20 font-bold">v2.0</span>
                     </h2>
                     <p className="text-zinc-500 text-xs uppercase tracking-widest mt-1 font-bold">Manage Portfolio Showcase</p>
                 </div>
@@ -156,7 +156,7 @@ const ProjectManager = () => {
                                         placeholder="https://..."
                                         value={currentProject.link}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 text-sm font-mono"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 text-sm font-bold"
                                         required
                                     />
                                 </div>
@@ -175,7 +175,7 @@ const ProjectManager = () => {
                                         placeholder="Image URL (Cloudinary recommended)"
                                         value={currentProject.media}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 text-sm font-mono"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 text-sm font-bold"
                                         required
                                     />
                                 </div>
@@ -192,7 +192,7 @@ const ProjectManager = () => {
                                         placeholder="React, Node.js, Firebase..."
                                         value={currentProject.technologies}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 font-mono text-sm"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 font-bold text-sm"
                                         required
                                     />
                                 </div>
@@ -247,7 +247,7 @@ const ProjectManager = () => {
 
                     <div className="bg-black/40 p-6 md:p-8 rounded-xl border border-white/5 backdrop-blur-md min-h-[400px] md:min-h-[600px] flex items-center justify-center relative lg:sticky lg:top-24 transition-all">
                         {/* Preview Card */}
-                        <div className="group relative rounded-2xl bg-zinc-900/50 border border-white/5 overflow-hidden w-full max-w-xl mx-auto shadow-2xl transition-all hover:border-white/10">
+                        <div className="group relative rounded-xl bg-zinc-900/50 border border-white/5 overflow-hidden w-full max-w-xl mx-auto shadow-2xl transition-all hover:border-white/10">
                             <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950 border-b border-white/5">
                                 {currentProject.media ? (
                                     <img
@@ -319,7 +319,7 @@ const ProjectManager = () => {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                className="bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden group hover:border-purple-500/30 hover:bg-zinc-900/60 transition-all flex flex-col hover:shadow-2xl hover:shadow-purple-900/10"
+                                className="bg-zinc-900/40 border border-white/5 rounded-xl overflow-hidden group hover:border-purple-500/30 hover:bg-zinc-900/60 transition-all flex flex-col hover:shadow-2xl hover:shadow-purple-900/10"
                             >
                                 <div className="aspect-video relative overflow-hidden bg-zinc-950 border-b border-white/5">
                                     <img src={project.media} alt={project.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
@@ -396,7 +396,7 @@ const ProjectManager = () => {
                             initial={{ scale: 0.95, opacity: 0, y: 20 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            className="bg-zinc-900 border border-white/10 rounded-2xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden ring-1 ring-white/10"
+                            className="bg-zinc-900 border border-white/10 rounded-xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden ring-1 ring-white/10"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]" />

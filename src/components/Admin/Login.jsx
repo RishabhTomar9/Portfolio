@@ -35,7 +35,7 @@ const Login = () => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-zinc-900/50 backdrop-blur-xl border border-white/5 p-8 rounded-2xl w-full max-w-md relative z-10 shadow-2xl"
+                className="bg-zinc-900/50 backdrop-blur-xl border border-white/5 p-8 rounded-xl w-full max-w-md relative z-10 shadow-2xl"
             >
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-purple-500/20">

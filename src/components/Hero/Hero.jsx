@@ -57,7 +57,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 pointer-events-none" />
       <DataStream />
 
-      <div className="container mx-auto max-w-7xl px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto  px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
 
         {/* Left Content */}
         <motion.div
@@ -77,7 +77,7 @@ const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
             </span>
-            <span className="text-[10px] font-bold tracking-[0.25em] text-purple-300 uppercase font-mono">
+            <span className="text-[10px] font-bold tracking-[0.25em] text-purple-300 uppercase font-bold">
               System Online // 2026
             </span>
           </motion.div>
@@ -89,7 +89,7 @@ const Hero = () => {
             </span>
           </h1>
 
-          <div className="text-xl lg:text-3xl font-bold text-zinc-400 mb-10 h-10 flex items-center font-mono tracking-tight gap-4">
+          <div className="text-xl lg:text-3xl font-bold text-zinc-400 mb-10 h-10 flex items-center font-bold tracking-tight gap-4">
             <span className="text-purple-500">{'>'}</span>
             <Typewriter
               options={{
@@ -155,7 +155,7 @@ const Hero = () => {
           <motion.div style={{ y: y1 }} className="relative z-10 w-full max-w-[420px] aspect-[4/5] perspective-1000 group">
 
             {/* Tech Frame Canvas */}
-            <div className="absolute -inset-4 border border-white/10 rounded-2xl pointer-events-none z-20">
+            <div className="absolute -inset-4 border border-white/10 rounded-xl pointer-events-none z-20">
               {/* Corners */}
               <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-purple-500/50 rounded-tl-2xl" />
               <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-purple-500/50 rounded-tr-2xl" />

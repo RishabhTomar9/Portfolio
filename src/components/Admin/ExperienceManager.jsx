@@ -107,7 +107,7 @@ const ExperienceManager = () => {
                 <div>
                     <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                         Experience Matrix
-                        <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-1 rounded border border-blue-500/20 font-mono">v1.0</span>
+                        <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-1 rounded border border-blue-500/20 font-bold">v1.0</span>
                     </h2>
                     <p className="text-zinc-500 text-xs uppercase tracking-widest mt-1 font-bold">Manage Career Timeline</p>
                 </div>
@@ -276,7 +276,7 @@ const ExperienceManager = () => {
                                                 <div className="flex items-center gap-2 text-sm text-zinc-400">
                                                     <span>{exp.role}</span>
                                                     <span className="w-1 h-1 rounded-full bg-zinc-600" />
-                                                    <span className="font-mono text-xs">{exp.period}</span>
+                                                    <span className="font-bold text-xs">{exp.period}</span>
                                                 </div>
                                                 <div className="flex gap-2 mt-2">
                                                     <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded text-zinc-500 font-bold uppercase">{exp.status}</span>
@@ -309,7 +309,7 @@ const ExperienceManager = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-zinc-900 border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+                            className="bg-zinc-900 border border-white/10 rounded-xl p-6 max-w-sm w-full shadow-2xl"
                             onClick={e => e.stopPropagation()}
                         >
                             <h3 className="text-xl font-bold text-white mb-2">Delete Entry?</h3>

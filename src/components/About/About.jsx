@@ -50,12 +50,12 @@ const AboutCard = ({ card, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className={`group relative p-8 rounded-2xl border border-white/5 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all duration-500 ${index === 0 ? 'sm:col-span-2' : 'sm:col-span-1'
+      className={`group relative p-8 rounded-xl border border-white/5 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all duration-500 ${index === 0 ? 'sm:col-span-2' : 'sm:col-span-1'
         } ${card.borderColor}`}
     >
       {/* Dynamic Interactive Spotlight */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition duration-300"
         style={{
           background: useTransform(
             [mouseX, mouseY],
@@ -67,7 +67,7 @@ const AboutCard = ({ card, index }) => {
       <div className="relative z-10 flex flex-col h-full justify-between">
         <div>
           <div className="flex items-start justify-between mb-8">
-            <div className={`p-4 rounded-2xl bg-zinc-950 border border-white/10 text-2xl text-white group-hover:scale-110 group-hover:border-white/20 transition-all duration-500 shadow-2xl`}>
+            <div className={`p-4 rounded-xl bg-zinc-950 border border-white/10 text-2xl text-white group-hover:scale-110 group-hover:border-white/20 transition-all duration-500 shadow-2xl`}>
               {card.icon}
             </div>
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-950 border border-white/5`}>
@@ -101,7 +101,7 @@ const About = () => {
         {/* Background Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="container mx-auto px-6  relative z-10">
 
           {/* Header Section */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">

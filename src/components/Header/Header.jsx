@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, useScroll, useMotionValueEvent, useSpring, useTransform } from 'framer-motion';
 import useScrollSpy from '../../hooks/useScrollSpy';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
@@ -9,7 +9,19 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+
+  // Smooth scroll progress for the progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Dynamic header width based on scroll
+  const headerWidth = useTransform(scrollY, [0, 100], ['100%', '90%']);
+  const headerPadding = useTransform(scrollY, [0, 100], ['1.5rem', '1rem']);
+
   const scrollItems = ['home', 'about', 'experience', 'skills', 'milestones', 'projects', 'contact'];
   const activeSection = useScrollSpy(scrollItems, 100);
 
@@ -22,23 +34,37 @@ const Header = () => {
   });
 
   return (
-    // Fixed: Full width, always visible
-    // Fixed: Always centered island style
-    <header className="fixed top-0 left-0 right-0 z-[100] flex justify-center pt-4 md:pt-6 pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-[100] flex flex-col items-center pt-4 md:pt-6 pointer-events-none">
       <motion.div
-        className="pointer-events-auto flex items-center justify-between w-[95%] md:w-[90%] lg:w-[1000px] bg-black/70 backdrop-blur-xl border border-white/10 rounded-xl px-4 py-2 shadow-2xl shadow-purple-900/10"
+        className="pointer-events-auto flex items-center justify-between w-[95%] md:w-[90%] lg:w-[1200px] bg-black/40 backdrop-blur-2xl border border-white/10 rounded-xl px-6 py-3 shadow-2xl relative overflow-hidden group transition-all duration-500 hover:border-white/20"
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        animate={{
+          y: 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="flex-1">
-          <a href="#home" className="flex items-center gap-3 group px-2">
-            <span className="doto-medium text-white transition-colors duration-300 group-hover:text-zinc-200 text-2xl">
-              Rishabh<span className="text-purple-500">.</span>
-            </span>
+        {/* Animated Background Mesh */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+        {/* Left Section: Logo & Status */}
+        <div className="flex-1 flex items-center gap-4">
+          <a href="/#home" className="flex items-center gap-2 group/logo relative overflow-hidden">
+            <motion.div
+              className="flex items-center gap-1.5"
+              whileHover={{ x: 2 }}
+            >
+              <span className="text-xl md:text-2xl font-bold tracking-tighter text-white font-tech">
+                Rishabh<span className="text-purple-500">.</span>
+              </span>
+              <span className="hidden sm:block text-xs font-bold text-zinc-500 tracking-widest uppercase opacity-0 group-hover/logo:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover/logo:translate-x-0">
+                Portfolio
+              </span>
+            </motion.div>
           </a>
         </div>
 
+        {/* Center Section: Navigation */}
         <div className="hidden md:block">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
@@ -49,16 +75,17 @@ const Header = () => {
           </motion.div>
         </div>
 
-        <div className="flex-1 flex justify-end items-center gap-4">
+        {/* Right Section: CTA & Mobile Nav */}
+        <div className="flex-1 flex justify-end items-center gap-3">
           <Button
             variant="ghost"
             size="sm"
-            className="hidden md:flex group relative overflow-hidden rounded-xl font-bold transition-all font-mono text-[10px] tracking-widest uppercase h-9 px-6 bg-zinc-900 text-white hover:bg-black border border-white/10 shadow-[0_0_20px_rgba(168,85,247,0.1)]"
+            className="hidden md:flex group relative overflow-hidden rounded-xl font-bold transition-all font-bold text-[10px] tracking-widest uppercase h-10 px-6 bg-white/5 text-white hover:bg-white/10 border border-white/10"
             asChild
           >
-            <a href="mailto:rishabhtomar9999@gmail.com?subject=I%20want%20to%20work%20with%20you">
+            <a href="mailto:rishabhtomar9999@gmail.com?subject=Project%20Inquiry">
               <span className="relative z-10 flex items-center gap-2">
-                Let's Talk <span className="w-1.5 h-1.5 rounded-xl bg-purple-500 animate-pulse" />
+                Get In Touch <div className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-purple-500 transition-colors duration-300" />
               </span>
             </a>
           </Button>
@@ -72,7 +99,16 @@ const Header = () => {
             />
           </div>
         </div>
+
+        {/* Bottom Progress Bar */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent origin-left z-20"
+          style={{ scaleX }}
+        />
       </motion.div>
+
+      {/* Background Shadow/Glow effect on scroll */}
+      <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[100px] bg-purple-500/10 blur-[100px] pointer-events-none transition-opacity duration-1000 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
     </header>
   );
 };

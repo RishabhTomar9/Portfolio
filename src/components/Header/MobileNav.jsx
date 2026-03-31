@@ -9,9 +9,14 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
 
     // Lock Body Scroll when Menu is Open
     useEffect(() => {
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') setMenuOpen(false);
+        };
+
         if (menuOpen) {
             document.body.style.overflow = 'hidden';
             document.body.style.touchAction = 'none';
+            window.addEventListener('keydown', handleEsc);
         } else {
             document.body.style.overflow = '';
             document.body.style.touchAction = '';
@@ -19,8 +24,9 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
         return () => {
             document.body.style.overflow = '';
             document.body.style.touchAction = '';
+            window.removeEventListener('keydown', handleEsc);
         };
-    }, [menuOpen]);
+    }, [menuOpen, setMenuOpen]);
 
     const socialLinks = [
         { icon: <FaGithub />, link: "https://github.com/RishabhTomar9" },
@@ -149,7 +155,7 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                     {/* Header inside Drawer */}
                                     <div className="flex justify-between items-center mb-8 pb-6 relative z-10">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse box-shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                                            <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse shadow-[0_0_10px_rgba(168,85,247,0.8)]" />
                                             <span className="text-xs font-bold text-zinc-500 tracking-[0.25em] uppercase">Rishabh's Portfolio</span>
                                         </div>
                                         <button
@@ -176,19 +182,25 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                                 className="overflow-hidden"
                                             >
                                                 <a
-                                                    href={`#${item}`}
+                                                    href={`/#${item}`}
                                                     className="group flex items-baseline gap-6 py-2 transition-colors relative"
                                                     onClick={() => setMenuOpen(false)}
                                                 >
-                                                    <span className={`text-xs font-mono transition-colors duration-300 ${activeSection === item ? 'text-purple-500' : 'text-zinc-700 group-hover:text-zinc-500'}`}>
+                                                    <span className={`text-xs font-bold transition-colors duration-300 ${activeSection === item ? 'text-purple-500' : 'text-zinc-500 group-hover:text-zinc-400'}`}>
                                                         0{i + 1}
                                                     </span>
-                                                    <span className={`text-5xl sm:text-7xl font-black font-tech tracking-tighter uppercase transition-all duration-500 ${activeSection === item
-                                                        ? "text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400 pl-4"
-                                                        : "text-zinc-600 group-hover:text-white group-hover:pl-2"
+                                                    <span className={`text-4xl sm:text-6xl font-black font-tech tracking-tighter uppercase transition-all duration-500 ${activeSection === item
+                                                        ? "text-white scale-110 origin-left pl-4"
+                                                        : "text-zinc-700 group-hover:text-zinc-300 group-hover:pl-2"
                                                         }`}>
                                                         {item}
                                                     </span>
+                                                    {activeSection === item && (
+                                                        <motion.div
+                                                            layoutId="mobile-active-indicator"
+                                                            className="absolute left-[-20px] top-1/2 -translate-y-1/2 w-1 h-8 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]"
+                                                        />
+                                                    )}
                                                 </a>
                                             </motion.div>
                                         ))}
@@ -209,7 +221,7 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                                     href={social.link}
                                                     target="_blank"
                                                     rel="noreferrer"
-                                                    className="aspect-square rounded-2xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2 text-zinc-400 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all group backdrop-blur-sm shadow-lg shadow-black/20"
+                                                    className="aspect-square rounded-xl border border-white/10 bg-white/5 flex flex-col items-center justify-center gap-2 text-zinc-400 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all group backdrop-blur-sm shadow-lg shadow-black/20"
                                                 >
                                                     <span className="text-xl group-hover:scale-110 transition-transform duration-300">
                                                         {social.icon}
@@ -222,7 +234,7 @@ const MobileNav = ({ menuOpen, setMenuOpen, scrollItems, activeSection }) => {
                                             variants={{ closed: { opacity: 0 }, open: { opacity: 1, transition: { delay: 0.4 } } }}
                                             className="text-center"
                                         >
-                                            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-mono">
+                                            <p className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">
                                                 © 2026 Rishabh Tomar
                                             </p>
                                         </motion.div>

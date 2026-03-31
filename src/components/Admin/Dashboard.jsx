@@ -148,8 +148,8 @@ const Dashboard = () => {
         <button
             onClick={() => setActiveTab(id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 relative group text-sm font-bold uppercase tracking-wider ${isActive
-                    ? 'text-white bg-purple-500/10 border border-purple-500/20'
-                    : 'text-zinc-500 hover:text-white hover:bg-white/5'
+                ? 'text-white bg-purple-500/10 border border-purple-500/20'
+                : 'text-zinc-500 hover:text-white hover:bg-white/5'
                 }`}
         >
             <Icon className={`text-base ${isActive ? 'text-purple-400' : 'group-hover:text-purple-300'}`} />
@@ -167,7 +167,7 @@ const Dashboard = () => {
 
             {/* Top Navigation Bar */}
             <nav className="fixed top-0 left-0 right-0 z-40 bg-zinc-900/80 backdrop-blur-xl border-b border-white/5 px-4 md:px-6">
-                <div className="max-w-7xl mx-auto h-16 md:h-20 flex items-center justify-between gap-4">
+                <div className=" mx-auto h-16 md:h-20 flex items-center justify-between gap-4">
 
                     {/* Brand */}
                     <div className="flex items-center gap-3">
@@ -238,8 +238,8 @@ const Dashboard = () => {
                                     key={tab}
                                     onClick={() => { setActiveTab(tab); setIsMobileMenuOpen(false); }}
                                     className={`flex flex-col items-center justify-center gap-1 p-4 rounded-xl border transition-all ${activeTab === tab
-                                            ? 'bg-purple-900/20 border-purple-500/30 text-white'
-                                            : 'bg-zinc-900 border-white/5 text-zinc-500'
+                                        ? 'bg-purple-900/20 border-purple-500/30 text-white'
+                                        : 'bg-zinc-900 border-white/5 text-zinc-500'
                                         }`}
                                 >
                                     {tab === 'messages' && <FaEnvelope className="text-xl mb-1" />}
@@ -257,7 +257,7 @@ const Dashboard = () => {
             </AnimatePresence>
 
             {/* Main Content Area */}
-            <main className="max-w-7xl mx-auto px-4 md:px-6 py-8 relative z-10 mt-20 md:mt-24">
+            <main className=" mx-auto px-4 md:px-6 py-8 relative z-10 mt-20 md:mt-24">
 
                 {/* Page Title (Changes based on tab) */}
                 <header className="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -273,7 +273,7 @@ const Dashboard = () => {
                             {activeTab === 'experience' && 'Career Matrix'}
                             {activeTab === 'certificates' && 'Vault Access'}
                         </h2>
-                        <p className="text-zinc-500 font-mono text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
+                        <p className="text-zinc-500 font-bold text-xs md:text-sm uppercase tracking-widest flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
                             /System/Admin/{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
                         </p>
@@ -283,12 +283,12 @@ const Dashboard = () => {
                     {activeTab === 'messages' && !loadingMessages && (
                         <div className="flex gap-4">
                             <div className="text-right">
-                                <div className="text-2xl font-bold text-white font-mono">{totalMessages}</div>
+                                <div className="text-2xl font-bold text-white font-bold">{totalMessages}</div>
                                 <div className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">Total</div>
                             </div>
                             <div className="w-px bg-white/10" />
                             <div className="text-right">
-                                <div className="text-2xl font-bold text-purple-400 font-mono">{unreadMessages}</div>
+                                <div className="text-2xl font-bold text-purple-400 font-bold">{unreadMessages}</div>
                                 <div className="text-[10px] text-zinc-600 uppercase tracking-widest font-bold">Pending</div>
                             </div>
                         </div>
@@ -361,9 +361,9 @@ const Dashboard = () => {
                                             animate={{ opacity: 1, y: 0 }}
                                             key={msg.id}
                                             onClick={() => setSelectedMessage(selectedMessage?.id === msg.id ? null : msg)}
-                                            className={`group relative bg-zinc-900/40 border p-5 rounded-2xl cursor-pointer overflow-hidden transition-all duration-300 ${selectedMessage?.id === msg.id
-                                                    ? 'border-purple-500/30 bg-zinc-900/90 ring-1 ring-purple-500/20 shadow-[0_0_30px_rgba(168,85,247,0.05)]'
-                                                    : 'border-white/5 hover:border-white/10 hover:bg-zinc-900/60'
+                                            className={`group relative bg-zinc-900/40 border p-5 rounded-xl cursor-pointer overflow-hidden transition-all duration-300 ${selectedMessage?.id === msg.id
+                                                ? 'border-purple-500/30 bg-zinc-900/90 ring-1 ring-purple-500/20 shadow-[0_0_30px_rgba(168,85,247,0.05)]'
+                                                : 'border-white/5 hover:border-white/10 hover:bg-zinc-900/60'
                                                 } ${!msg.read ? 'border-l-4 border-l-purple-500' : ''}`}
                                         >
                                             <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between">
@@ -378,7 +378,7 @@ const Dashboard = () => {
                                                             </h3>
                                                             {!msg.read && <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse shadow-[0_0_10px_#a855f7]" />}
                                                         </div>
-                                                        <p className="text-xs text-zinc-500 truncate font-mono">{msg.email}</p>
+                                                        <p className="text-xs text-zinc-500 truncate font-bold">{msg.email}</p>
                                                     </div>
                                                 </div>
 
@@ -401,7 +401,7 @@ const Dashboard = () => {
                                                 {selectedMessage?.id === msg.id && (
                                                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                                                         <div className="pt-6 mt-6 border-t border-white/5">
-                                                            <div className="bg-black/30 p-5 rounded-2xl border border-white/5 mb-4 font-mono text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap shadow-inner">{msg.content}</div>
+                                                            <div className="bg-black/30 p-5 rounded-xl border border-white/5 mb-4 font-bold text-sm leading-relaxed text-zinc-300 whitespace-pre-wrap shadow-inner">{msg.content}</div>
                                                             <div className="flex justify-end">
                                                                 <a href={`mailto:${msg.email}`} className="text-xs bg-white text-black px-5 py-2.5 rounded-xl font-bold hover:bg-zinc-200 transition-colors flex items-center gap-2 shadow-lg shadow-white/10">
                                                                     <FaReply /> Reply via Email
@@ -436,7 +436,7 @@ const Dashboard = () => {
             <AnimatePresence>
                 {isDeleteModalOpen && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" onClick={cancelDelete}>
-                        <motion.div initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }} className="bg-zinc-900 border border-white/10 rounded-2xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden ring-1 ring-white/10" onClick={(e) => e.stopPropagation()}>
+                        <motion.div initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }} className="bg-zinc-900 border border-white/10 rounded-xl p-8 max-w-sm w-full shadow-2xl relative overflow-hidden ring-1 ring-white/10" onClick={(e) => e.stopPropagation()}>
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 shadow-[0_0_20px_rgba(239,68,68,0.5)]" />
                             <div className="flex flex-col items-center text-center space-y-4 relative z-10">
                                 <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center border border-red-500/20 mb-2 shadow-[0_0_30px_rgba(239,68,68,0.2)]">

@@ -159,7 +159,7 @@ const Projects = () => {
       {/* Dynamic Grid Background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 ">
 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
@@ -183,7 +183,7 @@ const Projects = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-zinc-500 font-mono text-[10px] md:text-xs uppercase tracking-widest text-left md:text-right border-l md:border-l-0 md:border-r border-white/10 pl-4 md:pl-0 md:pr-4 py-1"
+            className="text-zinc-500 font-bold text-[10px] md:text-xs uppercase tracking-widest text-left md:text-right border-l md:border-l-0 md:border-r border-white/10 pl-4 md:pl-0 md:pr-4 py-1"
           >
             <p>System Status: <span className="text-emerald-500">Online</span></p>
             <p>Selection: <span className="text-white">Premium</span></p>
@@ -196,7 +196,7 @@ const Projects = () => {
           <div className="min-h-[400px] flex justify-center items-center">
             <div className="relative">
               <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin" />
-              <div className="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-bold text-purple-500 animate-pulse">LOAD</div>
+              <div className="absolute inset-0 flex items-center justify-center font-bold text-[10px] font-bold text-purple-500 animate-pulse">LOAD</div>
             </div>
           </div>
         ) : (

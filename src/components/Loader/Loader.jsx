@@ -43,7 +43,7 @@ const Loader = ({ onFinish }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden font-mono text-zinc-500 select-none"
+      className="fixed inset-0 z-[9999] bg-[#050505] flex items-center justify-center overflow-hidden font-bold text-zinc-500 select-none"
       exit={{
         opacity: 0,
         scale: 1.1,
@@ -69,7 +69,7 @@ const Loader = ({ onFinish }) => {
       {/* Right Hex Dump Column */}
       <div className="absolute right-10 top-0 bottom-0 w-24 hidden md:flex flex-col justify-center text-[10px] font-bold opacity-30 gap-1 leading-none text-right">
         {hexDump.map((hex, i) => (
-          <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 - i * 0.05 }} className="font-mono">
+          <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 - i * 0.05 }} className="font-bold">
             {hex}
           </motion.div>
         ))}
@@ -123,14 +123,14 @@ const Loader = ({ onFinish }) => {
             />
           </div>
 
-          <div className="flex justify-between text-[10px] font-mono text-zinc-500 uppercase">
+          <div className="flex justify-between text-[10px] font-bold text-zinc-500 uppercase">
             <span>Memory_Alloc: OK</span>
             <span>Core_Temp: NORMAL</span>
           </div>
         </div>
 
         {/* Terminal Log Output */}
-        <div className="h-32 bg-black/40 border border-white/5 rounded-lg p-4 font-mono text-xs text-green-500/80 overflow-hidden flex flex-col justify-end shadow-inner">
+        <div className="h-32 bg-black/40 border border-white/5 rounded-lg p-4 font-bold text-xs text-green-500/80 overflow-hidden flex flex-col justify-end shadow-inner">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black pointer-events-none" />
           <div className="relative z-10 flex flex-col gap-1">
             {logs.map((log, i) => (

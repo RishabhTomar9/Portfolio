@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
 import useWindowSize from '../../hooks/useWindowSize';
 import Button from '../Buttons/Buttons';
+import { db } from '../../firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 const DataStream = () => {
   const codes = [
@@ -45,11 +47,29 @@ const DataStream = () => {
 const Hero = () => {
   const { width } = useWindowSize();
   const { scrollY } = useScroll();
+  const [heroData, setHeroData] = useState(null);
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'content', 'hero'), (docSnap) => {
+      if (docSnap.exists()) {
+        setHeroData(docSnap.data());
+      }
+    });
+    return () => unsub();
+  }, []);
 
   // Optimize parallax with spring smoothing or simplified transforms
   const y1 = useTransform(scrollY, [0, 500], [0, 100]); // Reduced range for lighter feel
-  const y2 = useTransform(scrollY, [0, 500], [0, -50]);
   const textY = useTransform(scrollY, [0, 300], [0, 50]);
+
+  if (!heroData) return <div className="min-h-screen bg-black" />;
+
+  const typewriterStrings = [
+    heroData.role1,
+    heroData.role2,
+    heroData.role3,
+    heroData.role4
+  ].filter(Boolean);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 pb-20 selection:bg-purple-500/30 overflow-hidden">
@@ -57,7 +77,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] z-0 pointer-events-none" />
       <DataStream />
 
-      <div className="container mx-auto  px-6 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6  relative z-10 grid lg:grid-cols-2 gap-12 items-center">
 
         {/* Left Content */}
         <motion.div
@@ -78,11 +98,11 @@ const Hero = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
             </span>
             <span className="text-[10px] font-bold tracking-[0.25em] text-purple-300 uppercase font-bold">
-              System Online // 2026
+              System Online // {new Date().getFullYear()}
             </span>
           </motion.div>
 
-          <h1 className="text-6xl lg:text-8xl font-black leading-[0.9] mb-8 tracking-tighter font-tech">
+          <h1 className="text-6xl lg:text-8xl font-black leading-[0.9] mb-8 tracking-tighter font-tech uppercase">
             CRAFTING <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-blue-400 to-yellow-400 animate-gradient-x drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">
               DIGITAL ARC
@@ -93,12 +113,7 @@ const Hero = () => {
             <span className="text-purple-500">{'>'}</span>
             <Typewriter
               options={{
-                strings: [
-                  "Architecting Scalable Systems...",
-                  "Building The Future of Tech...",
-                  "Data Engineering Expert...",
-                  "Forging Digital Experiences..."
-                ],
+                strings: typewriterStrings.length > 0 ? typewriterStrings : ["Architecting Scalable Systems..."],
                 autoStart: true,
                 loop: true,
                 delay: 40,
@@ -110,9 +125,11 @@ const Hero = () => {
           </div>
 
           <p className="text-lg text-zinc-400 max-w-lg mb-12 leading-relaxed font-medium border-l-2 border-white/10 pl-6">
-            I'm <span className="text-white font-bold">Rishabh Tomar</span>.
-            Co-Founder & Co-CTO at <a href="https://zintrixtechnologies.com/" target="_blank" rel="noopener noreferrer" className="text-purple-400 font-bold border-b border-purple-500/30 hover:border-purple-500 transition-colors">Zintrix Technologies</a>.
-            I build high-performance ecosystems where data meets design.
+            I'm <span className="text-white font-bold">{heroData.name}</span>.
+            {heroData.company && (
+              <> Co-Founder & Co-CTO at <a href={heroData.companyLink} target="_blank" rel="noopener noreferrer" className="text-purple-400 font-bold border-b border-purple-500/30 hover:border-purple-500 transition-colors">{heroData.company}</a>.</>
+            )}
+            {heroData.description}
           </p>
 
           <div className="flex flex-wrap gap-5 items-center">
@@ -125,11 +142,12 @@ const Hero = () => {
             </Button>
 
             <Button
-              href="#contact"
+              href={heroData.resumeLink || "#"}
+              target="_blank"
               variant="ghost"
               className="!rounded-full !px-6 !py-4 hover:bg-white/5"
             >
-              Contact Me
+              {heroData.resumeLink ? 'View Resume' : 'Contact Me'}
             </Button>
           </div>
 
@@ -167,8 +185,8 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
 
               <img
-                src="/Images/hero-image.jpg"
-                alt="Rishabh Tomar"
+                src={heroData.heroImage || "/Images/hero-image.jpg"}
+                alt={heroData.name}
                 className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-1000 will-change-transform"
                 loading="eager"
               />
@@ -181,7 +199,7 @@ const Hero = () => {
                 <div className="bg-black/60 backdrop-blur-xl p-4 rounded-xl border border-white/10 flex items-center justify-between">
                   <div>
                     <div className="text-[10px] text-zinc-400 uppercase tracking-widest font-bold mb-1">Authenticated User</div>
-                    <div className="text-white font-bold font-tech text-lg">RISHABH TOMAR</div>
+                    <div className="text-white font-bold font-tech text-lg uppercase tracking-wider">{heroData.name}</div>
                   </div>
                   <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
                     <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />

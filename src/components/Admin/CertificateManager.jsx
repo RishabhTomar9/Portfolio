@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { FaPlus, FaEdit, FaTrash, FaCheckCircle, FaAward, FaMedal, FaTrophy } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaCheckCircle, FaAward, FaMedal, FaTrophy, FaImage } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import ImageUpload from './ImageUpload';
 
 const COLLECTIONS = {
     CERTIFICATES: 'certificates',
@@ -142,13 +143,19 @@ const CertificateManager = () => {
                         )}
 
                         <div className="space-y-2">
-                            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Image URL</label>
+                            <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2"><FaImage /> Asset Upload (Cloudinary)</label>
+                            <ImageUpload 
+                                currentImage={currentItem.image} 
+                                onUpload={(url) => setCurrentItem({...currentItem, image: url})}
+                                folder={activeTab}
+                            />
                             <input
                                 type="text"
                                 name="image"
                                 value={currentItem.image}
                                 onChange={handleInputChange}
-                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-orange-500 outline-none text-sm font-bold"
+                                className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-[10px] text-zinc-500 focus:border-orange-500 outline-none truncate"
+                                placeholder="Asset URL (Auto-filled on upload)"
                                 required
                             />
                         </div>
@@ -207,8 +214,8 @@ const CertificateManager = () => {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     className="bg-zinc-900/40 border border-white/5 rounded-xl overflow-hidden group hover:border-orange-500/30 transition-all flex flex-col"
                                 >
-                                    <div className="aspect-video bg-black relative">
-                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" />
+                                    <div className="aspect-video bg-black relative shadow-inner overflow-hidden">
+                                        <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all group-hover:scale-105 duration-700" />
                                         <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button onClick={() => handleEdit(item)} className="p-1.5 bg-black/50 backdrop-blur rounded text-white hover:bg-orange-600 transition-colors"><FaEdit className="text-xs" /></button>
                                             <button onClick={() => handleDelete(item)} className="p-1.5 bg-black/50 backdrop-blur rounded text-white hover:bg-red-600 transition-colors"><FaTrash className="text-xs" /></button>

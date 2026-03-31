@@ -1,34 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FaDatabase, FaRocket, FaShieldAlt, FaBriefcase, FaGraduationCap, FaLaptopCode, FaTerminal, FaChevronDown } from 'react-icons/fa';
-
-const ICON_MAP = {
-    'Rocket': <FaRocket />,
-    'Briefcase': <FaBriefcase />,
-    'LaptopCode': <FaLaptopCode />,
-    'GraduationCap': <FaGraduationCap />,
-    'ShieldAlt': <FaShieldAlt />,
-    'Database': <FaDatabase />
-};
+import * as Lucide from 'lucide-react';
+import { FaTerminal, FaChevronDown } from 'react-icons/fa';
 
 const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
     const cardRef = useRef(null);
     const isExpanded = expandedId === exp.id;
 
-    // Detect when card leaves the viewport (especially for mobile scroll auto-collapse)
+    const renderDynamicIcon = (iconName, props = {}) => {
+        const Icon = Lucide[iconName];
+        return Icon ? <Icon {...props} /> : <Lucide.Briefcase {...props} />;
+    };
+
     return (
         <motion.div 
             ref={cardRef}
             className={`relative flex flex-col md:flex-row items-center gap-12 md:gap-32 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
             onViewportLeave={() => {
-                // Auto-collapse on scroll if it leaves the active viewport area
                 if (isExpanded) {
                     setExpandedId(null);
                 }
             }}
-            viewport={{ amount: 0.2 }} // Trigger when 20% of the card is visible/invisible
+            viewport={{ amount: 0.2 }}
         >
 
             {/* Timeline Node */}
@@ -70,7 +65,7 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
 
                         {/* Watermark/Background Icon */}
                         <div className={`absolute -right-8 -bottom-8 text-[12rem] md:text-[18rem] transition-all duration-700 pointer-events-none flex items-center justify-center ${exp.color} rotate-12 ${isExpanded ? 'opacity-[0.05]' : 'opacity-[0.02]'}`}>
-                            {ICON_MAP[exp.iconName] || <FaBriefcase />}
+                            {renderDynamicIcon(exp.iconName)}
                         </div>
 
                         {/* Top Metadata Header bar */}
@@ -183,11 +178,11 @@ const ExperienceCard = ({ exp, index, expandedId, setExpandedId }) => {
 };
 
 const Experience = () => {
-    const [experiences, setExperiences] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    const [experiences, setExperiences] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [expandedId, setExpandedId] = useState(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const q = query(collection(db, 'experiences'), orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => {
             setExperiences(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));

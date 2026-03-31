@@ -1,178 +1,183 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  FaReact,
-  FaNodeJs,
-  FaJs,
-  FaDatabase,
-  FaGitAlt,
-  FaHtml5,
-  FaCss3Alt,
-  FaPencilRuler,
-  FaFire,
-  FaSnowflake
-} from "react-icons/fa";
+import * as Lucide from 'lucide-react';
+import { db } from '../../firebase';
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
-const technicalSkills = [
-  { name: 'React', level: 95, icon: <FaReact />, color: "rgba(97, 218, 251, 0.3)", description: "Frontend Library", tools: "Next.js, Redux, Context" },
-  { name: 'JavaScript', level: 85, icon: <FaJs />, color: "rgba(247, 223, 30, 0.3)", description: "Core Language", tools: "ES6+, TypeScript, DOM" },
-  { name: 'Node.js', level: 80, icon: <FaNodeJs />, color: "rgba(104, 160, 99, 0.3)", description: "Backend Runtime", tools: "Express, PM2, Event Loop" },
-  { name: 'Firebase', level: 95, icon: <FaFire />, color: "rgba(255, 202, 40, 0.3)", description: "Cloud Backend", tools: "Firestore, Auth, Functions" },
-  { name: 'PL/SQL', level: 80, icon: <FaDatabase />, color: "rgba(255, 0, 0, 0.3)", description: "Database Logic", tools: "Procedures, Triggers, Views" },
-  { name: 'Snowflake', level: 70, icon: <FaSnowflake />, color: "rgba(41, 181, 232, 0.3)", description: "Data Warehousing", tools: "SnowSQL, Data Sharing" },
-  { name: 'HTML', level: 95, icon: <FaHtml5 />, color: "rgba(227, 76, 38, 0.3)", description: "Structure", tools: "Semantic Elements, SEO" },
-  { name: 'CSS', level: 95, icon: <FaCss3Alt />, color: "rgba(38, 77, 228, 0.3)", description: "Styling", tools: "Tailwind, SASS, Animations" },
-  { name: 'Design', level: 90, icon: <FaPencilRuler />, color: "rgba(255, 0, 128, 0.3)", description: "UI/UX Concepts", tools: "Figma, Adobe XD, Wireframing" },
-  { name: 'Git', level: 85, icon: <FaGitAlt />, color: "rgba(240, 80, 50, 0.3)", description: "Version Control", tools: "GitHub, GitLab, CI/CD" },
-];
-
-const softSkills = [
-  { name: 'Teamwork', emoji: '🤝' },
-  { name: 'Problem Solving', emoji: '🧠' },
-  { name: 'Time Management', emoji: '⏱' },
-  { name: 'Leadership', emoji: '👨‍💼' },
-  { name: 'Goal-Oriented', emoji: '🎯' },
-  { name: 'Communication', emoji: '💬' },
-  { name: 'Adaptability', emoji: '🔄' },
-  { name: 'Creativity', emoji: '🎨' },
-  { name: 'Critical Thinking', emoji: '🧩' },
-  { name: 'Emotional Intelligence', emoji: '❤️' },
-  { name: 'Collaboration', emoji: '👥' },
-  { name: 'Decision Making', emoji: '🧭' },
-  { name: 'Self-Motivation', emoji: '🚀' },
-  { name: 'Flexibility', emoji: '🌈' },
-  { name: 'Initiative', emoji: '⚡' },
-  { name: 'Accountability', emoji: '🧾' },
-  { name: 'Resilience', emoji: '🛡️' },
-  { name: 'Vibe Coder', emoji: '🎧' },
-];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.05, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-  }),
+const TECH_ICON_MAP = {
+    'React': 'Atom',
+    'JavaScript': 'FileJson',
+    'Node.js': 'Server',
+    'Firebase': 'Flame',
+    'PL/SQL': 'Database',
+    'Snowflake': 'Snowflake',
+    'HTML': 'Code2',
+    'CSS': 'Layers',
+    'Design': 'Palette',
+    'Git': 'GitBranch',
+    'C++': 'Terminal',
+    'Python': 'FileCode',
+    'SQL': 'Database',
+    'MongoDB': 'Leaf',
+    'Java': 'Coffee',
+    'AWS': 'Cloud'
 };
 
-const SkillCard = ({ skill, index, isInView }) => (
-  <motion.div
-    custom={index}
-    variants={fadeUp}
-    initial="hidden"
-    animate={isInView ? "visible" : "hidden"}
-    whileHover={{ y: -5 }}
-    className="relative p-5 md:p-6 bg-zinc-900/60 rounded-xl group overflow-hidden border border-white/5 hover:border-white/10 transition-colors backdrop-blur-sm"
-  >
-    {/* Dynamic Background Glow */}
-    <div
-      className="absolute -inset-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-[60px] -z-10"
-      style={{ background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)` }}
-    />
+const SkillCard = ({ skill, index, isInView }) => {
+  const renderDynamicIcon = (iconName, props = {}) => {
+    // 1. Exact match
+    let Icon = Lucide[iconName];
 
-    <div className="flex items-start gap-4 mb-6">
+    // 2. Smart Mapping match (case-insensitive)
+    if (!Icon) {
+        const mappedName = Object.keys(TECH_ICON_MAP).find(
+            key => key.toLowerCase() === iconName?.toLowerCase()
+        );
+        if (mappedName) Icon = Lucide[TECH_ICON_MAP[mappedName]];
+    }
+
+    // 3. PascalCase fix attempt
+    if (!Icon && iconName) {
+        const pascalName = iconName.charAt(0).toUpperCase() + iconName.slice(1).replace(/\s+/g, '');
+        Icon = Lucide[pascalName];
+    }
+
+    return Icon ? <Icon {...props} /> : <Lucide.Cpu {...props} />;
+  };
+
+  return (
+    <motion.div
+      custom={index}
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: (i) => ({
+          opacity: 1,
+          y: 0,
+          transition: { delay: i * 0.05, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+        }),
+      }}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      whileHover={{ y: -5 }}
+      className="relative p-5 md:p-6 bg-zinc-900/60 rounded-xl group overflow-hidden border border-white/5 hover:border-white/10 transition-colors backdrop-blur-sm"
+    >
       <div
-        className="text-2xl md:text-3xl w-12 h-12 md:w-14 md:h-14 rounded-lg bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner shrink-0"
-        style={{ color: skill.color.replace('0.3', '1') }}
-      >
-        {skill.icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-bold text-white font-tech tracking-tight group-hover:text-purple-300 transition-colors">{skill.name}</h3>
-        <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mt-1">{skill.description}</p>
-      </div>
-    </div>
+        className="absolute -inset-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none blur-[60px] -z-10"
+        style={{ background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)` }}
+      />
 
-    <div className="space-y-4">
-      <div className="h-1.5 w-full bg-zinc-950 rounded-full overflow-hidden border border-white/5">
-        <motion.div
-          className="h-full rounded-full relative"
-          style={{
-            background: `linear-gradient(to right, ${skill.color.replace('0.3', '0.5')}, ${skill.color.replace('0.3', '1')})`
-          }}
-          initial={{ width: 0 }}
-          animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-          transition={{ duration: 1.5, ease: "circOut", delay: 0.3 + index * 0.05 }}
-        />
+      <div className="flex items-start gap-4 mb-6">
+        <div
+          className="text-2xl md:text-3xl w-12 h-12 md:w-14 md:h-14 rounded-lg bg-zinc-950 flex items-center justify-center border border-white/5 group-hover:border-white/20 transition-all shadow-inner shrink-0"
+          style={{ color: skill.color?.replace('0.3', '1') || '#fff' }}
+        >
+          {renderDynamicIcon(skill.iconName || skill.name, { size: 28 })}
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-white font-tech tracking-tight group-hover:text-purple-300 transition-colors">{skill.name}</h3>
+          <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mt-1">{skill.description}</p>
+        </div>
       </div>
 
-      <div className="flex justify-between items-center text-[10px] font-bold text-zinc-600">
-        <span className="uppercase tracking-widest">{skill.tools}</span>
-        <span className="text-white">{skill.level}%</span>
+      <div className="space-y-4">
+        <div className="h-1.5 w-full bg-zinc-950 rounded-full overflow-hidden border border-white/5">
+          <motion.div
+            className="h-full rounded-full relative"
+            style={{
+              background: `linear-gradient(to right, ${skill.color?.replace('0.3', '0.5') || '#444'}, ${skill.color?.replace('0.3', '1') || '#fff'})`
+            }}
+            initial={{ width: 0 }}
+            animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
+            transition={{ duration: 1.5, ease: "circOut", delay: 0.3 + index * 0.05 }}
+          />
+        </div>
+
+        <div className="flex justify-between items-center text-[10px] font-bold text-zinc-600">
+          <span className="uppercase tracking-widest truncate max-w-[80%]">{skill.tools}</span>
+          <span className="text-white">{skill.level}%</span>
+        </div>
       </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 const Skills = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [techSkills, setTechSkills] = useState([]);
+  const [softSkills, setSoftSkills] = useState([]);
+
+  useEffect(() => {
+    const qTech = query(collection(db, 'skills_tech'), orderBy('createdAt', 'asc'));
+    const unsubTech = onSnapshot(qTech, (snapshot) => {
+      if (!snapshot.empty) {
+        setTechSkills(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }
+    });
+
+    const qSoft = query(collection(db, 'skills_soft'), orderBy('createdAt', 'asc'));
+    const unsubSoft = onSnapshot(qSoft, (snapshot) => {
+      if (!snapshot.empty) {
+        setSoftSkills(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }
+    });
+
+    return () => {
+      unsubTech();
+      unsubSoft();
+    };
+  }, []);
 
   return (
     <section id="skills" className="py-20 lg:py-32 relative bg-[#050505] overflow-hidden" ref={ref}>
-      {/* Background Grid Pattern - Matched to About */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
       <div className="container mx-auto px-4 md:px-6  relative z-10">
         <div className="flex flex-col gap-16 md:gap-20">
-
-          {/* New Header Design */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-[2px] bg-purple-500" />
                 <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Capabilities</span>
               </div>
-              <h2 className="text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
+              <h2 className="text-5xl md:text-6xl lg:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase italic">
                 Tech
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Arsenal.</span>
               </h2>
             </motion.div>
             <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
               System: Operational<br />
-              Stack: Modern_V2
+              Stack: v4.0_DYNAMIC
             </div>
           </div>
 
-          {/* TECHNICAL SKILLS GRID */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full">
-            {technicalSkills.map((skill, index) => (
-              <SkillCard key={skill.name} skill={skill} index={index} isInView={isInView} />
-            ))}
+            {techSkills.length > 0 ? techSkills.map((skill, index) => (
+              <SkillCard key={skill.id} skill={skill} index={index} isInView={isInView} />
+            )) : (
+              <div className="col-span-full py-20 text-center text-zinc-800 font-black uppercase tracking-[0.5em]">Initializing Neural Network...</div>
+            )}
           </div>
 
-          {/* SOFT SKILLS SECTION */}
-          <div className="mt-10 md:mt-20">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="mb-8 md:mb-10"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[2px] bg-purple-500" />
-                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Human Interface</span>
+          {softSkills.length > 0 && (
+            <div className="mt-10 md:mt-20">
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="mb-8 md:mb-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="w-8 h-[2px] bg-purple-500" />
+                  <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Human Interface</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white font-tech tracking-tighter uppercase leading-[0.85] italic">
+                  Professional
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Ethos.</span>
+                </h2>
+              </motion.div>
+
+              <div className="space-y-6">
+                <MarqueeRow skills={softSkills.slice(0, Math.ceil(softSkills.length / 2))} direction="right" speed={30} />
+                <MarqueeRow skills={softSkills.slice(Math.ceil(softSkills.length / 2))} direction="left" speed={30} />
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white font-tech tracking-tighter uppercase leading-[0.85]">
-                Professional
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Ethos.</span>
-              </h2>
-            </motion.div>
-
-            <div className="space-y-6">
-
-              {/* Row 1: Left to Right */}
-              <MarqueeRow skills={softSkills.slice(0, Math.ceil(softSkills.length / 2))} direction="right" speed={30} />
-              <MarqueeRow skills={softSkills.slice(Math.ceil(softSkills.length / 2))} direction="left" speed={30} />
-
             </div>
-          </div>
-
+          )}
         </div>
       </div>
     </section>
@@ -180,6 +185,7 @@ const Skills = () => {
 };
 
 const MarqueeRow = ({ skills, direction, speed }) => {
+  if (skills.length === 0) return null;
   return (
     <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
       <motion.div
@@ -203,4 +209,5 @@ const MarqueeRow = ({ skills, direction, speed }) => {
     </div>
   );
 };
+
 export default Skills;

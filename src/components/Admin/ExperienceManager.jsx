@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { FaPlus, FaEdit, FaTrash, FaBriefcase, FaRocket, FaGraduationCap, FaLaptopCode, FaShieldAlt, FaDatabase } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const ICON_MAP = {
-    'Rocket': <FaRocket />,
-    'Briefcase': <FaBriefcase />,
-    'LaptopCode': <FaLaptopCode />,
-    'GraduationCap': <FaGraduationCap />,
-    'ShieldAlt': <FaShieldAlt />,
-    'Database': <FaDatabase />
-};
+import * as Lucide from 'lucide-react';
 
 const COLOR_THEMES = [
     { name: 'Purple', color: 'text-purple-400', accent: 'bg-purple-500' },
@@ -78,7 +70,6 @@ const ExperienceManager = () => {
     };
 
     const handleEdit = (exp) => {
-        // Find theme index
         const themeIndex = COLOR_THEMES.findIndex(t => t.color === exp.color) || 0;
         setCurrentExp({ ...exp, themeIndex });
         setIsEditing(true);
@@ -101,6 +92,11 @@ const ExperienceManager = () => {
         }
     };
 
+    const renderDynamicIcon = (iconName, props = {}) => {
+        const Icon = Lucide[iconName];
+        return Icon ? <Icon {...props} /> : <Lucide.HelpCircle {...props} />;
+    };
+
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 pb-20">
             <div className="flex justify-between items-center border-b border-white/5 pb-6">
@@ -116,7 +112,9 @@ const ExperienceManager = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Editor */}
                 <div className="lg:col-span-5 space-y-6">
-                    <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 rounded-xl border border-white/5 space-y-5 backdrop-blur-xl shadow-2xl">
+                    <form onSubmit={handleSubmit} className="bg-zinc-900/60 p-6 rounded-xl border border-white/5 space-y-5 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-500 opacity-50" />
+                        
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Company / Institution</label>
                             <input
@@ -194,17 +192,21 @@ const ExperienceManager = () => {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Icon</label>
-                                <select
-                                    name="iconName"
-                                    value={currentExp.iconName}
-                                    onChange={handleInputChange}
-                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-blue-500 outline-none text-sm appearance-none"
-                                >
-                                    {Object.keys(ICON_MAP).map(key => (
-                                        <option key={key} value={key}>{key}</option>
-                                    ))}
-                                </select>
+                                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Lucide Icon Name</label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        name="iconName"
+                                        placeholder="Briefcase, Rocket, etc."
+                                        value={currentExp.iconName}
+                                        onChange={handleInputChange}
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white focus:border-blue-500 outline-none text-sm pr-10"
+                                        required
+                                    />
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-400">
+                                        {renderDynamicIcon(currentExp.iconName, { size: 18 })}
+                                    </div>
+                                </div>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Color Theme</label>
@@ -269,7 +271,7 @@ const ExperienceManager = () => {
                                     <div className="flex justify-between items-start">
                                         <div className="flex gap-4">
                                             <div className={`p-3 rounded-lg bg-white/5 border border-white/5 text-xl ${exp.color}`}>
-                                                {ICON_MAP[exp.iconName] || <FaBriefcase />}
+                                                {renderDynamicIcon(exp.iconName, { size: 24 })}
                                             </div>
                                             <div>
                                                 <h4 className="font-bold text-white text-lg">{exp.company}</h4>

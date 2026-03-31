@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { FaCode, FaLaptopCode, FaUserAstronaut, FaExternalLinkAlt } from 'react-icons/fa';
 import Button from '../Buttons/Buttons';
+import { db } from '../../firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
+import Resume from '../Resume/Resume';
+import Community from './Community';
 
-const cardData = [
+const ICON_MAP = {
+  'FaUserAstronaut': <FaUserAstronaut />,
+  'FaCode': <FaCode />,
+  'FaLaptopCode': <FaLaptopCode />
+};
+
+const DEFAULT_CARDS = [
   {
     id: 'who-i-am',
     icon: <FaUserAstronaut />,
@@ -53,7 +63,6 @@ const AboutCard = ({ card, index }) => {
       className={`group relative p-8 rounded-xl border border-white/5 bg-zinc-900/50 backdrop-blur-sm overflow-hidden transition-all duration-500 ${index === 0 ? 'sm:col-span-2' : 'sm:col-span-1'
         } ${card.borderColor}`}
     >
-      {/* Dynamic Interactive Spotlight */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition duration-300"
         style={{
@@ -72,7 +81,7 @@ const AboutCard = ({ card, index }) => {
             </div>
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-950 border border-white/5`}>
               <div className={`w-1.5 h-1.5 rounded-full ${card.accent} animate-pulse`} />
-              <span className="text-[8px] font-bold text-zinc-500 tracking-widest">{card.tag}</span>
+              <span className="text-[8px] font-bold text-zinc-500 tracking-widest uppercase">{card.tag}</span>
             </div>
           </div>
 
@@ -84,26 +93,63 @@ const AboutCard = ({ card, index }) => {
           </p>
         </div>
 
-        {/* Decorative scan line bottom */}
         <div className="mt-8 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       </div>
     </motion.article>
   );
 };
 
-import Resume from '../Resume/Resume';
-import Community from './Community';
-
 const About = () => {
+  const [aboutData, setAboutData] = useState(null);
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'content', 'about'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setAboutData(data);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  if (!aboutData) return <div className="min-h-screen bg-[#050505]" />;
+
+  const cards = [
+    {
+      id: 'who-i-am',
+      icon: <FaUserAstronaut />,
+      title: aboutData.card1Title,
+      tag: aboutData.card1Tag,
+      description: aboutData.card1Desc,
+      borderColor: "group-hover:border-purple-500/50",
+      accent: "bg-purple-500"
+    },
+    {
+      id: 'my-skills',
+      icon: <FaCode />,
+      title: aboutData.card2Title,
+      tag: aboutData.card2Tag,
+      description: aboutData.card2Desc,
+      borderColor: "group-hover:border-blue-500/50",
+      accent: "bg-blue-500"
+    },
+    {
+      id: 'what-i-do',
+      icon: <FaLaptopCode />,
+      title: aboutData.card3Title,
+      tag: aboutData.card3Tag,
+      description: aboutData.card3Desc,
+      borderColor: "group-hover:border-orange-500/50",
+      accent: "bg-orange-500"
+    },
+  ];
+
   return (
     <>
       <section id="about" className="py-32 relative bg-[#050505] overflow-hidden" aria-label="About Section">
-        {/* Background Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
         <div className="container mx-auto px-6  relative z-10">
-
-          {/* Header Section */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -113,22 +159,21 @@ const About = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-[2px] bg-purple-500" />
-                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">Identity</span>
+                <span className="text-xs font-bold text-purple-400 tracking-[0.4em] uppercase">{aboutData.subheading}</span>
               </div>
-              <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase">
-                Core
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> Engine.</span>
+              <h2 className="text-6xl md:text-8xl font-black font-tech leading-[0.85] tracking-tighter text-white uppercase italic">
+                {aboutData.heading.split(' ')[0]}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 to-zinc-500"> {aboutData.heading.split(' ').slice(1).join(' ')}</span>
               </h2>
             </motion.div>
 
-            <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right">
-              Location: Bhopal, India <br />
-              Status: Available
+            <div className="text-zinc-500 font-bold text-[10px] uppercase tracking-widest hidden md:block text-right leading-loose">
+              Location: {aboutData.location} <br />
+              Status: {aboutData.status}
             </div>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-16 items-start">
-            {/* Left Text Content - Adjusted to remove old header elements */}
             <div className="lg:col-span-5">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -137,34 +182,23 @@ const About = () => {
                 className="space-y-6 text-zinc-400 text-lg leading-relaxed max-w-md"
               >
                 <p className="font-bold italic">
-                  "I don't just write code; I architect ecosystems where data flows seamlessly into experience."
+                  "{aboutData.quote}"
                 </p>
                 <p className="text-base font-bold">
-                  Currently
-                  co-founding
-                  <a
-                    href="https://zintrixtechnologies.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors ml-1 group font-extrabold"
-                  >
-                    Zintrix Technologies <FaExternalLinkAlt className="text-[10px] opacity-50 group-hover:opacity-100 transition-opacity" />
-                  </a>.
+                  {aboutData.mainDescription}
                 </p>
-
 
                 <div className="mt-12 flex items-center gap-6">
                   <div className="hidden md:block text-[10px] font-bold text-zinc-600 leading-tight uppercase tracking-widest">
-                    Location: India <br />
-                    Focus: Full-Stack & Data
+                    Focus: Full-Stack & Data <br />
+                    System: {aboutData.status}
                   </div>
                 </div>
               </motion.div>
             </div>
 
-            {/* Right Cards Content */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {cardData.map((card, index) => (
+              {cards.map((card, index) => (
                 <AboutCard key={card.id} card={card} index={index} />
               ))}
             </div>

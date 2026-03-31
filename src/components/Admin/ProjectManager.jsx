@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { FaPlus, FaEdit, FaTrash, FaSave, FaTimes, FaExternalLinkAlt, FaCode, FaThumbtack } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaSave, FaTimes, FaExternalLinkAlt, FaCode, FaThumbtack, FaImage } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import ImageUpload from './ImageUpload';
 
 const ProjectManager = () => {
     const [projects, setProjects] = useState([]);
@@ -162,23 +163,23 @@ const ProjectManager = () => {
                                 </div>
                             </div>
 
-                            {/* Media Input */}
+                            {/* Media Upload */}
                             <div className="space-y-2">
-                                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1">Media Asset</label>
-                                <div className="relative group">
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded bg-zinc-800 border border-white/10 overflow-hidden">
-                                        {currentProject.media && <img src={currentProject.media} alt="" className="w-full h-full object-cover" />}
-                                    </div>
-                                    <input
-                                        type="text"
-                                        name="media"
-                                        placeholder="Image URL (Cloudinary recommended)"
-                                        value={currentProject.media}
-                                        onChange={handleInputChange}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl p-4 pl-10 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all placeholder:text-zinc-700 text-sm font-bold"
-                                        required
-                                    />
-                                </div>
+                                <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest ml-1 flex items-center gap-2"><FaImage /> Media Asset (Cloudinary)</label>
+                                <ImageUpload 
+                                    currentImage={currentProject.media} 
+                                    onUpload={(url) => setCurrentProject({...currentProject, media: url})}
+                                    folder="projects"
+                                />
+                                <input
+                                    type="text"
+                                    name="media"
+                                    placeholder="Media URL (Auto-filled on upload)"
+                                    value={currentProject.media}
+                                    onChange={handleInputChange}
+                                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-[10px] text-zinc-500 focus:border-purple-500 outline-none truncate"
+                                    required
+                                />
                             </div>
 
                             {/* Tech Stack */}

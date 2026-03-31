@@ -225,7 +225,7 @@ const Experience = () => {
                     </div>
                 </div>
 
-                <div className="relative max-w-7xl mx-auto">
+                <div className="relative  mx-auto">
                     {/* Central High-Tech Rail */}
                     <div className="absolute left-4 md:left-1/2 top-4 bottom-4 w-[1px] md:-translate-x-1/2 bg-zinc-900">
                         <div className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent,transparent_10px,#a855f710_10px,#a855f720_12px)]" />
